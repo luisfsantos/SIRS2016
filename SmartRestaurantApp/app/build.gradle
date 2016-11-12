@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "de.andreasschrade.androidtemplate"
+        applicationId "de.andreasschrade.smartrestaurant"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
@@ -20,6 +20,7 @@ android {
 }
 
 dependencies {
+    compile 'com.android.volley:volley:1.0.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:${android_support_lib_version}"
     compile "com.android.support:design:${android_support_lib_version}"
@@ -27,4 +28,7 @@ dependencies {
 
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+
 }

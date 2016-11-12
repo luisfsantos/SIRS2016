@@ -13,6 +13,7 @@
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <include layout="@layout/include_tab_view"/>
 
             <android.support.design.widget.FloatingActionButton
@@ -23,14 +24,6 @@
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_shopping_cart_white_24dp" />
         </android.support.design.widget.CoordinatorLayout>
-
-
     </LinearLayout>
-
-
-
-
-
     <include layout="@layout/include_navigation" />
-
 </android.support.v4.widget.DrawerLayout>

@@ -15,7 +15,7 @@
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/navigation_account" />
     </group>
-    <item android:title="@string/navigation_sub_items">
+    <!--item android:title="@string/navigation_sub_items">
         <menu>
             <item
                 android:icon="@drawable/ic_dashboard"
@@ -24,6 +24,5 @@
                 android:icon="@drawable/ic_dashboard"
                 android:title="@string/navigation_dummy_item_2" />
         </menu>
-    </item>
-
+    </item-->
 </menu>

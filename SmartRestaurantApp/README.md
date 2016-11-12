@@ -134,8 +134,8 @@ For example, the following snippet (ArticleDetailFragment.java) binds automatica
     @Bind(R.id.quote)
     TextView quote;
 
-    @Bind(R.id.author)
-    TextView author;
+    @Bind(R.id.year)
+    TextView year;
 
     @Bind(R.id.backdrop)
     ImageView backdropImg;

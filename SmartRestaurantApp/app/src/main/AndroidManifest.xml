@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pt.ulisboa.tecnico.meic.sirs.androidtemplate">
+    package="pt.ulisboa.tecnico.meic.sirs.smartrestaurant">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Main">
-        <activity android:name=".ui.menu.MenuListActivity">
+        <activity android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -16,17 +18,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.menu.MenuItemDetailActivity"
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuItemDetailActivity"
             android:label=""
-            android:parentActivityName=".ui.menu.MenuListActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
         <activity
-            android:name=".ui.ViewSamplesActivity"
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.ViewSamplesActivity"
             android:label="Samples"
-            android:parentActivityName=".ui.menu.MenuListActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
         <activity
-            android:name=".ui.SettingsActivity"
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.SettingsActivity"
             android:label="Settings"
-            android:parentActivityName=".ui.menu.MenuListActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
+        <activity
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ViewShoppingCartActivity"
+            android:label="My Order"
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
     </application>
 
 </manifest>

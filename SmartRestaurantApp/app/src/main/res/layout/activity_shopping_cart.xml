@@ -10,11 +10,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <include layout="@layout/include_toolbar" />
-        <fragment android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.SettingsActivity$SettingsFragment"
-            android:id="@+id/settings_fragment"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+            <!--include layout="@layout/include_shopping_cart"/-->
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/payment_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_payment_white_24dp" />
+        </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
     <include layout="@layout/include_navigation" />
-
 </android.support.v4.widget.DrawerLayout>
