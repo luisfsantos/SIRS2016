@@ -17,7 +17,7 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
  * Created by Catarina on 09/11/2016.
  */
 
-public class ViewShoppingCartActivity extends BaseActivity {
+public class OrderListActivity extends BaseActivity {
 
 
     @Override
@@ -39,12 +39,6 @@ public class ViewShoppingCartActivity extends BaseActivity {
         final ActionBar ab = getActionBarToolbar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sample_actions, menu);
-        return true;
     }
 
     @Override

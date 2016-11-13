@@ -52,7 +52,7 @@ public class MenuListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new MyListAdapter());
+        setListAdapter(new MenuListAdapter());
         setHasOptionsMenu(true);
         Bundle bundle = getArguments();
         searchTopic = bundle.getString("searchTopic");
@@ -63,7 +63,6 @@ public class MenuListFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         // notify callback about the selected list item
         callback.onItemSelected(RestaurantMenu.COURSE_MAP.get(searchTopic).ITEMS.get(position).id);
-        //callback.onItemSelected(RestaurantMenu.ITEMS.get(position).id);
     }
 
     /**
@@ -100,24 +99,21 @@ public class MenuListFragment extends ListFragment {
         callback = (Callback) context;
     }
 
-    public class MyListAdapter extends BaseAdapter {
+    public class MenuListAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
             return RestaurantMenu.COURSE_MAP.get(searchTopic).ITEMS.size();
-            //return RestaurantMenu.ITEMS.size();
         }
 
         @Override
         public Object getItem(int position) {
             return RestaurantMenu.COURSE_MAP.get(searchTopic).ITEMS.get(position);
-            //return RestaurantMenu.ITEMS.get(position);
         }
 
         @Override
         public long getItemId(int position) {
             return RestaurantMenu.COURSE_MAP.get(searchTopic).ITEMS.get(position).id.hashCode();
-            //return RestaurantMenu.ITEMS.get(position).id.hashCode();
         }
 
         @Override

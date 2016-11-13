@@ -16,7 +16,7 @@ public class RestaurantMenu {
     private static int id = 0;
 
     /**
-     * A map of menu items. Key: sample ID; Value: Item.
+     * A map of menu items. Key: item ID; Value: Menu Item.
      */
     public static final Map<String, MenuItem> ITEM_MAP = new HashMap<>();
     /**

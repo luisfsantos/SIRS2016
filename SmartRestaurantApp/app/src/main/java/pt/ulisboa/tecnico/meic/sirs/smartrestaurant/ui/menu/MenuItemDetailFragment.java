@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import butterknife.Bind;
 import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.Order;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.RestaurantMenu;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseFragment;
@@ -59,12 +60,9 @@ public class MenuItemDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // load dummy item by using the passed item ID.
+            // load menu item by using the passed item ID.
             menuItem = RestaurantMenu.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
         }
-
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -90,26 +88,10 @@ public class MenuItemDetailFragment extends BaseFragment {
         Glide.with(this).load(menuItem.posterURL).centerCrop().into(backdropImg);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.sample_actions, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(android.view.MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                // your logic
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @OnClick(R.id.add_to_cart)
     public void onAddToCartClicked(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Order.addItem(menuItem);
+        Snackbar.make(view, "Added to your order", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     public static MenuItemDetailFragment newInstance(String itemID) {

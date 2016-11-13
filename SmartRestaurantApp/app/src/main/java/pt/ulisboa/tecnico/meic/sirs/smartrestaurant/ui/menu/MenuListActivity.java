@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -19,8 +17,10 @@ import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.RestaurantMenu;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.SearchIMDB;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil;
+
+import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.makeLogTag;
 
 /**
  * Lists all available quotes. This Activity supports a single pane (= smartphones) and a two pane mode (= large screens with >= 600dp width).
@@ -31,6 +31,7 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
     /**
      * Whether or not the activity is running on a device with a large screen
      */
+    private static final String TAG = makeLogTag(BaseActivity.class);
     TabLayout tabLayout;
     ViewPager viewPager;
     //public static String POSITION = "POSITION";
@@ -68,15 +69,17 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             new SearchIMDB(context).execute(SlidingTabsAdapter.searchTopics);
+            LogUtil.logD(TAG, "Menu updated");
         } else {
             Toast toast = Toast.makeText(this, getText(R.string.mobile_data), Toast.LENGTH_SHORT);
             toast.show();
+            LogUtil.logD(TAG, "Failed to update menu");
         }
     }
     @OnClick(R.id.go_to_shopping_cart)
     public void onGoToCartClicked(View view) {
         //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        startActivity(new Intent(this, ViewShoppingCartActivity.class));
+        startActivity(new Intent(this, OrderListActivity.class));
     }
 
     @Override
@@ -98,7 +101,6 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
      */
     @Override
     public void onItemSelected(String id) {
-        // Start the detail activity in single pane mode.
         Intent detailIntent = new Intent(this, MenuItemDetailActivity.class);
         detailIntent.putExtra(MenuItemDetailFragment.ARG_ITEM_ID, id);
         startActivity(detailIntent);
@@ -110,11 +112,11 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sample_actions, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.sample_actions, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

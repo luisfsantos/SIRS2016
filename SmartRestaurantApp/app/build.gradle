@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "de.andreasschrade.smartrestaurant"
+        applicationId "pt.ulisboa.tecnico.meic.sirs.smartrestaurant"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
@@ -28,7 +28,4 @@ dependencies {
 
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-
-
 }

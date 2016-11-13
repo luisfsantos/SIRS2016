@@ -12,9 +12,8 @@ import android.view.MenuItem;
 
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.SettingsActivity;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.ViewSamplesActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ViewShoppingCartActivity;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderListActivity;
 
 import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.logD;
 import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.makeLogTag;
@@ -24,7 +23,7 @@ import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.makeLogT
  * This class creates and provides the navigation drawer and toolbar.
  * The navigation logic is handled in {@link BaseActivity#goToNavDrawerItem(int)}
  *
- * Created by Andreas Schrade on 14.12.2015.
+ * Created by Catarina on 14.12.2015.
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = makeLogTag(BaseActivity.class);
@@ -110,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.nav_cart:
-                startActivity(new Intent(this, ViewShoppingCartActivity.class));
+                startActivity(new Intent(this, OrderListActivity.class));
                 break;
             case R.id.nav_account:
                 startActivity(new Intent(this, SettingsActivity.class));
