@@ -47,6 +47,24 @@
             android:singleLine="true"/>
     </LinearLayout>
     <ImageButton
+        android:id="@+id/quantity_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/regular_offset"
+        android:layout_marginTop="@dimen/regular_offset"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_remove_circle_outline_black_24dp"
+        android:contentDescription="Decrease quantity" />
+    <ImageButton
+        android:id="@+id/quantity_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/regular_offset"
+        android:layout_marginTop="@dimen/regular_offset"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_add_circle_outline_black_24dp"
+        android:contentDescription="Increase quantity" />
+    <ImageButton
         android:id="@+id/delete_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,5 +73,6 @@
         android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_delete_black_24dp"
         android:contentDescription="Delete item from order" />
+
 
 </LinearLayout>
