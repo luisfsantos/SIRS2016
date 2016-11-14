@@ -21,11 +21,13 @@ public class Order {
      */
     private static Map<String, Integer> QUANTITY = new HashMap<>();
 
-    public static void addItem(RestaurantMenu.MenuItem item) {
+    public static boolean addItem(RestaurantMenu.MenuItem item) {
         if (!ITEMS.contains(item.id)) {
             ITEMS.add(item.id);
             QUANTITY.put(item.id, 1);
+            return true;
         }
+        return false;
     }
 
     public static void increaseItemQuantity(int position) {
@@ -46,5 +48,13 @@ public class Order {
     public static void deleteItem(int position) {
         QUANTITY.remove(ITEMS.get(position));
         ITEMS.remove(position);
+    }
+
+    public static int getTotalPrice() {
+        int total = 0;
+        for (String id : ITEMS) {
+            total += QUANTITY.get(id) * Integer.parseInt(RestaurantMenu.ITEM_MAP.get(id).year);
+        }
+        return total;
     }
 }

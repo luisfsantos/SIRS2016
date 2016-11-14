@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -27,11 +28,16 @@ public class OrderListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new OrderListFragment.OrderListAdapter());
+        setListAdapter(new OrderListAdapter(getContext()));
         setHasOptionsMenu(true);
     }
 
     private class OrderListAdapter extends BaseAdapter {
+        UpdateTotalPriceInterface context;
+
+        public OrderListAdapter(Context context) {
+            this.context = (OrderListActivity) context;
+        }
 
         @Override
         public int getCount() {
@@ -53,7 +59,7 @@ public class OrderListFragment extends ListFragment {
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup container) {
+        public View getView(final int position, View convertView, final ViewGroup container) {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.shopping_cart_item_article, container, false);
             }
@@ -77,6 +83,7 @@ public class OrderListFragment extends ListFragment {
                 public void onClick(View v) {
                     Order.deleteItem(position);
                     notifyDataSetChanged();
+                    context.updateTotalPrice();
                 }
             });
 
@@ -85,6 +92,8 @@ public class OrderListFragment extends ListFragment {
                 public void onClick(View v) {
                     Order.increaseItemQuantity(position);
                     notifyDataSetChanged();
+                    context.updateTotalPrice();
+
                 }
             });
 
@@ -93,6 +102,7 @@ public class OrderListFragment extends ListFragment {
                 public void onClick(View v) {
                     Order.decreaseItemQuantity(position);
                     notifyDataSetChanged();
+                    context.updateTotalPrice();
                 }
             });
 

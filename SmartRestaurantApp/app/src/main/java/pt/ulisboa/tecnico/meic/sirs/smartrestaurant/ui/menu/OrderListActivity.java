@@ -3,21 +3,24 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.Order;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
 
 /**
  * Created by Catarina on 09/11/2016.
  */
 
-public class OrderListActivity extends BaseActivity {
+public class OrderListActivity extends BaseActivity implements UpdateTotalPriceInterface{
 
 
     @Override
@@ -28,12 +31,19 @@ public class OrderListActivity extends BaseActivity {
         setupToolbar();
     }
 
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        updateTotalPrice();
+    }
+
 
     @OnClick(R.id.payment_fab)
     public void onPaymentClicked(View view) {
         //Snackbar.make(view, "Hello Snackbar!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         Toast.makeText(this, "Hello Toast!", Toast.LENGTH_SHORT).show();
     }
+
 
     private void setupToolbar() {
         final ActionBar ab = getActionBarToolbar();
@@ -59,5 +69,11 @@ public class OrderListActivity extends BaseActivity {
     @Override
     public boolean providesActivityToolbar() {
         return true;
+    }
+
+    @Override
+    public void updateTotalPrice() {
+        //Toast.makeText(this, "Updating", Toast.LENGTH_SHORT).show();
+        ((TextView)findViewById(R.id.total_price)).setText("Total: " + Order.getTotalPrice() + "€");
     }
 }

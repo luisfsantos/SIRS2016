@@ -90,8 +90,13 @@ public class MenuItemDetailFragment extends BaseFragment {
 
     @OnClick(R.id.add_to_cart)
     public void onAddToCartClicked(View view) {
-        Order.addItem(menuItem);
-        Snackbar.make(view, "Added to your order", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        String msg;
+        if(Order.addItem(menuItem)) {
+            msg = "Added to your order";
+        } else {
+            msg = "Already in your order";
+        }
+        Snackbar.make(view, msg , Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     public static MenuItemDetailFragment newInstance(String itemID) {
