@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -40,8 +41,12 @@ public class OrderListActivity extends BaseActivity implements UpdateTotalPriceI
 
     @OnClick(R.id.payment_fab)
     public void onPaymentClicked(View view) {
-        //Snackbar.make(view, "Hello Snackbar!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        Toast.makeText(this, "Hello Toast!", Toast.LENGTH_SHORT).show();
+        if (Order.isEmpty()) {
+            Toast.makeText(this, "Your order is empty. Nothing to pay for.", Toast.LENGTH_SHORT).show();
+        } else {
+            //Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, PaymentActivity.class));
+        }
     }
 
 
@@ -74,6 +79,6 @@ public class OrderListActivity extends BaseActivity implements UpdateTotalPriceI
     @Override
     public void updateTotalPrice() {
         //Toast.makeText(this, "Updating", Toast.LENGTH_SHORT).show();
-        ((TextView)findViewById(R.id.total_price)).setText("Total: " + Order.getTotalPrice() + "€");
+        ((TextView)findViewById(R.id.total_price)).setText(Order.getTotalPrice() + "€");
     }
 }

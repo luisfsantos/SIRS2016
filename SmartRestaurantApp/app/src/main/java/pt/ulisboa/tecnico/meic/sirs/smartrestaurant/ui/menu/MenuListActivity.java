@@ -46,7 +46,7 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
 
         //only make API call if not made already
         if (RestaurantMenu.ITEM_MAP.isEmpty()) {
-            updateMenu(this);
+            updateMenu(this); //updateMenu loads tabs on post execute tho
         } else {
             loadTabs();
         }
@@ -76,9 +76,9 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
             LogUtil.logD(TAG, "Failed to update menu");
         }
     }
+
     @OnClick(R.id.go_to_shopping_cart)
     public void onGoToCartClicked(View view) {
-        //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         startActivity(new Intent(this, OrderListActivity.class));
     }
 

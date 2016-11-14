@@ -33,6 +33,10 @@
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderListActivity"
             android:label="My Order"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
+        <activity
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PaymentActivity"
+            android:label="Checkout"
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderListActivity" />
     </application>
 
 </manifest>

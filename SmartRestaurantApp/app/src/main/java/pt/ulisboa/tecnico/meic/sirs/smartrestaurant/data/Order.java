@@ -21,6 +21,10 @@ public class Order {
      */
     private static Map<String, Integer> QUANTITY = new HashMap<>();
 
+    public static boolean isEmpty() {
+        return ITEMS.isEmpty();
+    }
+
     public static boolean addItem(RestaurantMenu.MenuItem item) {
         if (!ITEMS.contains(item.id)) {
             ITEMS.add(item.id);

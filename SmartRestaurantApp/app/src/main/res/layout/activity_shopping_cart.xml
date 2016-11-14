@@ -24,15 +24,33 @@
                 android:layout_alignParentBottom="true"
                 android:background="@color/theme_primary_dark"
                 android:layout_gravity="bottom">
-                <TextView
-                    android:id="@+id/total_price"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:textAllCaps="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="@color/theme_window_background" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:textAllCaps="true"
+                        android:text="Total:"
+                        style="@style/TextAppearance.AppCompat.Small.Inverse"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/regular_offset"
+                        style="@style/TextAppearance.AppCompat.Small.Inverse"
+                        android:text="hi"/>
+
+
+                </LinearLayout>
+
             </RelativeLayout>
 
             <android.support.design.widget.FloatingActionButton

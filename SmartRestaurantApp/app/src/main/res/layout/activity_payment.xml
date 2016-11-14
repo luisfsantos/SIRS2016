@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_toolbar"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/payment_margin"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/list_item_article_vertical_margin"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="@dimen/list_item_article_vertical_margin"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Table ID"
+                    android:textAllCaps="false"
+                    android:fontFamily="sans-serif-condensed"
+                    android:lineSpacingMultiplier="0.85"
+                    android:textSize="20dp"
+                    android:paddingBottom="4dp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scan QR code"
+                    android:layout_below="@id/table"
+                    style="style/TextAppearance.Small" />
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/scan_qr_code"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_photo_camera_black_36dp"
+                android:contentDescription="Scan QR code"
+                android:tint="@color/theme_primary_light"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
