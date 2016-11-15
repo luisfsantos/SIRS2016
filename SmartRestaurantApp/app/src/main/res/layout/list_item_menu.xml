@@ -15,9 +15,11 @@
         android:scaleType="centerCrop" />
 
     <LinearLayout
+        style="@style/Widget.CardContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/list_item_article_vertical_margin"
+        android:padding="0dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="@dimen/list_item_article_vertical_margin"
@@ -26,20 +28,19 @@
 
         <TextView
             android:id="@+id/menu_item_name"
-            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+            style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:lineSpacingMultiplier="0.85"
             android:paddingBottom="4dp"
             android:singleLine="true"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/secondary_text"/>
 
         <TextView
             android:id="@+id/menu_item_price"
-            style="style/TextAppearance.Small"
+            style="@style/TextAppearance.AppCompat.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"

@@ -30,12 +30,6 @@ public class PaymentActivity extends BaseActivity {
         fillOrderCard();
 
         ButterKnife.bind(this);
-
-    }
-
-    @OnClick(R.id.scan_qr_code)
-    public void onScanQrCodeClicked(View view) {
-        Toast.makeText(this, "Clicky click", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.submit_order)
