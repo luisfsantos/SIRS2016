@@ -3,10 +3,10 @@
 ##Instalation
 
 ###Dependancies
-Python >= 2.7
-MySQL database instance
-virtualenv (optional)
-pip
+* Python >= 2.7
+* MySQL database instance
+* virtualenv (optional)
+* pip
 
 (If during instalation you have any errors please install missing dependancies listed in dependancies.txt
 
