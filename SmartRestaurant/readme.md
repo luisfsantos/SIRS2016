@@ -17,7 +17,6 @@ After instaling the dependancies run:
 pip install -r requirements.txt
 mysql -u "root" -p < init_db.sql
 python manage.py migrate
-
 ```
 
 ###Running
@@ -25,5 +24,4 @@ To run the server simply run:
 
 ```
 python manage.py runserver
-
 ```
