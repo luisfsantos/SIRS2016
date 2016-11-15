@@ -61,7 +61,7 @@ public class OrderListFragment extends ListFragment {
         @Override
         public View getView(final int position, View convertView, final ViewGroup container) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.shopping_cart_item_article, container, false);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_shopping_cart, container, false);
             }
 
             final RestaurantMenu.MenuItem item = (RestaurantMenu.MenuItem) getItem(position);

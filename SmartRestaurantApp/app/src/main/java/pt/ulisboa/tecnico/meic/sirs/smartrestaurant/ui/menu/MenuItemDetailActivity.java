@@ -15,7 +15,7 @@ public class MenuItemDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_menu_item_detail);
 
         // Show the Up button in the action bar.
         if (getSupportActionBar() != null) {

@@ -78,7 +78,6 @@ public class OrderListActivity extends BaseActivity implements UpdateTotalPriceI
 
     @Override
     public void updateTotalPrice() {
-        //Toast.makeText(this, "Updating", Toast.LENGTH_SHORT).show();
         ((TextView)findViewById(R.id.total_price)).setText(Order.getTotalPrice() + "€");
     }
 }

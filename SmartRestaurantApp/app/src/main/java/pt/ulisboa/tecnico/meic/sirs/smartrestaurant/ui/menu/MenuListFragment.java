@@ -119,7 +119,7 @@ public class MenuListFragment extends ListFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup container) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_article, container, false);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_menu, container, false);
             }
 
             final RestaurantMenu.MenuItem item = (RestaurantMenu.MenuItem) getItem(position);
