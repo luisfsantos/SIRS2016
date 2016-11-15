@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Main">
-        <activity android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity">
+        <activity android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,6 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SplashScreen" />
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuItemDetailActivity"
             android:label=""

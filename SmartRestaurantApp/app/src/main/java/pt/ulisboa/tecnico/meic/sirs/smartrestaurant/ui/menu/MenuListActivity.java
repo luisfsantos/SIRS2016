@@ -1,24 +1,17 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.RestaurantMenu;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.SearchIMDB;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil;
 
 import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.makeLogTag;
 
@@ -43,14 +36,9 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
         setContentView(R.layout.activity_menu_list);
 
         setupToolbar();
-
-        //only make API call if not made already
-        if (RestaurantMenu.ITEM_MAP.isEmpty()) {
-            updateMenu(this); //updateMenu loads tabs on post execute tho
-        } else {
-            loadTabs();
-        }
+        loadTabs();
     }
+
 
     public void loadTabs() {
         // Get the ViewPager and set its PagerAdapter so that it can display items
@@ -61,20 +49,6 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
         ButterKnife.bind(this);
-    }
-
-    public void updateMenu(Context context) {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            new SearchIMDB(context).execute(SlidingTabsAdapter.searchTopics);
-            LogUtil.logD(TAG, "Menu updated");
-        } else {
-            Toast toast = Toast.makeText(this, getText(R.string.mobile_data), Toast.LENGTH_SHORT);
-            toast.show();
-            LogUtil.logD(TAG, "Failed to update menu");
-        }
     }
 
     @OnClick(R.id.go_to_shopping_cart)
