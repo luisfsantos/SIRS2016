@@ -24,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent i = new Intent(SplashScreen.this, QrScanScreenActivity.class);
+                Intent i = new Intent(SplashScreen.this, SessionStartActivity.class);
                 startActivity(i);
                 finish();
                 }

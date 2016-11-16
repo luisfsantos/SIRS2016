@@ -28,7 +28,7 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.WebRequest;
  * Created by Catarina on 15/11/2016.
  */
 
-public class QrScanScreenActivity extends BaseActivity {
+public class PromptQrScanActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class QrScanScreenActivity extends BaseActivity {
         if (networkInfo != null && networkInfo.isConnected()) {
             new SearchIMDB().execute(SlidingTabsAdapter.searchTopics);
         } else {
-            Intent intent = new Intent(QrScanScreenActivity.this, NoNetworkConnectionActivity.class);
+            Intent intent = new Intent(PromptQrScanActivity.this, NoNetworkConnectionActivity.class);
             startActivity(intent);
             finish();
         }
@@ -53,7 +53,7 @@ public class QrScanScreenActivity extends BaseActivity {
 
     @OnClick(R.id.scan_qr_code)
     public void onScanQrCodeClicked(View view) {
-        Intent i = new Intent(QrScanScreenActivity.this, QrCodeScanner.class);
+        Intent i = new Intent(PromptQrScanActivity.this, QrCodeScanner.class);
         startActivity(i);
         finish();
     }
@@ -101,7 +101,7 @@ public class QrScanScreenActivity extends BaseActivity {
                 }
 
             } catch (JSONException e) {
-                Toast toast = Toast.makeText(QrScanScreenActivity.this, "A problem occurred.", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(PromptQrScanActivity.this, "A problem occurred.", Toast.LENGTH_SHORT);
                 toast.show();
             }
         }

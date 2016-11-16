@@ -83,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_marginTop="8dp"
-                            android:text="Total:"
+                            android:text="Total"
                             style="@style/TextAppearance.AppCompat.Subhead"
                             android:textAllCaps="true"
                             android:textStyle="bold"/>
