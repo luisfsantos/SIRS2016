@@ -10,7 +10,7 @@
     </string-array>
 
     <string name="loading">Loading...</string>
-    <string name="mobile_data">Cannot connect to network. Please make sure data is enabled.</string>
+    <string name="mobile_data">Cannot connect to network. Please make sure data is enabled before you start the application.</string>
 
     <string name="tab_one">Appetizers</string>
     <string name="tab_two">Main Courses</string>
@@ -31,4 +31,7 @@
     <string name="navigation_dummy_item_1">Dummy item 1</string>
     <string name="navigation_dummy_item_2">Dummy item 2</string>
     <string name="title_activity_delete">DeleteActivity</string>
+    <string name="no_network_connection_icon">No network connection detected</string>
+    <string name="no_connection_detected">No connection detected</string>
+    <string name="please_connect">Please connect to a network and restart the application</string>
 </resources>
