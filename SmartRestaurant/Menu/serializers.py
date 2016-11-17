@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ('name')
+        fields = ('name',)
 
     def create(self, validated_data):
         ingredient = Ingredient(
