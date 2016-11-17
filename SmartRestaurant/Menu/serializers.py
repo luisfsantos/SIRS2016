@@ -18,7 +18,7 @@ class MealSerializer(serializers.ModelSerializer):
     class Meta:
         model = Meal
         fields = ('id', 'meal_type', 'price', 'description', 'calories', 'ingredients')
-        read_only_fields('id',)
+        extra_kwargs = {'id': {'read_only': True}}
     def create(self, validated_data):
         meal = Meal(
             meal_type=validated_data['meal_type'],
