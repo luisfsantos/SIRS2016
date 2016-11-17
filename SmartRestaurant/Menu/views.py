@@ -10,7 +10,10 @@ class MainList(APIView):
     List all mainCourses, or create a new mainCourse.
     """
     def get(self, request, format=None):
-        meal = Meal.objects.get(meal_type=Meal.MAIN)
+        try:
+            meal = Meal.objects.get(meal_type=Meal.MAIN)
+        except model.DoesNotExist:
+            meal = None
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
