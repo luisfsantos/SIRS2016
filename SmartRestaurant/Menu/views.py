@@ -12,7 +12,7 @@ class MainList(APIView):
     def get(self, request, format=None):
         try:
             meal = Meal.objects.get(meal_type=Meal.MAIN)
-        except model.DoesNotExist:
+        except Meal.DoesNotExist:
             meal = None
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
