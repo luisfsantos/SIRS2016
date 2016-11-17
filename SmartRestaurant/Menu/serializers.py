@@ -11,6 +11,8 @@ class IngredientSerializer(serializers.ModelSerializer):
         ingredient = Ingredient(
             name= validated_data['name'],
         )
+        ingredient.save()
+        return ingredient
 
 class MealSerializer(serializers.ModelSerializer):
     ingredients = IngredientSerializer(read_only=True, many=True)
