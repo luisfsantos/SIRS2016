@@ -20,17 +20,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.menu.SessionStartActivity"
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity"
             android:label="Session start"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SplashScreen" />
         <activity
-            android:name=".ui.menu.LoginActivity"
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoginActivity"
             android:label="User login"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity" />
         <activity
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignupActivity"
+            android:label="User Signup"
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity" />
+        <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PromptQrScanActivity"
-            android:label="QR Code Scanner"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SplashScreen" />
+            android:label="QR Code Scanner"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.QrCodeScanner"
             android:label="QR Code Scanner"
@@ -39,6 +42,10 @@
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.NoNetworkConnectionActivity"
             android:label="No network"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PromptQrScanActivity" />
+        <activity
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoadingMenuActivity"
+            android:label="No network"
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.QrCodeScanner" />
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity"
             android:label="@string/app_name"
