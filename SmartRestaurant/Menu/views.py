@@ -30,7 +30,10 @@ class AppetizerList(APIView):
     List all appetizers, or create a new appetizer.
     """
     def get(self, request, format=None):
-        meal = Meal.objects.get(meal_type=Meal.APPETIZER)
+        try:
+            meal = Meal.objects.get(meal_type=Meal.APPETIZER)
+        except Meal.DoesNotExist:
+            meal = None
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
@@ -46,7 +49,10 @@ class DessertList(APIView):
     List all desserts, or create a new dessert.
     """
     def get(self, request, format=None):
-        meal = Meal.objects.get(meal_type=Meal.DESSERT)
+        try:
+            meal = Meal.objects.get(meal_type=Meal.DESSERT)
+        except Meal.DoesNotExist:
+            meal = None
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
