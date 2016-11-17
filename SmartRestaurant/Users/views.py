@@ -11,11 +11,11 @@ from django.contrib.auth.models import User
 
 class AccountList(APIView):
     """
-    List all snippets, or create a new snippet.
+    List all users, or create a new user.
     """
     def get(self, request, format=None):
-        snippets = User.objects.all()
-        serializer = UserSerializer(snippets, many=True)
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
