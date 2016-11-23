@@ -1,22 +1,21 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
 import android.content.Intent;
-import android.content.SyncRequest;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.zxing.Result;
 
-import butterknife.ButterKnife;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.SearchIMDB;
 
 /**
  * Created by Catarina on 15/11/2016.
  */
 
-public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler, SearchIMDB.AsyncResponse {
+public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler, CallsAsyncTask {
 
     private static boolean ASYNC_DONE = false;
     private static final String KEY_QR_CODE = "QR_CODE";
@@ -64,7 +63,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     }
 
     @Override
-    public void downloadFinished() {
+    public void onRequestFinished() {
         ASYNC_DONE = true;
     }
 }

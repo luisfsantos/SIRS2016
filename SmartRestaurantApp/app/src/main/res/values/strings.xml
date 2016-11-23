@@ -34,4 +34,14 @@
     <string name="no_network_connection_icon">No network connection detected</string>
     <string name="no_connection_detected">No connection detected</string>
     <string name="please_connect">Please connect to a network and restart the application</string>
+
+
+    <!-- Shared preferences names -->
+    <string name="user_info_pref">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_PREF</string>
+    <string name="user_info_email">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_EMAIL</string>
+    <string name="user_info_username">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_USERNAME</string>
+    <string name="user_info_first_name">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_FIRST_NAME</string>
+    <string name="user_info_last_name">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_LAST_NAME</string>
+    <string name="user_info_nif">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_NIF</string>
+
 </resources>

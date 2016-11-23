@@ -9,7 +9,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
+import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.SettingsActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity;
@@ -53,6 +56,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (navigationView != null) {
             setupDrawerSelectListener(navigationView);
             setSelectedItem(navigationView);
+
+            NavigationView logoutNavigation = (NavigationView) findViewById(R.id.logout);
+            if (logoutNavigation != null) {
+                logoutNavigation.setNavigationItemSelectedListener(
+                        new NavigationView.OnNavigationItemSelectedListener() {
+                            @Override
+                            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                                drawerLayout.closeDrawers();
+                                //TODO start logout activity?
+                                Toast.makeText(BaseActivity.this, "Logout", Toast.LENGTH_SHORT).show();
+                                return true;
+                            }
+                        }
+                );
+            }
         }
 
         logD(TAG, "navigation drawer setup finished");

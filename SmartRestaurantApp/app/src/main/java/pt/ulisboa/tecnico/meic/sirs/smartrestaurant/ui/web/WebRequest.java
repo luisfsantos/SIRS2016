@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -11,13 +12,10 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
 /**
  * Created by Catarina on 12/11/2016.
  */
 public class WebRequest {
-    static String response = null;
     public final static int GETRequest = 1;
     public final static int POSTRequest = 2;
 
@@ -30,8 +28,8 @@ public class WebRequest {
      * @url - url to make web request
      * @requestmethod - http request method
      */
-    public String makeWebServiceCall(String url, int requestmethod) {
-        return this.makeWebServiceCall(url, requestmethod, null);
+    public WebResult makeWebServiceCall(String url, int requestMethod) {
+        return this.makeWebServiceCall(url, requestMethod, null);
     }
     /**
      * Making web service call
@@ -40,8 +38,10 @@ public class WebRequest {
      * @requestmethod - http request method
      * @params - http request params
      */
-    public String makeWebServiceCall(String urladdress, int requestmethod,
+    public WebResult makeWebServiceCall(String urladdress, int requestmethod,
                                      HashMap<String, String> params) {
+
+        //FIXME idea: change this to return both the responseCode (200, 201, 400, ...) and the String
         URL url;
         String response = "";
         try {
@@ -78,20 +78,41 @@ public class WebRequest {
                 writer.close();
                 ostream.close();
             }
-            int reqresponseCode = conn.getResponseCode();
+            int reqResponseCode = conn.getResponseCode();
+            InputStream inputStream;
 
-            if (reqresponseCode == HttpsURLConnection.HTTP_OK) {
-                String line;
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                while ((line = br.readLine()) != null) {
-                    response += line;
-                }
+
+            if (reqResponseCode == HttpURLConnection.HTTP_OK ||
+                    reqResponseCode == HttpURLConnection.HTTP_CREATED) {
+                inputStream = conn.getInputStream();
             } else {
-                response = "";
+                inputStream = conn.getErrorStream();
             }
+
+            String line;
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            while ((line = br.readLine()) != null) {
+                response += line;
+            }
+            return new WebResult(reqResponseCode, response);
+
         } catch (Exception e) {
-            return "Unable to retrieve web page. URL may be invalid.";
+            return new WebResult("Unable to retrieve web page. URL may be invalid.");
         }
-        return response;
+    }
+
+    public class WebResult {
+        public final int code;
+        public final String result;
+
+        WebResult(String result) {
+            this.code = 0;
+            this.result = result;
+        }
+
+        WebResult(int code, String result) {
+            this.code = code;
+            this.result = result;
+        }
     }
 }

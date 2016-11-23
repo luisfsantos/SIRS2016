@@ -26,11 +26,13 @@
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoginActivity"
             android:label="User login"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignupActivity"
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity"
             android:label="User Signup"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PromptQrScanActivity"
             android:label="QR Code Scanner"/>

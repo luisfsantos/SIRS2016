@@ -3,7 +3,6 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,7 +30,8 @@ public class SessionStartActivity extends BaseActivity {
 
     @OnClick(R.id.signup_button)
     public void onSignupClicked(View view) {
-        Toast.makeText(this, "Sign up clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(SessionStartActivity.this, SignUpActivity.class);
+        startActivity(intent);
     }
 
     @Override

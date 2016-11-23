@@ -3,17 +3,21 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.SignUpSR;
 
 /**
  * Created by Catarina on 16/11/2016.
  */
 
-public class SignupActivity extends BaseActivity {
+public class SignUpActivity extends BaseActivity implements CallsAsyncTask {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,15 +27,48 @@ public class SignupActivity extends BaseActivity {
     }
     
     @OnClick(R.id.submit_signup)
-    public void onSubmitSignupClicked(View view) {
+    public void onSubmitSignUpClicked(View view) {
+
+        //TODO 1. check if all fields are filled in
+        //TODO 2. check correctness of fields (invalid chars) -- no need: django does this
+        //TODO 3. synchronous call server to register user
+        //TODO 4. wait for server response and start new activity
         //FIXME
-        Intent intent = new Intent(SignupActivity.this, PromptQrScanActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+
+        String email = ((EditText)findViewById(R.id.email)).getText().toString();
+        String username = ((EditText)findViewById(R.id.username)).getText().toString();
+        String password = ((EditText)findViewById(R.id.password)).getText().toString();
+        String firstName = ((EditText)findViewById(R.id.first_name)).getText().toString();
+        String lastName = ((EditText)findViewById(R.id.last_name)).getText().toString();
+        String nif = ((EditText)findViewById(R.id.nif)).getText().toString();
+
+        if (email.matches("") || username.matches("")
+                || password.matches("") || firstName.matches("")
+                || lastName.matches("") || nif.matches("") ) {
+            updateErrorView("All fields are mandatory.");
+            return;
+        }
+
+        new SignUpSR(this).execute(email, username, password, firstName, lastName, nif);
+
+//        Intent intent = new Intent(SignUpActivity.this, PromptQrScanActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
     }
     
     @Override
     public boolean providesActivityToolbar() {
         return false;
+    }
+
+    @Override
+    public void onRequestFinished() {
+        Intent intent = new Intent(SignUpActivity.this, PromptQrScanActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void updateErrorView(String content) {
+        ((TextView)findViewById(R.id.oops_text)).setText(content);
     }
 }

@@ -54,8 +54,11 @@
             android:layout_marginBottom="8dp">
 
             <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLines="1"
                 android:hint="Username"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -69,12 +72,24 @@
             android:paddingBottom="0dp">
 
             <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:inputType="textPassword"/>
 
         </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/oops_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/oops_red"
+            android:layout_marginLeft="@dimen/regular_offset"
+            android:layout_marginRight="@dimen/regular_offset"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/submit_login"

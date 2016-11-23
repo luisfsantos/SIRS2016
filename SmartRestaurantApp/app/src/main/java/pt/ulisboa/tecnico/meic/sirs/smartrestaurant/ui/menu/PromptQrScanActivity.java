@@ -11,12 +11,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.SearchIMDB;
 
 /**
  * Created by Catarina on 15/11/2016.
  */
 
-public class PromptQrScanActivity extends BaseActivity implements SearchIMDB.AsyncResponse {
+public class PromptQrScanActivity extends BaseActivity implements CallsAsyncTask {
 
     private static boolean ASYNC_DONE = false;
 
@@ -56,7 +58,7 @@ public class PromptQrScanActivity extends BaseActivity implements SearchIMDB.Asy
 
 
     @Override
-    public void downloadFinished() {
+    public void onRequestFinished() {
         ASYNC_DONE = true;
     }
 }
