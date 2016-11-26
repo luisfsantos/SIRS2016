@@ -10,6 +10,7 @@ from rest_framework.throttling import AnonRateThrottle
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from Common.responses import createResponse
 # Create your views here.
 
 class DailyRegisterThrottle(AnonRateThrottle):
@@ -46,13 +47,13 @@ class AccountList(APIView):
 def register(request):
     if request.method == 'POST':
         if len(str(request.data.get('nif', 0))) != 9:
-            return Response({'nif': ["The NIF must have 9 digits",]}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(createResponse("nif","The NIF must have 9 digits"), status=status.HTTP_400_BAD_REQUEST)
         user = UserSerializer(data=request.data)
         if user.is_valid():
             user.save()
             return Response(user.data, status=status.HTTP_201_CREATED)
         return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
-    return Response({"Welcome to the registration page"})
+    return Response(createResponse("Registration", "Welcome to the Registration Page"))
 
 
 @api_view(['GET', 'POST'])
@@ -66,12 +67,12 @@ def login_user(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return Response("Login Successful", status=status.HTTP_200_OK)
+                return Response(createResponse("Login", "Success!"), status=status.HTTP_200_OK)
             else:
-                return Response("Your SmartRestaurant account is disabled.")
+                return Response(createResponse("Login", "Your SmartRestaurant account is disabled."))
         else:
-            return Response("Invalid login details supplied.")
-    return Response("Please, have a seat and login ;-)")
+            return Response(createResponse("Login", "Invalid login details supplied."))
+    return Response(createResponse("Login", "Please, have a seat and login ;-)"))
 
 
 
@@ -79,7 +80,7 @@ def login_user(request):
 #@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
 @login_required()
 def test_loggedin(request):
-    return Response("You are logged in")
+    return Response(createResponse("Test", "You are logged in."))
 
 
 class AccountDetail(APIView):
