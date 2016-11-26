@@ -46,7 +46,6 @@ def register(request):
         user_serializer = UserSerializer(data=request.data)
         if user_serializer.is_valid():
             user_serializer.save()
-
             user = User.objects.get(username=request.data.get("username", ''))
             login(request, user)
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
@@ -88,18 +87,3 @@ def logout_user(request):
 def test_loggedin(request):
     return Response(createResponse("Test", "You are logged in."))
 
-
-class AccountDetail(APIView):
-    """
-    Retrieve a user instance.
-    """
-    def get_object(self, pk):
-        try:
-            return User.objects.get(pk=pk)
-        except User.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        user = self.get_object(pk)
-        serializer = UserSerializer(user)
-        return Response(serializer.data)

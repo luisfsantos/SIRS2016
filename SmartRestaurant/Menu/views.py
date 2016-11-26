@@ -5,11 +5,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from Menu.models import Meal, Ingredient
 from Menu.serializers import MealSerializer, IngredientSerializer
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 # Create your views here.
 class MainList(APIView):
     """
     List all mainCourses, or create a new mainCourse.
     """
+    @method_decorator(login_required)
     def get(self, request, format=None):
         try:
             meal = Meal.objects.get(meal_type=Meal.MAIN)
@@ -18,6 +21,7 @@ class MainList(APIView):
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
+    @method_decorator(login_required)
     def post(self, request, format=None):
         meal = MealSerializer(data=request.data)
         if meal.is_valid():
@@ -29,6 +33,8 @@ class AppetizerList(APIView):
     """
     List all appetizers, or create a new appetizer.
     """
+
+    @method_decorator(login_required)
     def get(self, request, format=None):
         try:
             meal = Meal.objects.get(meal_type=Meal.APPETIZER)
@@ -37,6 +43,7 @@ class AppetizerList(APIView):
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
+    @method_decorator(login_required)
     def post(self, request, format=None):
         meal = MealSerializer(data=request.data)
         if meal.is_valid():
@@ -48,6 +55,8 @@ class DessertList(APIView):
     """
     List all desserts, or create a new dessert.
     """
+
+    @method_decorator(login_required)
     def get(self, request, format=None):
         try:
             meal = Meal.objects.get(meal_type=Meal.DESSERT)
@@ -56,6 +65,7 @@ class DessertList(APIView):
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
+    @method_decorator(login_required)
     def post(self, request, format=None):
         meal = MealSerializer(data=request.data)
         if meal.is_valid():
@@ -68,11 +78,14 @@ class IngredientList(APIView):
     """
     List all ingredients, or create a new ingredient.
     """
+
+    @method_decorator(login_required)
     def get(self, request, format=None):
         ingredient = Ingredient.objects.all()
         serializer = IngredientSerializer(ingredient, many=True)
         return Response(serializer.data)
 
+    @method_decorator(login_required)
     def post(self, request, format=None):
         ingredient = IngredientSerializer(data=request.data)
         if ingredient.is_valid():

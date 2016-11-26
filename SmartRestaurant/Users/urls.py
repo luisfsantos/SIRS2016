@@ -4,7 +4,6 @@ from Users import views
 
 urlpatterns = [
     url(r'^accounts/$', views.AccountList),
-    url(r'^accounts/(?P<pk>[0-9]+)/$', views.AccountDetail.as_view()),
     url(r'^register/$', views.register),
     url(r'^login/$', views.login_user),
     url(r'^logout/$', views.logout_user),
