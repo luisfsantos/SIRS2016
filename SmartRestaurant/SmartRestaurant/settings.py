@@ -71,7 +71,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SmartRestaurant.wsgi.application'
-
+LOGIN_URL ='/login/'
+PRODUCTION = False
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
