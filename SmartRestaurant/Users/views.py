@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.throttling import AnonRateThrottle
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from Common.responses import createResponse
 # Create your views here.
@@ -69,28 +69,16 @@ def login_user(request):
                 login(request, user)
                 return Response(createResponse("Login", "Success!"), status=status.HTTP_200_OK)
             else:
-                return Response(createResponse("Login", "Your SmartRestaurant account is disabled."))
+                return Response(createResponse("Login", "Your SmartRestaurant account is disabled."), status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(createResponse("Login", "Invalid login details supplied."))
+            return Response(createResponse("Login", "Invalid login details supplied."), status=status.HTTP_400_BAD_REQUEST)
     return Response(createResponse("Login", "Please, have a seat and login ;-)"))
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 #@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
 def logout_user(request):
-    if request.method == 'POST':
-        username = request.data.get("username", '')
-        password = request.data.get("password", '')
-
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request, user)
-                return Response("Login Successful", status=status.HTTP_200_OK)
-            else:
-                return Response("Your SmartRestaurant account is disabled.")
-        else:
-            return Response("Invalid login details supplied.")
-    return Response("Please, have a seat and login ;-)")
+    logout(request)
+    return Response(createResponse("Logout", "Logged out!"))
 
 
 @api_view(['GET'])
