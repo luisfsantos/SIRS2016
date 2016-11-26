@@ -1,14 +1,15 @@
 from rest_framework import serializers
-from Users.models import Customer
+from Users.models import UserProfile
 from django.contrib.auth.models import User
 
-class CustomerSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Customer
+        model = UserProfile
         fields = ('nif')
+        extra_kwargs = {"nif": {"error_messages": {"required": "The nif is a required entry"}}}
 
 class UserSerializer(serializers.ModelSerializer):
-    nif = serializers.IntegerField(source='customer.nif')
+    nif = serializers.IntegerField(source='userprofile.nif')
 
     class Meta:
         model = User
@@ -21,7 +22,12 @@ class UserSerializer(serializers.ModelSerializer):
             username=validated_data['username']
         )
         user.set_password(validated_data['password'])
-        user.save()
-        user.customer.nif = validated_data['customer']['nif']
+
+        new_nif = validated_data['userprofile']['nif']
+        if UserProfile.objects.filter(nif=new_nif).exists() == True:
+            raise serializers.ValidationError({'nif': ["This NIF has already been used",]})
+        else:
+            user.save()
+            user.userprofile.nif = new_nif
         user.save()
         return user

@@ -23,7 +23,7 @@ class Meal(models.Model):
         choices=MEAL_CHOICES,
         default=MAIN,
     )
-    price = models.IntegerField()
+    price = models.FloatField()
     description = models.TextField()
 
     calories = models.IntegerField()
