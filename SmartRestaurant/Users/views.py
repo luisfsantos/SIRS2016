@@ -74,6 +74,23 @@ def login_user(request):
             return Response(createResponse("Login", "Invalid login details supplied."))
     return Response(createResponse("Login", "Please, have a seat and login ;-)"))
 
+@api_view(['GET', 'POST'])
+#@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
+def logout_user(request):
+    if request.method == 'POST':
+        username = request.data.get("username", '')
+        password = request.data.get("password", '')
+
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return Response("Login Successful", status=status.HTTP_200_OK)
+            else:
+                return Response("Your SmartRestaurant account is disabled.")
+        else:
+            return Response("Invalid login details supplied.")
+    return Response("Please, have a seat and login ;-)")
 
 
 @api_view(['GET'])
