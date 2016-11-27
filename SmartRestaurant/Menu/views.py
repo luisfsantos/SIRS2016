@@ -15,7 +15,7 @@ class MainList(APIView):
     @method_decorator(login_required)
     def get(self, request, format=None):
         try:
-            meal = Meal.objects.get(meal_type=Meal.MAIN)
+            meal = Meal.objects.filter(meal_type=Meal.MAIN)
         except Meal.DoesNotExist:
             meal = None
         serializer = MealSerializer(meal, many=True)
@@ -37,7 +37,7 @@ class AppetizerList(APIView):
     @method_decorator(login_required)
     def get(self, request, format=None):
         try:
-            meal = Meal.objects.get(meal_type=Meal.APPETIZER)
+            meal = Meal.objects.filter(meal_type=Meal.APPETIZER)
         except Meal.DoesNotExist:
             meal = None
         serializer = MealSerializer(meal, many=True)
@@ -59,7 +59,7 @@ class DessertList(APIView):
     @method_decorator(login_required)
     def get(self, request, format=None):
         try:
-            meal = Meal.objects.get(meal_type=Meal.DESSERT)
+            meal = Meal.objects.filter(meal_type=Meal.DESSERT)
         except Meal.DoesNotExist:
             meal = None
         serializer = MealSerializer(meal, many=True)

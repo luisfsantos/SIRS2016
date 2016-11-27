@@ -41,8 +41,12 @@ def AccountList(request):
 #@throttle_classes([DailyRegisterThrottle])
 def register(request):
     if request.method == 'POST':
+        # nif validation
         if len(str(request.data.get('nif', 0))) != 9:
             return Response(createResponse("nif","The NIF must have 9 digits"), status=status.HTTP_400_BAD_REQUEST)
+        #non duplicate emails
+        if User.objects.filter(email=request.data.get("email", '')).exists():
+            return Response(createResponse("email", "This email has already been used."), status=status.HTTP_400_BAD_REQUEST)
         user_serializer = UserSerializer(data=request.data)
         if user_serializer.is_valid():
             user_serializer.save()
@@ -68,7 +72,7 @@ def login_user(request):
             else:
                 return Response(createResponse("Login", "Your SmartRestaurant account is disabled."), status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(createResponse("Login", "Invalid login details supplied."), status=status.HTTP_400_BAD_REQUEST)
+            return Response(createResponse("Login", "Invalid login credentials."), status=status.HTTP_400_BAD_REQUEST)
     return Response(createResponse("Login", "Please, have a seat and login ;-)"))
 
 @api_view(['GET'])
