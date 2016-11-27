@@ -15,8 +15,11 @@ import android.widget.Toast;
 import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.SettingsActivity;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoginActivity;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LogoutActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderListActivity;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.LogoutSR;
 
 import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.logD;
 import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.makeLogTag;
@@ -64,8 +67,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                             @Override
                             public boolean onNavigationItemSelected(MenuItem menuItem) {
                                 drawerLayout.closeDrawers();
-                                //TODO start logout activity?
-                                Toast.makeText(BaseActivity.this, "Logout", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(BaseActivity.this, LogoutActivity.class);
+                                startActivity(intent);
                                 return true;
                             }
                         }
