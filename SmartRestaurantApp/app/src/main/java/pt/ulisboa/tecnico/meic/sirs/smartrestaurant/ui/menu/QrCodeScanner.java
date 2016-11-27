@@ -9,7 +9,7 @@ import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.SearchIMDB;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.FetchMenuSR;
 
 /**
  * Created by Catarina on 15/11/2016.
@@ -25,7 +25,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ASYNC_DONE = getIntent().getExtras().getBoolean("ASYNC_DONE");
-        SearchIMDB.updateDelegate(this);
+        FetchMenuSR.updateDelegate(this);
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
     }

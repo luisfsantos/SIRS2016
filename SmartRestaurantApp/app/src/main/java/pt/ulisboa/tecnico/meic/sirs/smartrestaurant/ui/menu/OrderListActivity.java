@@ -78,6 +78,6 @@ public class OrderListActivity extends BaseActivity implements UpdateTotalPriceI
 
     @Override
     public void updateTotalPrice() {
-        ((TextView)findViewById(R.id.total_price)).setText(Order.getTotalPrice() + "€");
+        ((TextView)findViewById(R.id.total_price)).setText(String.format("%.2f", Order.getTotalPrice()) + getString(R.string.currency));
     }
 }

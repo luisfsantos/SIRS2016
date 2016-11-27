@@ -24,9 +24,13 @@ public class RestaurantMenu {
      */
     public static final Map<String, CourseMenu> COURSE_MAP = new HashMap<>();
 
+    public static void clear() {
+        ITEM_MAP.clear();
+        COURSE_MAP.clear();
+    }
 
-    public static void addItem(String course, String posterURL, String title, String year, String plot) {
-        addItem(course, new MenuItem(Integer.toString(++id), posterURL, title, year, plot));
+    public static void addItem(String course, String id, String name, float price, String description, int calories, String imageURL) {
+        addItem(course, new MenuItem(id, name, price, description, calories, imageURL));
     }
     private static void addItem(String courseName, MenuItem item) {
         CourseMenu courseMenu = COURSE_MAP.get(courseName);
@@ -57,17 +61,21 @@ public class RestaurantMenu {
 
     public static class MenuItem {
         public final String id;
-        public final String posterURL;
-        public final String title;
-        public final String year;
-        public final String plot;
+        public final String imageURL;
+        public final String name;
+        public final float price;
+        public final String description;
+        public final int calories;
+        public final List<String> ingredients = new ArrayList<>();
 
-        public MenuItem(String id, String posterURL, String title, String year, String plot) {
+
+        public MenuItem(String id, String name, float price, String description, int calories, String imageURL) {
             this.id = id;
-            this.posterURL = posterURL;
-            this.title = title;
-            this.year = year;
-            this.plot = plot;
+            this.name = name;
+            this.price = price;
+            this.description = description;
+            this.calories = calories;
+            this.imageURL = imageURL;
         }
     }
 }

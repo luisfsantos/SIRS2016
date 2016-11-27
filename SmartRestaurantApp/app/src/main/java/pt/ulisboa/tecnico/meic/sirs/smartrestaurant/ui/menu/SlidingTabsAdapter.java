@@ -15,7 +15,7 @@ public class SlidingTabsAdapter extends FragmentPagerAdapter {
 
     final int PAGE_COUNT = 3;
     private String[] tabTitles;
-    public static String[] searchTopics = new String[] {"iron man", "captain america", "thor"};
+    public static String[] searchTopics = new String[] {"appetizers", "mains", "desserts"};
     Context context;
 
     public SlidingTabsAdapter(FragmentManager fm, Context context) {
@@ -44,7 +44,7 @@ public class SlidingTabsAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        // Generate title based on item position
+        // Generate name based on item position
         return tabTitles[position];
     }
 }

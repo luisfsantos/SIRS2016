@@ -6,7 +6,7 @@ import android.os.Bundle;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.SearchIMDB;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.FetchMenuSR;
 
 /**
  * Created by Catarina on 17/11/2016.
@@ -18,7 +18,7 @@ public class LoadingMenuActivity extends BaseActivity implements CallsAsyncTask 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_menu);
-        SearchIMDB.updateDelegate(this);
+        FetchMenuSR.updateDelegate(this);
     }
 
     @Override

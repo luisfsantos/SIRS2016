@@ -38,11 +38,11 @@ public class MenuItemDetailFragment extends BaseFragment {
      */
     private RestaurantMenu.MenuItem menuItem;
 
-    @Bind(R.id.plot)
-    TextView plot;
+    @Bind(R.id.description)
+    TextView description;
 
-    @Bind(R.id.year)
-    TextView year;
+    @Bind(R.id.price)
+    TextView price;
 
     @Bind(R.id.backdrop)
     ImageView backdropImg;
@@ -74,16 +74,16 @@ public class MenuItemDetailFragment extends BaseFragment {
 
         if (menuItem != null) {
             loadBackdrop();
-            collapsingToolbar.setTitle(menuItem.title);
-            year.setText(menuItem.year);
-            plot.setText(menuItem.plot);
+            collapsingToolbar.setTitle(menuItem.name);
+            price.setText(Float.toString(menuItem.price) + getString(R.string.currency));
+            description.setText(menuItem.description);
         }
 
         return rootView;
     }
 
     private void loadBackdrop() {
-        Glide.with(this).load(menuItem.posterURL).centerCrop().into(backdropImg);
+        Glide.with(this).load(menuItem.imageURL).centerCrop().into(backdropImg);
     }
 
     @OnClick(R.id.add_to_cart)

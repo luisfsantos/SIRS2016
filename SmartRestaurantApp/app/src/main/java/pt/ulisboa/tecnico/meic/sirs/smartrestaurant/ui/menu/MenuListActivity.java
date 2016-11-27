@@ -16,14 +16,12 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
 import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.makeLogTag;
 
 /**
- * Lists all available quotes. This Activity supports a single pane (= smartphones) and a two pane mode (= large screens with >= 600dp width).
+ * Lists all available menu items.
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
 public class MenuListActivity extends BaseActivity implements MenuListFragment.Callback {
-    /**
-     * Whether or not the activity is running on a device with a large screen
-     */
+
     private static final String TAG = makeLogTag(BaseActivity.class);
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -71,7 +69,7 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
     /**
      * Called when an item has been selected
      *
-     * @param id the selected quote ID
+     * @param id the selected item ID
      */
     @Override
     public void onItemSelected(String id) {

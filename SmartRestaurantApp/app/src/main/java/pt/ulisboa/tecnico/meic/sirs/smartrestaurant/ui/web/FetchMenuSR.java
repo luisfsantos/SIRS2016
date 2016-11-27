@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,16 +15,14 @@ import java.util.Map;
 
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.RestaurantMenu;
 
-public class SearchIMDB extends AsyncTask<String, Void, Map<String, String>> {
+public class FetchMenuSR extends AsyncTask<String, Void, Map<String, String>> {
 
-    private final String IMDB_BASE = "http://www.omdbapi.com/?s=";
-    public static String[] searchTopics = new String[] {"iron man", "iron man", "thor"};
+    private final String MENU_BASE = "https://luissantos.me/menu/";
 
+    private static CallsAsyncTask activity = null;
 
-    public static CallsAsyncTask activity = null;
-
-    public SearchIMDB(CallsAsyncTask delegate) {
-        this.activity = delegate;
+    public FetchMenuSR(CallsAsyncTask delegate) {
+        activity = delegate;
     }
     
     public static void updateDelegate(CallsAsyncTask delegate) {
@@ -34,10 +33,10 @@ public class SearchIMDB extends AsyncTask<String, Void, Map<String, String>> {
     protected Map<String, String> doInBackground(String... search) {
         Map<String, String> searchResults = new HashMap<>();
 
-        for (String s : searchTopics) {
-            String url = IMDB_BASE + s.replace(" ", "+");
+        for (String s : search) {
+            String url = MENU_BASE + s.replace(" ", "+");
             Log.i("url", url);
-            searchResults.put(s, new WebRequest().makeWebServiceCall(url, WebRequest.POSTRequest).result);
+            searchResults.put(s, new WebRequest().makeWebServiceCall(url, WebRequest.GETRequest).result);
         }
         return searchResults;
     }
@@ -46,20 +45,21 @@ public class SearchIMDB extends AsyncTask<String, Void, Map<String, String>> {
     protected void onPostExecute(Map<String, String> result) {
         super.onPostExecute(result);
 
-
         try {
             for (String key : result.keySet()) {
-                JSONObject searchResult = new JSONObject(result.get(key));
-                JSONArray results = searchResult.getJSONArray("Search");
+                JSONArray results = new JSONArray(result.get(key));
                 Log.i("results", results.toString());
 
                 for (int i = 0; i < results.length(); i++) {
                     //FIXME
-//                    RestaurantMenu.addItem(key,
-//                            results.getJSONObject(i).getString("Poster"),
-//                            results.getJSONObject(i).getString("Title"),
-//                            results.getJSONObject(i).getString("Year"),
-//                            "hello this is a description");
+                    RestaurantMenu.addItem(key,
+                            results.getJSONObject(i).getString("id"),
+                            results.getJSONObject(i).getString("name"),
+                            Float.parseFloat(results.getJSONObject(i).getString("price")),
+                            results.getJSONObject(i).getString("description"),
+                            results.getJSONObject(i).getInt("calories"),
+                            "http://images.media-allrecipes.com/userphotos/600x600/1291543.jpg" //results.getJSONObject(i).getString("image_url")
+                            );
                 }
             }
             activity.onRequestFinished();

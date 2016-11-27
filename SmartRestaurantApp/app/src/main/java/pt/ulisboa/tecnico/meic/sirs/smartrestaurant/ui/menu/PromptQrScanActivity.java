@@ -12,7 +12,7 @@ import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.SearchIMDB;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.FetchMenuSR;
 
 /**
  * Created by Catarina on 15/11/2016.
@@ -35,7 +35,8 @@ public class PromptQrScanActivity extends BaseActivity implements CallsAsyncTask
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            new SearchIMDB(this).execute(SlidingTabsAdapter.searchTopics);
+//            new SearchIMDB(this).execute(SlidingTabsAdapter.searchTopics);
+              new FetchMenuSR(this).execute(SlidingTabsAdapter.searchTopics);
         } else {
             Intent intent = new Intent(PromptQrScanActivity.this, NoNetworkConnectionActivity.class);
             startActivity(intent);
