@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 
 /**
@@ -13,10 +14,10 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
  */
 public class SlidingTabsAdapter extends FragmentPagerAdapter {
 
-    final int PAGE_COUNT = 3;
+    private final int PAGE_COUNT = 3;
     private String[] tabTitles;
-    public static String[] searchTopics = new String[] {"appetizers", "mains", "desserts"};
-    Context context;
+    static String[] searchTopics = new String[] {BuildConfig.AP_DIR, BuildConfig.MC_DIR,  BuildConfig.DE_DIR};
+    private Context context;
 
     public SlidingTabsAdapter(FragmentManager fm, Context context) {
         super(fm);

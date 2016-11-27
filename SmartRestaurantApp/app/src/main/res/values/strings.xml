@@ -15,9 +15,11 @@
     <string name="tab_one">Appetizers</string>
     <string name="tab_two">Main Courses</string>
     <string name="tab_three">Desserts</string>
-
     <string name="currency">€</string>
 
+    <!-- Menu Item Detail -->
+    <string name="menu_item_price">Price</string>
+    <string name="menu_item_description">Description</string>
 
 
     <string name="samples_title">Hello name</string>
@@ -47,7 +49,6 @@
     <string name="user_info_first_name">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_FIRST_NAME</string>
     <string name="user_info_last_name">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_LAST_NAME</string>
     <string name="user_info_nif">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_NIF</string>
-    <string name="menu_item_price">Price</string>
-    <string name="menu_item_description">Description</string>
+
 
 </resources>

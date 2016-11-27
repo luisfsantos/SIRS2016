@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity;
 
@@ -22,7 +23,7 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity;
 
 public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
 
-    private final String SIGNUP_BASE = "https://luissantos.me/register/?";
+    private final String SIGNUP_BASE = BuildConfig.SERVER_URL + BuildConfig.REGISTER_DIR + BuildConfig.POST_PROMPT;
     CallsAsyncTask activity;
 
     public SignUpSR(CallsAsyncTask delegate) {
