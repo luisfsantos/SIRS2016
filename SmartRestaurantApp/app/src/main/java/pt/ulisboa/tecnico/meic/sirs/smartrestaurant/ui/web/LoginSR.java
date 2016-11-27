@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoginActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity;
@@ -23,8 +24,8 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity;
 
 public class LoginSR extends AsyncTask<String, Void, WebRequest.WebResult> {
 
-    private final String LOGIN_BASE = "https://luissantos.me/login/?";
-    CallsAsyncTask activity;
+    private final String LOGIN_BASE = BuildConfig.SERVER_URL + BuildConfig.LOGIN_DIR + BuildConfig.POST_PROMPT;
+    private CallsAsyncTask activity;
 
     public LoginSR(CallsAsyncTask delegate) {
         this.activity = delegate;
@@ -61,7 +62,8 @@ public class LoginSR extends AsyncTask<String, Void, WebRequest.WebResult> {
                     String key = keys.next();
                     JSONArray errorMsgs = jsonResult.getJSONArray(key);
                     for (int i = 0; i < errorMsgs.length(); i++) {
-                        sb.append(errorMsgs.get(i) + "\n");
+                        sb.append(errorMsgs.get(i));
+                        sb.append("\n");
                     }
                 }
                 ((LoginActivity) activity).updateErrorView(sb.toString());

@@ -13,11 +13,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.RestaurantMenu;
 
 public class FetchMenuSR extends AsyncTask<String, Void, Map<String, String>> {
 
-    private final String MENU_BASE = "https://luissantos.me/menu/";
+    private final String MENU_BASE = BuildConfig.SERVER_URL + BuildConfig.MENU_DIR;
+
 
     private static CallsAsyncTask activity = null;
 
