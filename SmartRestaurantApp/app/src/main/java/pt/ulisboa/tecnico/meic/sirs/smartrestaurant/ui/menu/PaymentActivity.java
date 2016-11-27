@@ -45,10 +45,10 @@ public class PaymentActivity extends BaseActivity {
         for (int pos = 0; pos < Order.ITEMS.size(); pos++) {
             RestaurantMenu.MenuItem item = RestaurantMenu.ITEM_MAP.get(Order.ITEMS.get(pos));
             View view = getLayoutInflater().inflate(R.layout.list_item_order_payment, null);
-            ((TextView) view.findViewById(R.id.menu_item_name)).setText(item.title);
-            ((TextView) view.findViewById(R.id.menu_item_price)).setText(Order.getItemQuantity(pos) + " x " + item.year);
+            ((TextView) view.findViewById(R.id.menu_item_name)).setText(item.name);
+            ((TextView) view.findViewById(R.id.menu_item_price)).setText(Order.getItemQuantity(pos) + " x " + item.price + getString(R.string.currency));
             orderList.addView(view);
         }
-        ((TextView) findViewById(R.id.order_price)).setText(Order.getTotalPrice() + "€");
+        ((TextView) findViewById(R.id.order_price)).setText(String.format("%.2f", Order.getTotalPrice()) + getString(R.string.currency));
     }
 }

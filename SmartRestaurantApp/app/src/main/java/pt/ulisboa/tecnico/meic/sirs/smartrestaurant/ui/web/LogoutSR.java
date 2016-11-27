@@ -10,7 +10,7 @@ import android.util.Log;
 public class LogoutSR extends AsyncTask<String, Void, WebRequest.WebResult> {
 
     private final String LOGOUT_BASE = "https://luissantos.me/logout";
-    CallsAsyncTask activity;
+    private CallsAsyncTask activity;
 
     public LogoutSR(CallsAsyncTask delegate) {
         this.activity = delegate;

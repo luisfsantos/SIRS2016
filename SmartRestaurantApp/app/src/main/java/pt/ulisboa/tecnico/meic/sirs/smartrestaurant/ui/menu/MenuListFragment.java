@@ -123,11 +123,11 @@ public class MenuListFragment extends ListFragment {
             }
 
             final RestaurantMenu.MenuItem item = (RestaurantMenu.MenuItem) getItem(position);
-            ((TextView) convertView.findViewById(R.id.menu_item_name)).setText(item.title);
-            ((TextView) convertView.findViewById(R.id.menu_item_price)).setText(item.year);
+            ((TextView) convertView.findViewById(R.id.menu_item_name)).setText(item.name);
+            ((TextView) convertView.findViewById(R.id.menu_item_price)).setText(Float.toString(item.price) + getString(R.string.currency));
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
 
-            Glide.with(getActivity()).load(item.posterURL).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
+            Glide.with(getActivity()).load(item.imageURL).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override
                 protected void setResource(Bitmap resource) {
                     RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getActivity().getResources(), resource);

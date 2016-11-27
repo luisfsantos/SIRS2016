@@ -30,11 +30,6 @@ public class LoginActivity extends BaseActivity implements CallsAsyncTask {
 
     @OnClick(R.id.submit_login)
     public void onSubmitLoginClicked(View view) {
-        //FIXME
-        //TODO 1. check if fields are filled (DONE)
-        //TODO 2. synchronous call server to validate user credentials
-        //TODO 3. if server does not authorize login, show TextView 'Wrong credentials'
-
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
@@ -42,7 +37,6 @@ public class LoginActivity extends BaseActivity implements CallsAsyncTask {
             updateErrorView("One or more fields are missing.");
             return;
         }
-
         new LoginSR(this).execute(username, password);
     }
 

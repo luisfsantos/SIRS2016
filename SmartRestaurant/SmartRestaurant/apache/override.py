@@ -2,6 +2,6 @@
 
 from SmartRestaurant.settings import *
 
-DEBUG = True
+DEBUG = False 
 ALLOWED_HOSTS = ['www.luissantos.me', 'luissantos.me']
 PRODUCTION = True
