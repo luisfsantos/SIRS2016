@@ -29,6 +29,7 @@ class Meal(models.Model):
 
     calories = models.IntegerField()
     ingredients = models.ManyToManyField(Ingredient, blank=True)
+    image_url = models.CharField(max_length=255, blank=True, default='')
 
     class Meta:
         ordering = ('meal_type',)
