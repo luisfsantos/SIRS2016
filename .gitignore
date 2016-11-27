@@ -1,3 +1,4 @@
 ~*
 *.pyc
 menu_image/
+migrations/

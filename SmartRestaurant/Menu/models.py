@@ -2,9 +2,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-def upload_to(instance, filename):
-    return 'media/menu/{}/{}'.format(instance.name, filename)
-
 # Create your models here.
 class Ingredient(models.Model):
     name = models.CharField(max_length=100, blank=True, default='')
@@ -32,7 +29,7 @@ class Meal(models.Model):
 
     calories = models.IntegerField()
     ingredients = models.ManyToManyField(Ingredient, blank=True)
-    image = models.ImageField(blank=True, upload_to=upload_to)
+    image_url = models.CharField(max_length=255, blank=True, default='')
 
     class Meta:
         ordering = ('meal_type',)
