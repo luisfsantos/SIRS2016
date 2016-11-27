@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 
 /**

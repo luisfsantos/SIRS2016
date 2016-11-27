@@ -21,6 +21,11 @@ public class Order {
      */
     private static Map<String, Integer> QUANTITY = new HashMap<>();
 
+    public static void clear() {
+        ITEMS.clear();
+        QUANTITY.clear();
+    }
+
     public static boolean isEmpty() {
         return ITEMS.isEmpty();
     }
@@ -54,10 +59,10 @@ public class Order {
         ITEMS.remove(position);
     }
 
-    public static int getTotalPrice() {
-        int total = 0;
+    public static float getTotalPrice() {
+        float total = 0;
         for (String id : ITEMS) {
-            total += QUANTITY.get(id) * Integer.parseInt(RestaurantMenu.ITEM_MAP.get(id).year);
+            total += QUANTITY.get(id) * RestaurantMenu.ITEM_MAP.get(id).price;
         }
         return total;
     }

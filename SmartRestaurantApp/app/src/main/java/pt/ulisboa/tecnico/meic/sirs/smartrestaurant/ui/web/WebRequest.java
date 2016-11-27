@@ -33,6 +33,7 @@ public class WebRequest {
     public WebRequest() {
         CookieHandler.setDefault(cookieManager);
     }
+
     /**
      * Making web service call
      *

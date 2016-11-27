@@ -28,13 +28,6 @@ public class SignUpActivity extends BaseActivity implements CallsAsyncTask {
     
     @OnClick(R.id.submit_signup)
     public void onSubmitSignUpClicked(View view) {
-
-        //TODO 1. check if all fields are filled in
-        //TODO 2. check correctness of fields (invalid chars) -- no need: django does this
-        //TODO 3. synchronous call server to register user
-        //TODO 4. wait for server response and start new activity
-        //FIXME
-
         String email = ((EditText)findViewById(R.id.email)).getText().toString();
         String username = ((EditText)findViewById(R.id.username)).getText().toString();
         String password = ((EditText)findViewById(R.id.password)).getText().toString();
@@ -48,9 +41,7 @@ public class SignUpActivity extends BaseActivity implements CallsAsyncTask {
             updateErrorView("All fields are mandatory.");
             return;
         }
-
         new SignUpSR(this).execute(email, username, password, firstName, lastName, nif);
-
     }
     
     @Override

@@ -69,7 +69,8 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
                     String key = keys.next();
                     JSONArray errorMsgs = jsonResult.getJSONArray(key);
                     for (int i = 0; i < errorMsgs.length(); i++) {
-                        sb.append(errorMsgs.get(i) + "\n");
+                        sb.append(errorMsgs.get(i));
+                        sb.append("\n");
                     }
                 }
                 ((SignUpActivity) activity).updateErrorView(sb.toString());
@@ -80,7 +81,7 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         }
     }
 
-    protected static void saveUserData(Context context, String email, String username, int nif) {
+    private static void saveUserData(Context context, String email, String username, int nif) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.user_info_pref), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
@@ -88,6 +89,6 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         editor.putString(context.getString(R.string.user_info_username), username);
         editor.putInt(context.getString(R.string.user_info_nif), nif);
 
-        editor.commit();
+        editor.apply();
     }
 }
