@@ -22,9 +22,8 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity;
 
 public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
 
-    private final String SIGNUP_BASE = "https://luissantos.me/accounts/?";
+    private final String SIGNUP_BASE = "https://luissantos.me/register/?";
     CallsAsyncTask activity;
-    HashMap<String, String> search;
 
     public SignUpSR(CallsAsyncTask delegate) {
         this.activity = delegate;
@@ -42,8 +41,8 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         search.put("email", params[0]);
         search.put("username", params[1]);
         search.put("password", params[2]); //FIXME
-        search.put("firstname", params[3]);
-        search.put("lastname", params[4]);
+        search.put("first_name", params[3]);
+        search.put("last_name", params[4]);
         search.put("nif", params[5]);
 
         return new WebRequest().makeWebServiceCall(SIGNUP_BASE, WebRequest.POSTRequest, search);
@@ -59,10 +58,10 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
                 saveUserData((Context) activity,
                         jsonResult.getString("email"),
                         jsonResult.getString("username"),
-                        jsonResult.getInt("nif"));
+                        jsonResult.getInt("nif")
+                        );
                 activity.onRequestFinished();
             } else {
-                Context context = (Context) activity;
                 Iterator<String> keys = jsonResult.keys();
                 StringBuilder sb = new StringBuilder();
 

@@ -29,6 +29,9 @@
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LogoutActivity"
+            android:label="User logout"/>
+        <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity"
             android:label="User Signup"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity"
