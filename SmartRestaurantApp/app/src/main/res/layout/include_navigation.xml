@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeight"
         android:orientation="vertical"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:isScrollContainer="false">
 
         <android.support.design.widget.NavigationView
             android:id="@+id/logout"

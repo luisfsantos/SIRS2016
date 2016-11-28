@@ -56,7 +56,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_remove_circle_outline_black_24dp"
         android:contentDescription="Decrease quantity"
-        android:tint="@color/theme_primary_light"/>
+        android:tint="@color/theme_primary_dark"/>
     <ImageButton
         android:id="@+id/quantity_up"
         android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_add_circle_outline_black_24dp"
         android:contentDescription="Increase quantity"
-        android:tint="@color/theme_primary_light"/>
+        android:tint="@color/theme_primary_dark"/>
     <ImageButton
         android:id="@+id/delete_item"
         android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_delete_black_24dp"
         android:contentDescription="Delete item from order"
-        android:tint="@color/theme_primary_light"/>
+        android:tint="@color/theme_primary_dark"/>
 
 
 </LinearLayout>

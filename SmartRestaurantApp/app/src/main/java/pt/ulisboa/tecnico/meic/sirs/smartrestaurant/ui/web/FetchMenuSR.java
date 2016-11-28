@@ -53,14 +53,14 @@ public class FetchMenuSR extends AsyncTask<String, Void, Map<String, String>> {
                 Log.i("results", results.toString());
 
                 for (int i = 0; i < results.length(); i++) {
-                    //FIXME
+                    //FIXME ingredients
                     RestaurantMenu.addItem(key,
                             results.getJSONObject(i).getString("id"),
                             results.getJSONObject(i).getString("name"),
                             Float.parseFloat(results.getJSONObject(i).getString("price")),
                             results.getJSONObject(i).getString("description"),
                             results.getJSONObject(i).getInt("calories"),
-                            "http://images.media-allrecipes.com/userphotos/600x600/1291543.jpg" //results.getJSONObject(i).getString("image_url")
+                            results.getJSONObject(i).getString("image_url")
                             );
                 }
             }

@@ -29,7 +29,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:src="@drawable/ic_network_check_black_48dp"
                     android:contentDescription="@string/no_network_connection_icon"
-                    android:tint="@color/theme_primary_light"/>
+                    android:tint="@color/theme_primary_dark"/>
 
                 <TextView
                     android:layout_width="match_parent"
