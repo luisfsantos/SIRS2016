@@ -66,7 +66,7 @@ public class OrderListFragment extends ListFragment {
 
             final RestaurantMenu.MenuItem item = (RestaurantMenu.MenuItem) getItem(position);
             ((TextView) convertView.findViewById(R.id.menu_item_name)).setText(item.name);
-            ((TextView) convertView.findViewById(R.id.menu_item_price)).setText(getItemQuantity(position) + " x " + item.price);
+            ((TextView) convertView.findViewById(R.id.menu_item_price)).setText(getItemQuantity(position) + " x " + item.price + getString(R.string.currency));
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
 
             Glide.with(getActivity()).load(item.imageURL).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {

@@ -29,8 +29,8 @@ public class RestaurantMenu {
         COURSE_MAP.clear();
     }
 
-    public static void addItem(String course, String id, String name, float price, String description, int calories, String imageURL) {
-        addItem(course, new MenuItem(id, name, price, description, calories, imageURL));
+    public static void addItem(String course, String id, String name, float price, String description, int calories, String imageURL, String[] ingredients) {
+        addItem(course, new MenuItem(id, name, price, description, calories, imageURL, ingredients));
     }
     private static void addItem(String courseName, MenuItem item) {
         CourseMenu courseMenu = COURSE_MAP.get(courseName);
@@ -66,16 +66,17 @@ public class RestaurantMenu {
         public final float price;
         public final String description;
         public final int calories;
-        public final List<String> ingredients = new ArrayList<>();
+        public final String[] ingredients;
 
 
-        public MenuItem(String id, String name, float price, String description, int calories, String imageURL) {
+        public MenuItem(String id, String name, float price, String description, int calories, String imageURL, String[] ingredients) {
             this.id = id;
             this.name = name;
             this.price = price;
             this.description = description;
             this.calories = calories;
             this.imageURL = imageURL;
+            this.ingredients = ingredients;
         }
     }
 }

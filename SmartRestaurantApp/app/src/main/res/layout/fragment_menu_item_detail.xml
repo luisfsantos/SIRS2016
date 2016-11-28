@@ -58,24 +58,29 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/card_margin">
 
-                <LinearLayout
+                <RelativeLayout
                     style="@style/Widget.CardContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/menu_item_price"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:textAppearance="@style/Theme.TextAppearance.CardTitle" />
 
                     <TextView
                         android:id="@+id/price"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.99€"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -93,11 +98,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/menu_item_description"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                        android:textAppearance="@style/Theme.TextAppearance.CardTitle" />
 
                     <TextView
                         android:id="@+id/description"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -121,13 +125,32 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/menu_item_more_info"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                        android:layout_marginBottom="@dimen/list_item_article_space"
+                        android:textAppearance="@style/Theme.TextAppearance.CardTitle" />
+
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/lorem_ipsum" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:text="@string/menu_item_calories" />
 
+                    <TextView
+                        android:id="@+id/calorie_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/list_item_article_space"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:text="@string/menu_item_ingredients" />
+
+                    <TextView
+                        android:id="@+id/ingredients"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>

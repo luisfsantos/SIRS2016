@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
@@ -56,6 +57,12 @@ public class MenuListFragment extends ListFragment {
         setHasOptionsMenu(true);
         Bundle bundle = getArguments();
         searchTopic = bundle.getString("searchTopic");
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getListView().setSelector(R.drawable.list_selector);
     }
 
     @Override

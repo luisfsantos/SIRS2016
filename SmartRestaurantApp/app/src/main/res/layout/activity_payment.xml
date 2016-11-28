@@ -35,7 +35,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Payment Method"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                        android:textAppearance="@style/Theme.TextAppearance.CardTitle" />
 
                     <android.support.v7.widget.AppCompatSpinner
                         android:layout_marginTop="@dimen/list_item_article_space"
@@ -60,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="My Order"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+                        android:textAppearance="@style/Theme.TextAppearance.CardTitle"/>
 
                     <LinearLayout
                         android:id="@+id/order_payment_list"

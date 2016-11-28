@@ -139,6 +139,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="First name"
+                        android:inputType="textCapWords"
                         android:singleLine="true"
                         android:maxLines="1"/>
 
@@ -154,6 +155,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Last name"
+                        android:inputType="textCapWords"
                         android:singleLine="true"
                         android:maxLines="1"/>
 

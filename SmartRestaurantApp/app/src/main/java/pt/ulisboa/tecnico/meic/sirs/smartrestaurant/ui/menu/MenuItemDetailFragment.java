@@ -5,6 +5,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,11 +48,18 @@ public class MenuItemDetailFragment extends BaseFragment {
     @Bind(R.id.backdrop)
     ImageView backdropImg;
 
+    @Bind(R.id.calorie_count)
+    TextView calorie_count;
+
+    @Bind(R.id.ingredients)
+    TextView ingredient_list;
+
     @Bind(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbar;
 
     @Bind(R.id.add_to_cart)
     FloatingActionButton addCart;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +85,8 @@ public class MenuItemDetailFragment extends BaseFragment {
             collapsingToolbar.setTitle(menuItem.name);
             price.setText(Float.toString(menuItem.price) + getString(R.string.currency));
             description.setText(menuItem.description);
+            calorie_count.setText(Integer.toString(menuItem.calories) + " " + getString(R.string.menu_item_calories_unit));
+            ingredient_list.setText(TextUtils.join(", ", menuItem.ingredients));
         }
 
         return rootView;

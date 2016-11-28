@@ -53,6 +53,12 @@ public class FetchMenuSR extends AsyncTask<String, Void, Map<String, String>> {
                 Log.i("results", results.toString());
 
                 for (int i = 0; i < results.length(); i++) {
+                    JSONArray jsonIngredients = results.getJSONObject(i).getJSONArray("ingredients");
+                    String [] ingredients = new String[jsonIngredients.length()];
+                    for (int j = 0; j < jsonIngredients.length(); j++) {
+                        ingredients[j] = jsonIngredients.getJSONObject(j).getString("name");
+                    }
+
                     //FIXME ingredients
                     RestaurantMenu.addItem(key,
                             results.getJSONObject(i).getString("id"),
@@ -60,8 +66,9 @@ public class FetchMenuSR extends AsyncTask<String, Void, Map<String, String>> {
                             Float.parseFloat(results.getJSONObject(i).getString("price")),
                             results.getJSONObject(i).getString("description"),
                             results.getJSONObject(i).getInt("calories"),
-                            results.getJSONObject(i).getString("image_url")
-                            );
+                            results.getJSONObject(i).getString("image_url"),
+                            ingredients);
+
                 }
             }
             activity.onRequestFinished();

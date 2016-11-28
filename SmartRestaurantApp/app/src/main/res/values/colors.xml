@@ -9,4 +9,8 @@
 
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
+
+    <drawable name="focused">#dec05f</drawable>
+    <drawable name="selected">@drawable/focused</drawable>
+
 </resources>
