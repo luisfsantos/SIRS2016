@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('Users.urls')),
     url(r'^menu/', include('Menu.urls')),
+    url(r'^api/', include('AndroidAPI.urls')),
 ]
