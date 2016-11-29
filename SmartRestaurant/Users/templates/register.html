@@ -124,7 +124,7 @@ body {
 	<div class="login-page">
   <div class="form">
     {% csrf_token %}
-    {{ uform.as_p }}
+    {{ uform }}
     {{ pform.as_p }}
     <input type="submit" value="Submit" />
   </div>
