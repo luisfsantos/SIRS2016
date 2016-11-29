@@ -8,7 +8,7 @@ from Menu.serializers import MealSerializer, IngredientSerializer
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 # Create your views here.
-class MainList(APIView):
+class MainListAPI(APIView):
     """
     List all mainCourses, or create a new mainCourse.
     """
@@ -29,7 +29,7 @@ class MainList(APIView):
             return Response(meal.data, status=status.HTTP_201_CREATED)
         return Response(meal.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class AppetizerList(APIView):
+class AppetizerListAPI(APIView):
     """
     List all appetizers, or create a new appetizer.
     """
@@ -51,7 +51,7 @@ class AppetizerList(APIView):
             return Response(meal.data, status=status.HTTP_201_CREATED)
         return Response(meal.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class DessertList(APIView):
+class DessertListAPI(APIView):
     """
     List all desserts, or create a new dessert.
     """
@@ -74,7 +74,7 @@ class DessertList(APIView):
         return Response(meal.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class IngredientList(APIView):
+class IngredientListAPI(APIView):
     """
     List all ingredients, or create a new ingredient.
     """

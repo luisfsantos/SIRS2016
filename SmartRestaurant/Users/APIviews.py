@@ -27,7 +27,7 @@ class DailyLoginThrottle(AnonRateThrottle):
 
 @api_view(['GET'])
 @login_required()
-def AccountList(request):
+def AccountListAPI(request):
     """
     List all users, or create a new user.
     """
@@ -39,7 +39,7 @@ def AccountList(request):
 
 @api_view(['GET', 'POST'])
 #@throttle_classes([DailyRegisterThrottle])
-def register(request):
+def registerAPI(request):
     if request.method == 'POST':
         # nif validation
         if len(str(request.data.get('nif', 0))) != 9:
@@ -59,7 +59,7 @@ def register(request):
 
 @api_view(['GET', 'POST'])
 #@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
-def login_user(request):
+def login_userAPI(request):
     if request.method == 'POST':
         username = request.data.get("username", '')
         password = request.data.get("password", '')
@@ -78,7 +78,7 @@ def login_user(request):
 
 @api_view(['GET'])
 #@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
-def logout_user(request):
+def logout_userAPI(request):
     if request.user.is_authenticated():
         username = request.user.username
         logout(request)
@@ -89,6 +89,6 @@ def logout_user(request):
 @api_view(['GET'])
 #@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
 @login_required()
-def test_loggedin(request):
+def test_loggedinAPI(request):
     return Response(createResponse("Test", "You are logged in."))
 
