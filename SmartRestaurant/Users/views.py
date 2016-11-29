@@ -42,5 +42,4 @@ def register(request):
     else:
         uform = UserForm()
         pform = UserProfileForm()
-
-    return render(request, 'register.html', {'uform': uform, 'pform': pform})
+        return render(request, 'register.html', {'uform': uform, 'pform': pform})
