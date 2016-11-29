@@ -2,3 +2,4 @@
 *.pyc
 menu_image/
 migrations/
+.idea/

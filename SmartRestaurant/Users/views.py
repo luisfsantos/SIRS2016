@@ -68,7 +68,8 @@ def login_user(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return Response(createResponse("Login", "Success!"), status=status.HTTP_200_OK)
+                serialize = UserSerializer(user)
+                return Response(createResponse("Login", serialize.data), status=status.HTTP_200_OK)
             else:
                 return Response(createResponse("Login", "Your SmartRestaurant account is disabled."), status=status.HTTP_400_BAD_REQUEST)
         else:
