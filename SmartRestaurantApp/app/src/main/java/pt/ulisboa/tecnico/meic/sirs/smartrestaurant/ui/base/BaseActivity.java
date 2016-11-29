@@ -9,17 +9,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
-import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.SettingsActivity;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoginActivity;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.AccountDetailsActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LogoutActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderListActivity;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.LogoutSR;
 
 import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.logD;
 import static pt.ulisboa.tecnico.meic.sirs.smartrestaurant.util.LogUtil.makeLogTag;
@@ -133,7 +128,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 startActivity(new Intent(this, OrderListActivity.class));
                 break;
             case R.id.nav_account:
-                startActivity(new Intent(this, SettingsActivity.class));
+                startActivity(new Intent(this, AccountDetailsActivity.class));
                 break;
         }
     }

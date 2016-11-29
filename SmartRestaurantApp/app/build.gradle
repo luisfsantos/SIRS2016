@@ -24,17 +24,17 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SERVER_URL", '"https://luissantos.me/"'
+            buildConfigField "String", "SERVER_URL", '"https://luissantos.me/api/"'
         }
 
         debug {
-            buildConfigField "String", "SERVER_URL", '"https://luissantos.me/"'
+            buildConfigField "String", "SERVER_URL", '"https://luissantos.me/api/"'
         }
     }
 }
 
 dependencies {
-    compile 'com.android.volley:volley:1.0.0'
+    //compile 'com.android.volley:volley:1.0.0'
     compile 'me.dm7.barcodescanner:zxing:1.9'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:${android_support_lib_version}"

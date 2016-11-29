@@ -59,8 +59,10 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
                 saveUserData((Context) activity,
                         jsonResult.getString("email"),
                         jsonResult.getString("username"),
-                        jsonResult.getInt("nif")
-                        );
+                        jsonResult.getString("first_name"),
+                        jsonResult.getString("last_name"),
+                        jsonResult.getInt("nif"));
+
                 activity.onRequestFinished();
             } else {
                 Iterator<String> keys = jsonResult.keys();
@@ -82,14 +84,16 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         }
     }
 
-    private static void saveUserData(Context context, String email, String username, int nif) {
+    protected static void saveUserData(Context context, String email, String username, String firstName, String lastName, int nif) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.user_info_pref), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
         editor.putString(context.getString(R.string.user_info_email), email);
         editor.putString(context.getString(R.string.user_info_username), username);
+        editor.putString(context.getString(R.string.user_info_first_name), firstName);
+        editor.putString(context.getString(R.string.user_info_last_name), lastName);
         editor.putInt(context.getString(R.string.user_info_nif), nif);
 
-        editor.apply();
+        editor.commit();
     }
 }
