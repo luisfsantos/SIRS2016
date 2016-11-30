@@ -4,9 +4,11 @@
 
 	<div class="login-page">
         <div class="form">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Submit" />
+            <form action="/login/" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button><input type="submit" value="Submit" /></button>
+            </form>
             {% if not active %}
                 <p>This user is not active please contact support admin@smartrestaurant.com</p>
             {% endif %}
