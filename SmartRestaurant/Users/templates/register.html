@@ -8,7 +8,7 @@
                     {% csrf_token %}
                     {{ uform.as_p }}
                     {{ pform.as_p }}
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Submit" class="form_button" />
                 </form>
             {% else %}
                 <p>You do not have permission to view this resource.</p>

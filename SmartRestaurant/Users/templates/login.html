@@ -7,7 +7,7 @@
             <form action="/login/" method="post">
                     {% csrf_token %}
                     {{ form }}
-                    <button><input type="submit" value="Submit" /></button>
+                    <input type="submit" value="Submit" class="form_button" />
             </form>
             {% if not active %}
                 <p>This user is not active please contact support admin@smartrestaurant.com</p>
