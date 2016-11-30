@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_toolbar"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/choose"
+            android:layout_marginTop="@dimen/button_height"
+            android:layout_marginLeft="@dimen/button_height"
+            android:layout_marginRight="@dimen/button_height"
+            android:layout_marginBottom="@dimen/regular_offset">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_payment_method_header"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_gravity="center"/>
+            <RadioGroup
+                android:id="@+id/payment_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:layout_marginTop="@dimen/regular_offset">
+
+                <RadioButton
+                    android:id="@+id/choice_paypal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_payment_method_paypal"
+                    android:checked="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
+                <RadioButton
+                    android:id="@+id/choice_cash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_payment_method_cash"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:theme="@style/Theme.Button"
+                android:id="@+id/proceed"
+                android:layout_width="match_parent"
+                android:layout_below="@id/choose"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginLeft="@dimen/button_height"
+                android:layout_marginRight="@dimen/button_height"
+                android:layout_centerInParent="true"
+                android:text="@string/activity_payment_method_proceed"
+                android:textColor="@color/cardview_light_background"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

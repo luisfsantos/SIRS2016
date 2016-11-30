@@ -44,8 +44,7 @@ public class OrderListActivity extends BaseActivity implements UpdateTotalPriceI
         if (Order.isEmpty()) {
             Toast.makeText(this, "Your order is empty. Nothing to pay for.", Toast.LENGTH_SHORT).show();
         } else {
-            //Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, PaymentActivity.class));
+            startActivity(new Intent(OrderListActivity.this, ChoosePaymentMethodActivity.class));
         }
     }
 

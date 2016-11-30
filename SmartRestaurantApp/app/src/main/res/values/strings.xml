@@ -63,6 +63,12 @@
     <string name="your_first_name">First name</string>
     <string name="your_last_name">Last name</string>
     <string name="your_vat_id">VAT Identification Number (NIF)</string>
+    <string name="activity_payment_method_proceed">Proceed</string>
+    <string name="activity_payment_method_cash">Cash</string>
+    <string name="activity_payment_method_paypal">Paypal</string>
+    <string name="activity_payment_method_header">How would you like to pay?</string>
+    <string name="pay_with_paypal">Pay with PayPal</string>
+    <string name="pay_with_cash">Pay with Cash</string>
 
 
 </resources>
