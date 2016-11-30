@@ -15,22 +15,10 @@ from Common.responses import createResponse
 from Users.forms import UserForm, UserProfileForm, LoginForm
 # Create your views here.
 
-class DailyRegisterThrottle(AnonRateThrottle):
-    scope = "sustained"
-    rate = "5/day"
-
-class BurstLoginThrottle(AnonRateThrottle):
-    scope = "burst"
-    rate = "5/s"
-
-class DailyLoginThrottle(AnonRateThrottle):
-    scope = "sustained"
-    rate = "100/day"
-
 @login_required
 def register(request):
     """
-    List all users, or create a new user.
+    Register Staff to the System
     """
     if request.user.is_superuser:
         if request.method == "POST":
