@@ -26,11 +26,8 @@ class DailyLoginThrottle(AnonRateThrottle):
     scope = "sustained"
     rate = "100/day"
 
-def check_admin(user):
-    return user.is_superuser()
-
 @login_required
-@user_passes_test(check_admin)
+@method_decorator(user_passes_test(lambda u : u.is_superuser()))
 def register(request):
     """
     List all users, or create a new user.
