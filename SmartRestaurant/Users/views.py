@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from Common.responses import createResponse
-from Users.forms import UserForm, UserProfileForm
+from Users.forms import UserForm, UserProfileForm, LoginForm
 # Create your views here.
 
 class DailyRegisterThrottle(AnonRateThrottle):
@@ -47,3 +47,20 @@ def register(request):
 
         return render(request, 'register.html', {'uform': uform, 'pform': pform})
     return render(request, 'register.html')
+
+def login_user(request):
+    form = LoginForm()
+    if request.method == 'POST':
+        username = request.data.get("username", '')
+        password = request.data.get("password", '')
+
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/accounts')
+            else:
+                return render(request, 'login.html', {'form': form, 'active': False, 'invalid': False})
+        else:
+            return render(request, 'login.html', {'form': form, 'active': False, 'invalid': True})
+    return render(request, 'login.html', {'form': form, 'active': True, 'invalid': False})
