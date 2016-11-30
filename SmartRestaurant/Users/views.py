@@ -32,7 +32,7 @@ def register(request):
     """
     List all users, or create a new user.
     """
-    if u.is_superuser:
+    if request.user.is_superuser:
         if request.method == "POST":
             uform = UserForm(data=request.POST)
             pform = UserProfileForm(data=request.POST)
