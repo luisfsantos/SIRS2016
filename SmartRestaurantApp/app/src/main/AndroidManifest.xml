@@ -49,7 +49,7 @@
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PromptQrScanActivity" />
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoadingMenuActivity"
-            android:label="No network"
+            android:label="Loading Menu"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.QrCodeScanner" />
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity"
@@ -72,9 +72,13 @@
             android:label="My Order"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
         <activity
-            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PaymentActivity"
-            android:label="Checkout"
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ChoosePaymentMethodActivity"
+            android:label="Choose Payment Method"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderListActivity" />
+        <activity
+            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderPaymentActivity"
+            android:label="Checkout"
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ChoosePaymentMethodActivity" />
     </application>
 
 </manifest>
