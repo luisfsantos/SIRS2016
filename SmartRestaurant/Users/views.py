@@ -51,16 +51,17 @@ def register(request):
 def login_user(request):
     form = LoginForm()
     if request.method == 'POST':
-        username = request.data.get("username", '')
-        password = request.data.get("password", '')
-
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/accounts')
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect('/accounts')
+                else:
+                    return render(request, 'login.html', {'form': form, 'active': False, 'invalid': False})
             else:
-                return render(request, 'login.html', {'form': form, 'active': False, 'invalid': False})
-        else:
-            return render(request, 'login.html', {'form': form, 'active': False, 'invalid': True})
+                return render(request, 'login.html', {'form': form, 'active': False, 'invalid': True})
     return render(request, 'login.html', {'form': form, 'active': True, 'invalid': False})
