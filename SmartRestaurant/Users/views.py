@@ -28,7 +28,7 @@ class DailyLoginThrottle(AnonRateThrottle):
 
 
 @login_required
-@user_passes_test(isAdmin = lambda u : u.is_admin())
+@user_passes_test(lambda u : u.is_admin())
 def register(request):
     """
     List all users, or create a new user.
