@@ -63,5 +63,5 @@ def login_user(request):
                 else:
                     return render(request, 'login.html', {'form': form, 'active': False, 'invalid': False})
             else:
-                return render(request, 'login.html', {'form': form, 'active': False, 'invalid': True})
+                return render(request, 'login.html', {'form': form, 'active': True, 'invalid': True})
     return render(request, 'login.html', {'form': form, 'active': True, 'invalid': False})
