@@ -28,22 +28,23 @@ class DailyLoginThrottle(AnonRateThrottle):
     rate = "100/day"
 
 @login_required
-@user_passes_test(lambda u : u.is_superuser)
 def register(request):
     """
     List all users, or create a new user.
     """
-    if request.method == "POST":
-        uform = UserForm(data=request.POST)
-        pform = UserProfileForm(data=request.POST)
-        if uform.is_valid():
-            user = uform.save()
-            pform = UserProfileForm(data=request.POST, instance=user.userprofile)
-            if pform.is_valid():
-                pform.save()
-                return HttpResponseRedirect('/menu/ingredients')
-    else:
-        uform = UserForm()
-        pform = UserProfileForm()
+    if u.is_superuser:
+        if request.method == "POST":
+            uform = UserForm(data=request.POST)
+            pform = UserProfileForm(data=request.POST)
+            if uform.is_valid():
+                user = uform.save()
+                pform = UserProfileForm(data=request.POST, instance=user.userprofile)
+                if pform.is_valid():
+                    pform.save()
+                    return HttpResponseRedirect('/menu/ingredients')
+        else:
+            uform = UserForm()
+            pform = UserProfileForm()
 
-    return render(request, 'register.html', {'uform': uform, 'pform': pform})
+        return render(request, 'register.html', {'uform': uform, 'pform': pform})
+    return render(request, 'register.html')

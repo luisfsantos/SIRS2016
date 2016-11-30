@@ -123,12 +123,16 @@ body {
 <body>
 	<div class="login-page">
   <div class="form">
+      {% if user.is_superuser %}
       <form action="/register/" method="post">
             {% csrf_token %}
             {{ uform.as_p }}
             {{ pform.as_p }}
             <input type="submit" value="Submit" />
       </form>
+      {% else %}
+        <p>You do not have permission to view this resource.</p>
+      {% endif %}
 
   </div>
 </div>
