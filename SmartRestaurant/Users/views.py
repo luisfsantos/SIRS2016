@@ -35,11 +35,12 @@ def register(request):
         pform = UserProfileForm(data=request.POST)
         if uform.is_valid() and pform.is_valid():
             user = uform.save()
-            profile = pform.save(commit=False)
-            profile.user = user
-            profile.save()
+            profile = pform.save()
+            user.profile = profile
+            user.save()
             return HttpResponseRedirect('/menu/ingredients')
     else:
         uform = UserForm()
         pform = UserProfileForm()
-        return render(request, 'register.html', {'uform': uform, 'pform': pform})
+
+    return render(request, 'register.html', {'uform': uform, 'pform': pform})
