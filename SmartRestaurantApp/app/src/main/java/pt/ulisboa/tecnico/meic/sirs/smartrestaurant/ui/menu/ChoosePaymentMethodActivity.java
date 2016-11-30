@@ -20,7 +20,7 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
  * Created by Catarina on 14/11/2016.
  */
 
-public class ChoosePaymentMethodActivity extends BaseActivity {
+public class ChoosePaymentMethodActivity extends BaseActivity  {
 
     public static final String PAYMENT_METHOD = "PaymentMethod";
     public static final int PAYPAL_CHOSEN = 1;

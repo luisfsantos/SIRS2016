@@ -83,7 +83,7 @@ public class MenuItemDetailFragment extends BaseFragment {
         if (menuItem != null) {
             loadBackdrop();
             collapsingToolbar.setTitle(menuItem.name);
-            price.setText(Float.toString(menuItem.price) + getString(R.string.currency));
+            price.setText(Float.toString(menuItem.price) + getString(R.string.currency_symbol));
             description.setText(menuItem.description);
             calorie_count.setText(Integer.toString(menuItem.calories) + " " + getString(R.string.menu_item_calories_unit));
             ingredient_list.setText(TextUtils.join(", ", menuItem.ingredients));

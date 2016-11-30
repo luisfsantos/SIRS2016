@@ -2,10 +2,7 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -77,6 +74,6 @@ public class OrderListActivity extends BaseActivity implements UpdateTotalPriceI
 
     @Override
     public void updateTotalPrice() {
-        ((TextView)findViewById(R.id.total_price)).setText(String.format("%.2f", Order.getTotalPrice()) + getString(R.string.currency));
+        ((TextView)findViewById(R.id.total_price)).setText(String.format("%.2f", Order.getTotalPrice()) + getString(R.string.currency_symbol));
     }
 }

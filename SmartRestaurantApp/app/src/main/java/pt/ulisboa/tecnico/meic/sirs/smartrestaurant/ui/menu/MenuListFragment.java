@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
@@ -131,7 +130,7 @@ public class MenuListFragment extends ListFragment {
 
             final RestaurantMenu.MenuItem item = (RestaurantMenu.MenuItem) getItem(position);
             ((TextView) convertView.findViewById(R.id.menu_item_name)).setText(item.name);
-            ((TextView) convertView.findViewById(R.id.menu_item_price)).setText(Float.toString(item.price) + getString(R.string.currency));
+            ((TextView) convertView.findViewById(R.id.menu_item_price)).setText(Float.toString(item.price) + getString(R.string.currency_symbol));
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
 
             Glide.with(getActivity()).load(item.imageURL).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
