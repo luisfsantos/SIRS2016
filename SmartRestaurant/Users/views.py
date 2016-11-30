@@ -36,7 +36,7 @@ def register(request):
         if uform.is_valid() and pform.is_valid():
             user = uform.save(commit=False)
             profile = pform.save(commit=False)
-            user.profile = profile
+            profile.user = user
             profile.save()
             user.save()
             return HttpResponseRedirect('/menu/ingredients')
