@@ -10,6 +10,7 @@ from rest_framework.throttling import AnonRateThrottle
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.utils.decorators import method_decorator
 from Common.responses import createResponse
 from Users.forms import UserForm, UserProfileForm
 # Create your views here.
@@ -27,7 +28,7 @@ class DailyLoginThrottle(AnonRateThrottle):
     rate = "100/day"
 
 @login_required
-@method_decorator(user_passes_test(lambda u : u.is_superuser()))
+@user_passes_test(lambda u : u.is_superuser)
 def register(request):
     """
     List all users, or create a new user.
