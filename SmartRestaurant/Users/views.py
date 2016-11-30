@@ -32,7 +32,7 @@ def register(request):
     """
     if request.method == "POST":
         uform = UserForm(data=request.POST)
-        if uform.is_valid() and pform.is_valid():
+        if uform.is_valid():
             user = uform.save()
             pform = UserProfileForm(data=request.POST, instance=user.profile)
             if pform.is_valid():
