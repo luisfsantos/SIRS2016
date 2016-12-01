@@ -12,6 +12,7 @@ from django.db import transaction
 class OrderItemSerializer(serializers.ModelSerializer):
 
     menu_item_id = serializers.IntegerField(source='menu_item.id')
+    item_name = serializers.CharField(source='menu_item.name', required=False, read_only=True)
     price = serializers.DecimalField(source='menu_item.price', decimal_places=2, max_digits=7, required=False, read_only=True)
     class Meta:
         model = OrderItem
