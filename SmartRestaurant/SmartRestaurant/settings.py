@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'Menu',
     'Users',
-    'AndroidAPI'
+    'AndroidAPI',
+    'Payments',
+    'Orders',
 ]
 
 MIDDLEWARE = [

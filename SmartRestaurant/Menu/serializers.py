@@ -32,3 +32,5 @@ class MealSerializer(serializers.ModelSerializer):
         )
         meal.save()
         return meal
+
+
