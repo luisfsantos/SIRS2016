@@ -40,7 +40,7 @@ class Order(models.Model):
         (RECEIVED, "Received")
     )
 
-    identifier = models.CharField(max_length=32, blank=True)
+    identifier = models.CharField(max_length=32)
     price = models.DecimalField(decimal_places=2, max_digits=7)
     order_items = models.ManyToManyField(OrderItem)
     payment = models.CharField(

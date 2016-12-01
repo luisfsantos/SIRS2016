@@ -1,3 +1,6 @@
+import random
+import string
+
 from rest_framework import serializers
 
 from Orders.models import OrderItem, Order
@@ -34,6 +37,7 @@ class OrderSerializer(serializers.ModelSerializer):
             total_price = 0
             order = Order.objects.create(
                 price=0,
+                identifier=self.id_generator()
             )
             for order_item in validated_data['order_items']:
                 item = OrderItem.objects.create(
@@ -44,6 +48,9 @@ class OrderSerializer(serializers.ModelSerializer):
                 order.order_items.add(item)
             order.price = total_price
             return order
+
+    def id_generator(self, size=32, chars=string.ascii_letters + string.digits):
+        return ''.join(random.SystemRandom().choice(chars) for _ in range(size))
 
 class ViewOrderSerializer(serializers.ModelSerializer):
     order_items = OrderItemSerializer(many=True)
