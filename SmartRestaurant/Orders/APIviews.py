@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from Common.responses import createResponse
 from Orders.models import Order
-from Orders.serializers import OrderSerializer
+from Orders.serializers import OrderSerializer, ViewOrderSerializer
 
 
 @api_view(["POST", "GET"])
@@ -25,5 +25,5 @@ def order_requestAPI(request):
 
     else:
         orders = Order.objects.all()
-        order_serializer = OrderSerializer(orders, many=True)
+        order_serializer = ViewOrderSerializer(orders, many=True)
         return Response(order_serializer.data)
