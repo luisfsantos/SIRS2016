@@ -25,9 +25,12 @@ def order_requestAPI(request):
             return Response(createResponse("Order", order_serializer.errors), status=status.HTTP_400_BAD_REQUEST)
 
     else:
-        orders = Order.objects.all()
-        order_serializer = ViewOrderSerializer(orders, many=True)
-        return Response(order_serializer.data)
+        if request.user.is_superuser:
+            orders = Order.objects.all()
+            order_serializer = ViewOrderSerializer(orders, many=True)
+            return Response(order_serializer.data)
+        else:
+            return Response(createResponse("Order", "Request an order!"))
 
 @api_view(["GET"])
 @login_required()
