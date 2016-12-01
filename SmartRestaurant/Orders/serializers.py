@@ -12,11 +12,10 @@ from django.db import transaction
 class OrderItemSerializer(serializers.ModelSerializer):
 
     menu_item_id = serializers.IntegerField(source='menu_item.id')
-    price = serializers.DecimalField(source='menu_item.price', decimal_places=2, max_digits=7)
+    price = serializers.DecimalField(source='menu_item.price', decimal_places=2, max_digits=7, required=False, read_only=True)
     class Meta:
         model = OrderItem
         fields = ('menu_item_id', 'quantity', 'price')
-        extra_kwargs = {'price': {'read_only': True}}
 
     def create(self, validated_data):
         item = OrderItem(
