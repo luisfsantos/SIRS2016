@@ -1,10 +1,15 @@
 from __future__ import unicode_literals
-
+import uuid
 from django.db import models
 
 # Create your models here.
 from Menu.models import Meal
+from django.contrib.auth.models import User
 
+
+class UserOrders(models.Model):
+    user = models.ForeignKey(User)
+    order = models.UUIDField(editable=False, unique=True)
 
 class OrderItem(models.Model):
     menu_item = models.ForeignKey(Meal)
@@ -40,7 +45,7 @@ class Order(models.Model):
         (RECEIVED, "Received")
     )
 
-    identifier = models.CharField(max_length=32)
+    identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     price = models.DecimalField(decimal_places=2, max_digits=7)
     order_items = models.ManyToManyField(OrderItem)
     payment = models.CharField(

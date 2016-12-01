@@ -3,18 +3,20 @@ import string
 
 from rest_framework import serializers
 
-from Orders.models import OrderItem, Order
+from Orders.models import OrderItem, Order, UserOrders
 from Menu.models import Meal
+from Users.serializers import UserSerializer
 from django.db import transaction
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
     menu_item_id = serializers.IntegerField(source='menu_item.id')
-
+    price = serializers.DecimalField(source='menu_item.price', decimal_places=2, max_digits=7)
     class Meta:
         model = OrderItem
-        fields = ('menu_item_id', 'quantity')
+        fields = ('menu_item_id', 'quantity', 'price')
+        extra_kwargs = {'price': {'read_only': True}}
 
     def create(self, validated_data):
         item = OrderItem(
@@ -37,7 +39,6 @@ class OrderSerializer(serializers.ModelSerializer):
             total_price = 0
             order = Order.objects.create(
                 price=0,
-                identifier=self.id_generator()
             )
             for order_item in validated_data['order_items']:
                 item = OrderItem.objects.create(
@@ -47,10 +48,8 @@ class OrderSerializer(serializers.ModelSerializer):
                 total_price += Meal.objects.get(pk=order_item['menu_item']['id']).price * order_item['quantity']
                 order.order_items.add(item)
             order.price = total_price
+            order.save()
             return order
-
-    def id_generator(self, size=32, chars=string.ascii_letters + string.digits):
-        return ''.join(random.SystemRandom().choice(chars) for _ in range(size))
 
 class ViewOrderSerializer(serializers.ModelSerializer):
     order_items = OrderItemSerializer(many=True)
@@ -58,3 +57,14 @@ class ViewOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('identifier', 'order_items', 'price', 'date_created', 'payment','status', 'paypal_id', 'cash')
+
+class UserOrdersSerializer(serializers.ModelSerializer):
+    owner = UserSerializer(source='user')
+    order = serializers.SerializerMethodField()
+
+    def get_order(self, userorder):
+        return ViewOrderSerializer(Order.objects.get(identifier= userorder.order)).data
+
+    class Meta:
+        model = UserOrders
+        fields = ('order', 'owner')
