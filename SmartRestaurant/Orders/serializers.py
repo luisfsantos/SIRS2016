@@ -16,7 +16,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
     price = serializers.DecimalField(source='menu_item.price', decimal_places=2, max_digits=7, required=False, read_only=True)
     class Meta:
         model = OrderItem
-        fields = ('menu_item_id', 'quantity', 'price')
+        fields = ('menu_item_id', 'item_name', 'quantity', 'price')
 
     def create(self, validated_data):
         item = OrderItem(
