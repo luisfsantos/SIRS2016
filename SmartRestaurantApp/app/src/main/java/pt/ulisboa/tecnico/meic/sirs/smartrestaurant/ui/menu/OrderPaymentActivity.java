@@ -26,6 +26,7 @@ import java.math.BigDecimal;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.Order;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.RestaurantMenu;
@@ -39,11 +40,11 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.GetOrderInfoSR;
 public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask {
 
     private static final String TAG = "OrderPaymentActivity";
-    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK;
+    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
 
 
     // note that these credentials will differ between live & sandbox environments.
-    private static final String CONFIG_CLIENT_ID = "credentials from developer.paypal.com";
+    private static final String CONFIG_CLIENT_ID = BuildConfig.PAYPAL_CLIENT_ID;
 
     private static final int REQUEST_CODE_PAYMENT = 1;
 
@@ -89,7 +90,7 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
     public void onSubmitOrderClicked(View view) {
         switch (payment_chosen) {
             case ChoosePaymentMethodActivity.PAYPAL_CHOSEN:
-                new GetOrderInfoSR(this).execute();
+                new GetOrderInfoSR(this).execute(Order.toJSONArray());
                 break;
             case ChoosePaymentMethodActivity.CASH_CHOSEN:
                 //TODO launch confirm activity?
@@ -156,15 +157,15 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
             }
 
         BigDecimal subtotal = PayPalItem.getItemTotal(items);
-//        BigDecimal shipping = new BigDecimal("0.00");
-//        BigDecimal tax = new BigDecimal("0.00");
-//        PayPalPaymentDetails paymentDetails = new PayPalPaymentDetails(shipping, subtotal, tax);
-//        BigDecimal amount = subtotal.add(shipping).add(tax);
-        PayPalPayment payment = new PayPalPayment(subtotal, currency, "Smart Restaurant Meal", paymentIntent);
-//        payment.items(items).paymentDetails(paymentDetails);
+        BigDecimal shipping = new BigDecimal("0.00");
+        BigDecimal tax = new BigDecimal("0.00");
+        PayPalPaymentDetails paymentDetails = new PayPalPaymentDetails(shipping, subtotal, tax);
+        BigDecimal amount = subtotal.add(shipping).add(tax);
+        PayPalPayment payment = new PayPalPayment(amount, currency, "Smart Restaurant Meal", paymentIntent);
+        payment.items(items).paymentDetails(paymentDetails);
 
         //--- set other optional fields like invoice_number, custom field, and soft_descriptor
-        payment.custom("This is text that will be associated with the payment that the app can use.");
+        payment.custom(order.getString("identifier"));
         return payment;
     }
 

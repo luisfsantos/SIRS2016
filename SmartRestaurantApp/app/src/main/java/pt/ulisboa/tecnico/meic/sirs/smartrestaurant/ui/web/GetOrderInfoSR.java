@@ -22,6 +22,8 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
 
 public class GetOrderInfoSR extends AsyncTask<JSONArray, Void, WebRequest.WebResult> {
 
+    private static final String TAG = "GetOrderInfo";
+
     private static final String ORDER_BASE = BuildConfig.SERVER_URL
             + BuildConfig.ORDER_DIR
             + BuildConfig.REQUEST_DIR
@@ -45,7 +47,6 @@ public class GetOrderInfoSR extends AsyncTask<JSONArray, Void, WebRequest.WebRes
     protected WebRequest.WebResult doInBackground(JSONArray... params) {
         HashMap<String, Object> search = new HashMap<>();
         search.put("order_items", params[0]);
-        Log.d("GetOrderInfo", new WebRequest().makeWebServiceCall(ORDER_BASE, WebRequest.GETRequest).result);
         return new WebRequest().makeWebServiceCall(ORDER_BASE, WebRequest.POSTRequest, search);
     }
 
@@ -57,8 +58,8 @@ public class GetOrderInfoSR extends AsyncTask<JSONArray, Void, WebRequest.WebRes
     @Override
     protected void onPostExecute(WebRequest.WebResult webResult) {
         super.onPostExecute(webResult);
-        Log.i("GetOrderInfo", webResult.result);
-        Log.i("GetOrderInfo", Integer.toString(webResult.code));
+        Log.i(TAG, webResult.result);
+        Log.i(TAG, Integer.toString(webResult.code));
 
         if (webResult.code == HttpURLConnection.HTTP_CREATED)
             try {

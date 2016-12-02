@@ -21,6 +21,8 @@ android {
         buildConfigField "String", "ORDER_DIR", '"order/"'
         buildConfigField "String", "REQUEST_DIR", '"request"'
         buildConfigField "String", "POST_PROMPT", '"/"'
+
+        buildConfigField "String", "PAYPAL_CLIENT_ID", '"Ac46d01UTodbt_cVxaGtUgpRiBVAjGHcPGx2Q55LOx0A4qRHNVYSksBKwQUPgNX5aIkKUI24DM1G6nfV"'
     }
     buildTypes {
         release {

@@ -13,7 +13,9 @@ import java.io.OutputStreamWriter;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.net.HttpCookie;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -64,12 +66,19 @@ public class WebRequest {
             Log.d(TAG, urladdress);
             url = new URL(urladdress);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestProperty("Referer", urladdress);
             conn.setReadTimeout(15001);
             conn.setConnectTimeout(15001);
             conn.setDoInput(true);
+
             conn.setRequestProperty("Content-Type", "application/json");
             if (requestmethod == POSTRequest) {
                 conn.setRequestMethod("POST");
+                for (HttpCookie cookie : cookieManager.getCookieStore().getCookies()) {
+                    if (cookie.getName().equals("csrftoken"))
+                        conn.setRequestProperty("X-CSRFToken", cookie.getValue());
+                }
                 conn.setDoOutput(true);
             } else if (requestmethod == GETRequest) {
                 conn.setRequestMethod("GET");
