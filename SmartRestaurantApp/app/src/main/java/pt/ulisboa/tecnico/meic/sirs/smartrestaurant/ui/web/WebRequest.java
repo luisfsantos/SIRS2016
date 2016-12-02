@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStream;
@@ -21,6 +23,7 @@ import java.util.Map;
  * Created by Catarina on 12/11/2016.
  */
 public class WebRequest {
+    private static final String TAG = "WebRequest";
     public final static int GETRequest = 1;
     public final static int POSTRequest = 2;
     private static final CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
@@ -52,17 +55,19 @@ public class WebRequest {
      * @params - http request params
      */
     public WebResult makeWebServiceCall(String urladdress, int requestmethod,
-                                        HashMap<String, String> params) {
+                                        HashMap<String, Object> params) {
 
         //FIXME idea: change this to return both the responseCode (200, 201, 400, ...) and the String
         URL url;
         String response = "";
         try {
+            Log.d(TAG, urladdress);
             url = new URL(urladdress);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15001);
             conn.setConnectTimeout(15001);
             conn.setDoInput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
             if (requestmethod == POSTRequest) {
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
@@ -70,26 +75,16 @@ public class WebRequest {
                 conn.setRequestMethod("GET");
             }
 
-            if (params != null) {
-                OutputStream ostream = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(ostream, "UTF-8"));
-                StringBuilder requestresult = new StringBuilder();
-                boolean first = true;
-                for (Map.Entry<String, String> entry : params.entrySet()) {
-                    if (first)
-                        first = false;
-                    else
-                        requestresult.append("&");
-                    requestresult.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-                    requestresult.append("=");
-                    requestresult.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            if (requestmethod == POSTRequest && params != null) {
+                OutputStream out = conn.getOutputStream();
+                JSONObject jsonObject = new JSONObject();
+                for (Map.Entry<String, Object> entry : params.entrySet()) {
+                        jsonObject.put(entry.getKey(),entry.getValue());
                 }
-                writer.write(requestresult.toString());
 
-                writer.flush();
-                writer.close();
-                ostream.close();
+                Log.d(TAG, jsonObject.toString());
+                out.write(jsonObject.toString().getBytes());
+                out.close();
             }
             int reqResponseCode = conn.getResponseCode();
             InputStream inputStream;
@@ -109,8 +104,9 @@ public class WebRequest {
 
             return new WebResult(reqResponseCode, response);
 
+
         } catch (Exception e) {
-            Log.d("WebRequest", e.getMessage());
+            Log.d(TAG, e.getMessage());
             return new WebResult("Unable to retrieve web page. URL may be invalid.");
         }
     }

@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +20,7 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 
@@ -36,11 +36,11 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.GetOrderInfoSR;
 /**
  * Created by Catarina on 14/11/2016.
  */
-
 public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask {
 
     private static final String TAG = "OrderPaymentActivity";
     private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK;
+
 
     // note that these credentials will differ between live & sandbox environments.
     private static final String CONFIG_CLIENT_ID = "credentials from developer.paypal.com";
@@ -49,13 +49,10 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
 
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(CONFIG_ENVIRONMENT)
-            .clientId(CONFIG_CLIENT_ID)
-            // The following are only used in PayPalFuturePaymentActivity.
-            .merchantName("Example Merchant")
-            .merchantPrivacyPolicyUri(Uri.parse("https://www.example.com/privacy"))
-            .merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));
+            .clientId(CONFIG_CLIENT_ID);
 
     private int payment_chosen;
+    private JSONObject order;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,8 +68,8 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
             intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
             startService(intent);
         }
-        new GetOrderInfoSR(this).execute();
 
+        fillOrderCard();
         updateButtonText();
         ButterKnife.bind(this);
     }
@@ -92,7 +89,7 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
     public void onSubmitOrderClicked(View view) {
         switch (payment_chosen) {
             case ChoosePaymentMethodActivity.PAYPAL_CHOSEN:
-                handlePayPalPayment();
+                new GetOrderInfoSR(this).execute();
                 break;
             case ChoosePaymentMethodActivity.CASH_CHOSEN:
                 //TODO launch confirm activity?
@@ -105,7 +102,7 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
     public boolean providesActivityToolbar() { return true; }
 
     public void fillOrderCard() {
-         LinearLayout orderList = ((LinearLayout) findViewById(R.id.order_payment_list));
+        LinearLayout orderList = ((LinearLayout) findViewById(R.id.order_payment_list));
         for (int pos = 0; pos < Order.ITEMS.size(); pos++) {
             RestaurantMenu.MenuItem item = RestaurantMenu.ITEM_MAP.get(Order.ITEMS.get(pos));
             View view = getLayoutInflater().inflate(R.layout.list_item_order_payment, null);
@@ -113,55 +110,61 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
             ((TextView) view.findViewById(R.id.menu_item_price)).setText(Order.getItemQuantity(pos) + " x " + item.price + getString(R.string.currency_symbol));
             orderList.addView(view);
         }
-        ((TextView) findViewById(R.id.order_price)).setText(String.format("%.2f", Order.getTotalPrice()) + getString(R.string.currency_symbol));
+        ((TextView) findViewById(R.id.order_price)).setText(String.format("%.2f%s", Order.getTotalPrice(), getString(R.string.currency_symbol)));
     }
 
     @Override
-    public void onRequestFinished() {
-        Toast.makeText(this, "Async task finished", Toast.LENGTH_SHORT).show();
-        fillOrderCard();
+    public void onRequestFinished(Object object) {
+        order = (JSONObject) object;
+        handlePayPalPayment();
     }
 
     /**
     * PAYPAL STUFF BELOW
     * */
     private void handlePayPalPayment() {
-
-        PayPalPayment stuffToBuy = getStuffToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
-
-        Intent intent = new Intent(OrderPaymentActivity.this, PaymentActivity.class);
-        // send the same configuration for restart resiliency
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, stuffToBuy);
-        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+        try {
+            PayPalPayment stuffToBuy = getStuffToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
+            Intent intent = new Intent(OrderPaymentActivity.this, PaymentActivity.class);
+            // send the same configuration for restart resiliency
+            intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+            intent.putExtra(PaymentActivity.EXTRA_PAYMENT, stuffToBuy);
+            startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+        } catch (JSONException e) {
+            Toast.makeText(this, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /*
      * This method shows use of optional payment details and item list.
      */
-    private PayPalPayment getStuffToBuy(String paymentIntent) {
+    private PayPalPayment getStuffToBuy(String paymentIntent) throws JSONException {
         //--- include an item list, payment amount details
         String currency = getString(R.string.currency_short);
-        PayPalItem[] items =
-                {
-                        new PayPalItem("sample item #1", 2, new BigDecimal("87.50"), currency ,
-                                "sku-12345678"),
-                        new PayPalItem("free sample item #2", 1, new BigDecimal("0.00"),
-                                currency, "sku-zero-price"),
-                        new PayPalItem("sample item #3 with a longer name", 6, new BigDecimal("37.99"),
-                                currency, "sku-33333")
-                };
+
+            int itemsInOrder = order.getJSONArray("order_items").length();
+            PayPalItem[] items = new PayPalItem[itemsInOrder];
+            JSONObject order_item;
+            for (int i = 0; i < itemsInOrder; i++) {
+                order_item = order.getJSONArray("order_items").getJSONObject(i);
+                items[i] = new PayPalItem(
+                        order_item.getString("item_name"),
+                        order_item.getInt("quantity"),
+                        new BigDecimal(order_item.getString("price")),
+                        currency,
+                        order_item.getString("menu_item_id"));
+            }
+
         BigDecimal subtotal = PayPalItem.getItemTotal(items);
-        BigDecimal shipping = new BigDecimal("7.21");
-        BigDecimal tax = new BigDecimal("4.67");
-        PayPalPaymentDetails paymentDetails = new PayPalPaymentDetails(shipping, subtotal, tax);
-        BigDecimal amount = subtotal.add(shipping).add(tax);
-        PayPalPayment payment = new PayPalPayment(amount, currency, "sample item", paymentIntent);
-        payment.items(items).paymentDetails(paymentDetails);
+//        BigDecimal shipping = new BigDecimal("0.00");
+//        BigDecimal tax = new BigDecimal("0.00");
+//        PayPalPaymentDetails paymentDetails = new PayPalPaymentDetails(shipping, subtotal, tax);
+//        BigDecimal amount = subtotal.add(shipping).add(tax);
+        PayPalPayment payment = new PayPalPayment(subtotal, currency, "Smart Restaurant Meal", paymentIntent);
+//        payment.items(items).paymentDetails(paymentDetails);
 
         //--- set other optional fields like invoice_number, custom field, and soft_descriptor
         payment.custom("This is text that will be associated with the payment that the app can use.");
-
         return payment;
     }
 

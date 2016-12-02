@@ -73,7 +73,7 @@ public class FetchMenuSR extends
 
                 }
             }
-            activity.onRequestFinished();
+            activity.onRequestFinished(null);
 
         } catch (JSONException e) {
             Toast toast = Toast.makeText((Context) activity, "A problem occurred.", Toast.LENGTH_SHORT);

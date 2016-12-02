@@ -26,7 +26,7 @@ public class LogoutActivity extends BaseActivity implements CallsAsyncTask{
     }
 
     @Override
-    public void onRequestFinished() {
+    public void onRequestFinished(Object object) {
         WebRequest.clearCookies();
         Order.clear();
         RestaurantMenu.clear();

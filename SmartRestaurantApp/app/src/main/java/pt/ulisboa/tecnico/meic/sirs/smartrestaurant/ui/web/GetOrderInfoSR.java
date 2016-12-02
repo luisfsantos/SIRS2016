@@ -2,8 +2,17 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.HttpURLConnection;
+import java.util.HashMap;
 
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
 
@@ -11,9 +20,12 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
  * Created by Catarina on 30/11/2016.
  */
 
-public class GetOrderInfoSR extends AsyncTask<String, Void, WebRequest.WebResult> {
+public class GetOrderInfoSR extends AsyncTask<JSONArray, Void, WebRequest.WebResult> {
 
-    private static final String TEST_BASE = BuildConfig.SERVER_URL + "test";
+    private static final String ORDER_BASE = BuildConfig.SERVER_URL
+            + BuildConfig.ORDER_DIR
+            + BuildConfig.REQUEST_DIR
+            + BuildConfig.POST_PROMPT;
 
     private static CallsAsyncTask activity;
     private ProgressDialog pd;
@@ -30,8 +42,11 @@ public class GetOrderInfoSR extends AsyncTask<String, Void, WebRequest.WebResult
     }
 
     @Override
-    protected WebRequest.WebResult doInBackground(String... search) {
-        return new WebRequest().makeWebServiceCall(TEST_BASE, WebRequest.GETRequest);
+    protected WebRequest.WebResult doInBackground(JSONArray... params) {
+        HashMap<String, Object> search = new HashMap<>();
+        search.put("order_items", params[0]);
+        Log.d("GetOrderInfo", new WebRequest().makeWebServiceCall(ORDER_BASE, WebRequest.GETRequest).result);
+        return new WebRequest().makeWebServiceCall(ORDER_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override
@@ -42,10 +57,20 @@ public class GetOrderInfoSR extends AsyncTask<String, Void, WebRequest.WebResult
     @Override
     protected void onPostExecute(WebRequest.WebResult webResult) {
         super.onPostExecute(webResult);
-        Log.i("TEST", webResult.result);
-        Log.i("TEST", Integer.toString(webResult.code));
+        Log.i("GetOrderInfo", webResult.result);
+        Log.i("GetOrderInfo", Integer.toString(webResult.code));
 
-        activity.onRequestFinished();
+        if (webResult.code == HttpURLConnection.HTTP_CREATED)
+            try {
+                JSONObject jsonResult = new JSONObject(webResult.result);
+                JSONObject order = jsonResult.getJSONArray("Order").getJSONObject(0);
+                activity.onRequestFinished(order);
+
+            } catch (JSONException e) {
+                Toast toast = Toast.makeText((Context) activity, "A problem occurred.", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
         pd.dismiss();
 
     }

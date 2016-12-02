@@ -63,7 +63,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     }
 
     @Override
-    public void onRequestFinished() {
+    public void onRequestFinished(Object object) {
         ASYNC_DONE = true;
     }
 }

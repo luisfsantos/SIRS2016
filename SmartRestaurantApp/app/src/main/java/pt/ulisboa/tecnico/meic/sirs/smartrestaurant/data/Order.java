@@ -1,5 +1,11 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data;
 
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,5 +71,21 @@ public class Order {
             total += QUANTITY.get(id) * RestaurantMenu.ITEM_MAP.get(id).price;
         }
         return total;
+    }
+
+    public static JSONArray toJSONArray() {
+        JSONArray json = new JSONArray();
+        JSONObject item;
+        try {
+            for (String id : ITEMS) {
+                item = new JSONObject();
+                item.put("menu_item_id", Integer.parseInt(id));
+                item.put("quantity", QUANTITY.get(id));
+                json.put(item);
+            }
+        } catch (JSONException e) {
+            //FIXME idk?
+        }
+        return json;
     }
 }

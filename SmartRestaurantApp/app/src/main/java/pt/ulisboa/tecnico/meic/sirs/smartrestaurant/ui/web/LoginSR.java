@@ -39,7 +39,7 @@ public class LoginSR extends AsyncTask<String, Void, WebRequest.WebResult> {
     @Override
     protected WebRequest.WebResult doInBackground(String... params) {
 
-        HashMap<String, String> search = new HashMap<>();
+        HashMap<String, Object> search = new HashMap<>();
         search.put("username", params[0]);
         search.put("password", params[1]);
 
@@ -61,7 +61,7 @@ public class LoginSR extends AsyncTask<String, Void, WebRequest.WebResult> {
                         userInfo.getString("first_name"),
                         userInfo.getString("last_name"),
                         userInfo.getInt("nif"));
-                activity.onRequestFinished();
+                activity.onRequestFinished(null);
             } else {
                 Iterator<String> keys = jsonResult.keys();
                 StringBuilder sb = new StringBuilder();

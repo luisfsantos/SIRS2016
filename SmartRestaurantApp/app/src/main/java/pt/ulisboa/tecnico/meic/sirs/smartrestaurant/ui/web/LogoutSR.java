@@ -30,7 +30,7 @@ public class LogoutSR extends AsyncTask<String, Void, WebRequest.WebResult> {
     @Override
     protected void onPostExecute(WebRequest.WebResult webResult) {
         Log.i("LOGOUT:", webResult.result);
-        activity.onRequestFinished();
+        activity.onRequestFinished(null);
 
         Context context = (Context) activity;
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.user_info_pref), Context.MODE_PRIVATE);

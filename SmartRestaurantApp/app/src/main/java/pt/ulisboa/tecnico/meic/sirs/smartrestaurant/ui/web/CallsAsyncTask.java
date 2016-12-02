@@ -5,5 +5,5 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
  */
 
 public interface CallsAsyncTask {
-    void onRequestFinished();
+    void onRequestFinished(Object object);
 }

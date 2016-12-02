@@ -38,13 +38,13 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
     @Override
     protected WebRequest.WebResult doInBackground(String... params) {
 
-        HashMap<String, String> search = new HashMap<>();
+        HashMap<String, Object> search = new HashMap<>();
         search.put("email", params[0]);
         search.put("username", params[1]);
         search.put("password", params[2]); //FIXME
         search.put("first_name", params[3]);
         search.put("last_name", params[4]);
-        search.put("nif", params[5]);
+        search.put("nif", Integer.parseInt(params[5]));
 
         return new WebRequest().makeWebServiceCall(SIGNUP_BASE, WebRequest.POSTRequest, search);
     }
@@ -63,7 +63,7 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
                         jsonResult.getString("last_name"),
                         jsonResult.getInt("nif"));
 
-                activity.onRequestFinished();
+                activity.onRequestFinished(null);
             } else {
                 Iterator<String> keys = jsonResult.keys();
                 StringBuilder sb = new StringBuilder();

@@ -18,7 +18,9 @@ android {
         buildConfigField "String", "AP_DIR", '"appetizers"'
         buildConfigField "String", "MC_DIR", '"mains"'
         buildConfigField "String", "DE_DIR", '"desserts"'
-        buildConfigField "String", "POST_PROMPT", '"/?"'
+        buildConfigField "String", "ORDER_DIR", '"order/"'
+        buildConfigField "String", "REQUEST_DIR", '"request"'
+        buildConfigField "String", "POST_PROMPT", '"/"'
     }
     buildTypes {
         release {

@@ -27,7 +27,7 @@ public class LoadingMenuActivity extends BaseActivity implements CallsAsyncTask 
     }
 
     @Override
-    public void onRequestFinished() {
+    public void onRequestFinished(Object obj) {
         Intent intent = new Intent(LoadingMenuActivity.this, MenuListActivity.class);
         startActivity(intent);
         finish();

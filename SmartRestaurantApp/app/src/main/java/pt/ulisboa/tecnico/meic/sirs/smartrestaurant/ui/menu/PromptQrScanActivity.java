@@ -59,7 +59,7 @@ public class PromptQrScanActivity extends BaseActivity implements CallsAsyncTask
 
 
     @Override
-    public void onRequestFinished() {
+    public void onRequestFinished(Object object) {
         ASYNC_DONE = true;
     }
 }
