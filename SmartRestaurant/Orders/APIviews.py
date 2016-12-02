@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 
 # Create your views here.
@@ -13,6 +14,7 @@ from Orders.serializers import OrderSerializer, ViewOrderSerializer, UserOrdersS
 
 @api_view(["POST", "GET"])
 @login_required()
+@csrf_exempt
 def order_requestAPI(request):
 
     if request.method == "POST":
