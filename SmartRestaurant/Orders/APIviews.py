@@ -14,7 +14,6 @@ from Orders.serializers import OrderSerializer, ViewOrderSerializer, UserOrdersS
 
 @api_view(["POST", "GET"])
 @login_required()
-@csrf_exempt
 def order_requestAPI(request):
 
     if request.method == "POST":
