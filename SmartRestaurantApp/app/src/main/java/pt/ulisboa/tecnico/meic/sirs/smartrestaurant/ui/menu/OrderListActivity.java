@@ -3,15 +3,20 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.Order;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.RestaurantMenu;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
 
 /**
@@ -44,7 +49,6 @@ public class OrderListActivity extends BaseActivity implements UpdateTotalPriceI
             startActivity(new Intent(OrderListActivity.this, ChoosePaymentMethodActivity.class));
         }
     }
-
 
     private void setupToolbar() {
         final ActionBar ab = getActionBarToolbar();

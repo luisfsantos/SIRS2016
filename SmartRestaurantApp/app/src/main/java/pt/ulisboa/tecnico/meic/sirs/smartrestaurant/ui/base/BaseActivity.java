@@ -8,9 +8,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.Order;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.RestaurantMenu;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.AccountDetailsActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LogoutActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity;
@@ -45,6 +51,33 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         setupNavDrawer();
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        // Allowing the serialization of static fields
+        gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT);
+        Gson gson = gsonBuilder.create();
+        String order = gson.toJson(new Order());
+        String menu = gson.toJson(new RestaurantMenu());
+        outState.putString("order", order);
+        outState.putString("menu", menu);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        // Allowing the deserialization to static fields
+        gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT);
+        Gson gson = gsonBuilder.create();
+        String menu = savedInstanceState.getString("menu");
+        String order = savedInstanceState.getString("order");
+        gson.fromJson(menu, RestaurantMenu.class);
+        gson.fromJson(order, Order.class);
+    }
+
 
     /**
      * Sets up the navigation drawer.
@@ -162,6 +195,15 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected int getSelfNavDrawerItem() {
         return NAV_DRAWER_ITEM_INVALID;
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return;
+        }
+        super.onBackPressed();
     }
 
     protected void openDrawer() {

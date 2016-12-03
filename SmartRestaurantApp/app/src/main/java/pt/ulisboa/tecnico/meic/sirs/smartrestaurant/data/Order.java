@@ -25,6 +25,9 @@ public class Order {
      * Stores quantity for each MenuItem added to order.
      * Key: Item ID; Value: quantity
      */
+
+    public Order() {}
+
     private static Map<String, Integer> QUANTITY = new HashMap<>();
 
     public static void clear() {

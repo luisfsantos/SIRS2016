@@ -12,9 +12,6 @@ import java.util.Map;
  */
 public class RestaurantMenu {
 
-    // FIXME: make id come from web server instead of having a counter
-    private static int id = 0;
-
     /**
      * A map of menu items. Key: item ID; Value: Menu Item.
      */
@@ -23,6 +20,8 @@ public class RestaurantMenu {
      * A map of course menus. Key: course name; Value: Course Menu.
      */
     public static final Map<String, CourseMenu> COURSE_MAP = new HashMap<>();
+
+    public RestaurantMenu() {}
 
     public static void clear() {
         ITEM_MAP.clear();
@@ -62,14 +61,15 @@ public class RestaurantMenu {
     }
 
     public static class MenuItem {
-        public final String id;
-        public final String imageURL;
-        public final String name;
-        public final float price;
-        public final String description;
-        public final int calories;
-        public final String[] ingredients;
+        public String id;
+        public String imageURL;
+        public String name;
+        public float price;
+        public String description;
+        public int calories;
+        public String[] ingredients;
 
+        public MenuItem() {}
 
         public MenuItem(String id, String name, float price, String description, int calories, String imageURL, String[] ingredients) {
             this.id = id;
