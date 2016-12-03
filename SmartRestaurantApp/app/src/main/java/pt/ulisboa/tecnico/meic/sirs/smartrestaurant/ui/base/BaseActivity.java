@@ -40,6 +40,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         setupNavDrawer();
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        setupNavDrawer();
+    }
+
     /**
      * Sets up the navigation drawer.
      */
@@ -126,9 +132,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.nav_cart:
                 startActivity(new Intent(this, OrderListActivity.class));
+                if (!(getSelfNavDrawerItem() == R.id.nav_restaurant_menu)) finish();
                 break;
             case R.id.nav_account:
                 startActivity(new Intent(this, AccountDetailsActivity.class));
+                if (!(getSelfNavDrawerItem() == R.id.nav_restaurant_menu)) finish();
                 break;
         }
     }

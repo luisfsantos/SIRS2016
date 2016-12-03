@@ -38,8 +38,10 @@ public class RestaurantMenu {
             courseMenu = new CourseMenu();
             COURSE_MAP.put(courseName, courseMenu);
         }
-        courseMenu.addItem(item);
-        ITEM_MAP.put(item.id, item);
+        if (!ITEM_MAP.containsKey(item.id)) {
+            courseMenu.addItem(item);
+            ITEM_MAP.put(item.id, item);
+        }
     }
 
     public static class CourseMenu {

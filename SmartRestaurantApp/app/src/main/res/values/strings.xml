@@ -70,6 +70,9 @@
     <string name="activity_payment_method_header">How would you like to pay?</string>
     <string name="pay_with_paypal">Pay with PayPal</string>
     <string name="pay_with_cash">Pay with Cash</string>
+    <string name="hooray">Hooray!</string>
+    <string name="order_successful">Your order has been successfully registered and is now being prepared.\n\n Enjoy your meal! :-)</string>
+    <string name="go_to_menu">Go to Menu</string>
 
 
 </resources>

@@ -2,14 +2,14 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.ConfirmPaymentSR;
@@ -48,15 +48,24 @@ public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask
 
     @Override
     public boolean providesActivityToolbar() {
-        return false;
+        return true;
     }
 
     @Override
     public void onRequestFinished(Object object) {
-        //TODO display hooray screen
+        setContentView(R.layout.activity_after_payment);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setToolbar(toolbar);
+        ButterKnife.bind(this);
     }
 
+    @OnClick(R.id.go_to_menu)
     public void onGoToMenuClicked(View view){
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
         Intent intent = new Intent(AfterPaymentActivity.this, MenuListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

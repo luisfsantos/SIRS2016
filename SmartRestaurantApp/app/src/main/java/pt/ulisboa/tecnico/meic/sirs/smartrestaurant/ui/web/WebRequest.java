@@ -59,7 +59,6 @@ public class WebRequest {
     public WebResult makeWebServiceCall(String urladdress, int requestmethod,
                                         HashMap<String, Object> params) {
 
-        //FIXME idea: change this to return both the responseCode (200, 201, 400, ...) and the String
         URL url;
         String response = "";
         try {

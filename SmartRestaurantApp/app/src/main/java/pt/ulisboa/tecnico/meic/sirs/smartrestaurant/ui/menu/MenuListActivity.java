@@ -37,7 +37,6 @@ public class MenuListActivity extends BaseActivity implements MenuListFragment.C
         loadTabs();
     }
 
-
     public void loadTabs() {
         // Get the ViewPager and set its PagerAdapter so that it can display items
         viewPager = (ViewPager) findViewById(R.id.viewpager);
