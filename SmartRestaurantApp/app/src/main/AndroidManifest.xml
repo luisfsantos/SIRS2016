@@ -60,10 +60,6 @@
             android:label=""
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
         <activity
-            android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.ViewSamplesActivity"
-            android:label="Samples"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
-        <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.AccountDetailsActivity"
             android:label="Account Details"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />

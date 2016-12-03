@@ -47,6 +47,10 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
     private static final String CONFIG_CLIENT_ID = BuildConfig.PAYPAL_CLIENT_ID;
 
     private static final int REQUEST_CODE_PAYMENT = 1;
+    protected static final String INTENT_PAYMENT_METHOD = "payment_method";
+    protected static final String INTENT_CONFIRM = "confirm";
+    protected static final String INTENT_ORDER_ID = "identifier";
+
 
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(CONFIG_ENVIRONMENT)
@@ -88,15 +92,7 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
 
     @OnClick(R.id.submit_order)
     public void onSubmitOrderClicked(View view) {
-        switch (payment_chosen) {
-            case ChoosePaymentMethodActivity.PAYPAL_CHOSEN:
-                new GetOrderInfoSR(this).execute(Order.toJSONArray());
-                break;
-            case ChoosePaymentMethodActivity.CASH_CHOSEN:
-                //TODO launch confirm activity?
-                Toast.makeText(this, "Order submitted", Toast.LENGTH_SHORT).show();
-                break;
-        }
+        new GetOrderInfoSR(this).execute(Order.toJSONArray());
     }
 
     @Override
@@ -117,7 +113,25 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
     @Override
     public void onRequestFinished(Object object) {
         order = (JSONObject) object;
-        handlePayPalPayment();
+
+        switch (payment_chosen) {
+            case ChoosePaymentMethodActivity.PAYPAL_CHOSEN:
+                handlePayPalPayment();
+                break;
+            case ChoosePaymentMethodActivity.CASH_CHOSEN:
+                Intent intent = new Intent(OrderPaymentActivity.this, AfterPaymentActivity.class);
+                intent.putExtra(INTENT_PAYMENT_METHOD, payment_chosen);
+                try {
+                    intent.putExtra(INTENT_ORDER_ID, order.getString("identifier"));
+                } catch (JSONException e) {
+                    //this will not happen
+                    Log.e(TAG, "an extremely unlikely failure occurred: ", e);
+                }
+                startActivity(intent);
+                Order.clear();
+                finish();
+                break;
+        }
     }
 
     /**
@@ -136,9 +150,6 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
         }
     }
 
-    /*
-     * This method shows use of optional payment details and item list.
-     */
     private PayPalPayment getStuffToBuy(String paymentIntent) throws JSONException {
         //--- include an item list, payment amount details
         String currency = getString(R.string.currency_short);
@@ -169,14 +180,6 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
         return payment;
     }
 
-    protected void displayResultText(String result) {
-//        ((TextView)findViewById(R.id.txtResult)).setText("Result : " + result);
-//        Toast.makeText(
-//                getApplicationContext(),
-//                result, Toast.LENGTH_LONG)
-//                .show();
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -186,17 +189,13 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
                 try {
                     Log.i(TAG, confirm.toJSONObject().toString(4));
                     Log.i(TAG, confirm.getPayment().toJSONObject().toString(4));
-                    /**
-                     *  TODO: send 'confirm' (and possibly confirm.getPayment() to your server for verification
-                     * or consent completion.
-                     * See https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
-                     * for more details.
-                     *
-                     * For sample mobile backend interactions, see
-                     * https://github.com/paypal/rest-api-sdk-python/tree/master/samples/mobile_backend
-                     */
-                    displayResultText("PaymentConfirmation info received from PayPal");
 
+                    Intent intent = new Intent(OrderPaymentActivity.this, AfterPaymentActivity.class);
+                    intent.putExtra(INTENT_PAYMENT_METHOD, payment_chosen);
+                    intent.putExtra(INTENT_CONFIRM, confirm);
+                    startActivity(intent);
+                    Order.clear();
+                    finish();
 
                 } catch (JSONException e) {
                     Log.e(TAG, "an extremely unlikely failure occurred: ", e);
@@ -215,6 +214,4 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
         stopService(new Intent(this, PayPalService.class));
         super.onDestroy();
     }
-
-
 }

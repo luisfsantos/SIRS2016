@@ -51,7 +51,6 @@ public class LoginActivity extends BaseActivity implements CallsAsyncTask {
 
     @Override
     public void onRequestFinished(Object object) {
-//        new TestSR(this).execute();
         Intent intent = new Intent(LoginActivity.this, PromptQrScanActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
