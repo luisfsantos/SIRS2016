@@ -45,7 +45,7 @@ class OrderSerializer(serializers.ModelSerializer):
                 )
                 total_price += Meal.objects.get(pk=order_item['menu_item']['id']).price * order_item['quantity']
                 order.order_items.add(item)
-            order.table = TableModel.objects.get(table_id=validated_data['table_id'])
+            order.table = TableModel.objects.get(table_id=validated_data['table']['table_id'])
             order.price = total_price
             order.save()
             return order
