@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^', include('Users.urls')),
     url(r'^menu/', include('Menu.urls')),
     url(r'^api/', include('AndroidAPI.urls')),
+    url(r'^pos/', include('POS.urls')),
 ]

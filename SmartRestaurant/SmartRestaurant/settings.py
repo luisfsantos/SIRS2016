@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Payments',
     'Orders',
     'Tables',
+    'POS',
 ]
 
 MIDDLEWARE = [
