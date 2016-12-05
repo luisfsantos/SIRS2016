@@ -46,5 +46,5 @@ def requestAuthToken():
 
     r = requests.post(url, headers=headers, auth=auth, data = json.dumps(data))
     json_data = r.json()
-
+    print(json_data)
     return json_data['access_token']
