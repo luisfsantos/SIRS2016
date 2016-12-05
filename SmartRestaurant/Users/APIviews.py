@@ -81,7 +81,7 @@ def login_userAPI(request):
 def logout_userAPI(request):
     if request.user.is_authenticated():
         username = request.user.username
-        request.user.tableModel_set.clear()
+        request.user.table_set.clear()
         logout(request)
         return Response(createResponse(username, "Logged out!"))
     return Response(createResponse("Logout", "This logs you out!"))
