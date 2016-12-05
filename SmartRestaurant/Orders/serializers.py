@@ -76,3 +76,7 @@ class UserOrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserOrders
         fields = ('order', 'owner')
+
+
+class CancelOrderSerializer(serializers.Serializer):
+    identifier = serializers.UUIDField();

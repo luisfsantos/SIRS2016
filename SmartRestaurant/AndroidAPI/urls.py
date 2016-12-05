@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^logout/$', user_views.logout_userAPI),
     url(r'^test/$', user_views.test_loggedinAPI),
     url(r'^order/request/$', order_views.order_requestAPI),
+    url(r'^order/cancel/$', order_views.order_cancelAPI),
     url(r'^order/view/(?P<orderid>[^/]+)/$', order_views.ordersAPI),
     url(r'^table/verify/$', table_views.verifyTableAPI),
     url(r'^payments/pay/(?P<id>[0-9a-zA-Z]{32})/', include('Payments.urls')),

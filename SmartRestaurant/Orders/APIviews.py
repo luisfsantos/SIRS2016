@@ -9,7 +9,7 @@ from rest_framework.response import Response
 
 from Common.responses import createResponse
 from Orders.models import Order, UserOrders
-from Orders.serializers import OrderSerializer, ViewOrderSerializer, UserOrdersSerializer
+from Orders.serializers import OrderSerializer, ViewOrderSerializer, UserOrdersSerializer, CancelOrderSerializer
 
 
 @api_view(["POST", "GET"])
@@ -32,6 +32,26 @@ def order_requestAPI(request):
             return Response(order_serializer.data)
         else:
             return Response(createResponse("Order", "Request an order!"))
+
+@api_view(["POST", "GET"])
+@login_required()
+def order_cancelAPI(request):
+    if request.method == "POST":
+        cancel_serializer = CancelOrderSerializer(data=request.data)
+        if cancel_serializer.is_valid():
+            order = UserOrders.objects.filter(user=request.user, order=cancel_serializer.validated_data['identifier']);
+            if not order:
+                return Response(createResponse("Order", "That order does not exist or you cannot cancel it."))
+            else:
+                order.payment_method = 'CN'
+                order.status = 'AR'
+                order.save()
+                return Response(createResponse("Order", "Order Canceled"), status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(createResponse("Order", cancel_serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+
+    else:
+        return Response(createResponse("Order", "Cancel an order"))
 
 @api_view(["GET"])
 @login_required()

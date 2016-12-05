@@ -9,7 +9,7 @@ from Tables.models import TableModel
 
 
 class UserOrders(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, null=True)
     order = models.UUIDField(editable=False, unique=True)
 
 class OrderItem(models.Model):
@@ -53,6 +53,7 @@ class Order(models.Model):
     METHOD_CHOICES= (
         (CASH, "Cash"),
         (PAYPAL, "PayPal"),
+        (CANCELED, "Canceled")
     )
 
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
