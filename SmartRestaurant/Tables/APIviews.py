@@ -23,7 +23,7 @@ def verifyTableAPI(request):
                 else:
                     return Response(createResponse("Table", "The table is occupied"), status=status.HTTP_400_BAD_REQUEST) #this can be a covert channel to check how full a restaurant is
             except TableModel.DoesNotExist:
-                return Response(createResponse("Table", "That table does not exist"), status=status.HTTP_400_BAD_REQUEST)
+                return Response(createResponse("Table", "That didn't work please try again!"), status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(createResponse("Table", table_serializer.errors), status=status.HTTP_400_BAD_REQUEST)
 
