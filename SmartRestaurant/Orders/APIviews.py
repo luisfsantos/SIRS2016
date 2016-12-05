@@ -40,10 +40,11 @@ def order_cancelAPI(request):
         cancel_serializer = CancelOrderSerializer(data=request.data)
         if cancel_serializer.is_valid():
             try:
-                order = UserOrders.objects.get(user=request.user, order=cancel_serializer.validated_data['identifier']);
+                user_order = UserOrders.objects.get(user=request.user, order=cancel_serializer.validated_data['identifier']);
+                order = Order.objects.get(identifier = user_order.order)
                 order.payment_method = 'CN'
                 order.status = 'AR'
-                order.save()
+                order.update()
                 return Response(createResponse("Order", "Order Canceled"), status=status.HTTP_200_OK)
             except UserOrders.DoesNotExist:
                 return Response(createResponse("Order", "That order does not exist or you cannot cancel it."))
