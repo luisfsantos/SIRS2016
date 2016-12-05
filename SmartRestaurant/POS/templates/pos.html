@@ -137,7 +137,7 @@
                         <li> Order: {{ order.get_status_display }}
                         <ul>
                         {% for orderItem in order.order_items.all %}
-                            <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
+                            <li>Item: {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
                         {% endfor %}
                         </ul>
                         </li>
