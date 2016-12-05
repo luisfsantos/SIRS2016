@@ -19,7 +19,7 @@ def paypalAPI(request):
         payment_serializer = PaymentSerializer(data=request.data)
         if payment_serializer.is_valid():
             order = Order.objects.get(identifier = payment_serializer.validated_data['identifier'])
-            paymentID = payment_serializer.validated_data['paypal_confirm']['response_type']['id']
+            paymentID = payment_serializer.validated_data['paypal_confirm']['response']['id']
             paymentDATA = checkPayment(paymentID)
 
             state = paymentDATA.get('state')
