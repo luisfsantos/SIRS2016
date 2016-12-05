@@ -14,7 +14,7 @@ import json
 from requests.auth import HTTPBasicAuth
 
 @api_view(["GET", "POST"])
-def paypalAPI(request, id):
+def paypalAPI(request):
     if request.method == 'POST':
         payment_serializer = PaymentSerializer(data=request.data)
         if payment_serializer.is_valid():
