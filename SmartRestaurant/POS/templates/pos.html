@@ -131,9 +131,13 @@
             </nav>
             <div class="content">
                 {% for order in table1.order_set.all %}
-                    {% for orderItem in order.order_items.all %}
-                        <li>Food : {{ orderItem.menu_item.name }}, Type: {{ orderItem.quantity }}</li>
-                    {% endfor %}
+                    <li> Order: {{ order.status_display }}
+                    {% if order.status != 'AR' %}
+                        {% for orderItem in order.order_items.all %}
+                            <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    </li>
                 {% endfor %}
             </div>
         </div>
