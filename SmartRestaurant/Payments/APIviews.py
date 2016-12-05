@@ -25,7 +25,7 @@ def paypalAPI(request):
             state = paymentDATA.get('state')
             amount = paymentDATA.get('transactions')[0].get('amount').get('total')
             currency = paymentDATA.get('transactions')[0].get('amount').get('currency')
-            completion_state = paymentDATA.get('related_resources')[0].get('sale').get('state')
+            completion_state = paymentDATA.get('transactions')[0].get('related_resources').get('sale').get('state')
             if state == "approved" and order.price == float(amount) and currency == "EUR" and completion_state == "completed":
                 order.status = 'PR'
                 order.payment = 'CF'
