@@ -18,7 +18,7 @@ urlpatterns = [
     url(r'^order/cancel/$', order_views.order_cancelAPI),
     url(r'^order/view/(?P<orderid>[^/]+)/$', order_views.ordersAPI),
     url(r'^table/verify/$', table_views.verifyTableAPI),
-    url(r'^payments/pay/(?P<id>[0-9a-zA-Z]{32})/', include('Payments.urls')),
+    url(r'^payments/pay/', include('Payments.urls')),
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)
