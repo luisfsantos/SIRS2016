@@ -63,7 +63,7 @@ class ViewOrderSerializer(serializers.ModelSerializer):
     table_number = serializers.IntegerField(source='table.number')
     class Meta:
         model = Order
-        fields = ('identifier', 'order_items', 'price', 'date_created', 'payment', 'status', 'payment_method', 'paypal_id', 'cash')
+        fields = ('identifier', 'order_items', 'price', 'date_created', 'payment', 'status', 'payment_method', 'paypal_id', 'cash', 'table_number')
 
 
 class UserOrdersSerializer(serializers.ModelSerializer):
