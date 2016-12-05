@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-import JSON
 # Create your views here.
 from rest_framework import status
 from rest_framework.decorators import api_view
