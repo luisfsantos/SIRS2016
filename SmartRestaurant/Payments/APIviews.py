@@ -41,10 +41,10 @@ def checkPayment(paymentID):
 def requestAuthToken():
     url = "https://api.sandbox.paypal.com/v1/oauth2/token"
     headers = {'Accept': 'application/json', 'Accept-Language': 'en_US', }
-    data = {'grant_type':'client_credentials'}
+    data = 'grant_type=client_credentials'
     auth = HTTPBasicAuth('Ac46d01UTodbt_cVxaGtUgpRiBVAjGHcPGx2Q55LOx0A4qRHNVYSksBKwQUPgNX5aIkKUI24DM1G6nfV','EFwz3idXza8ETcrRWZ4t2_N1PYJDCpot4YT6rZxzYXUiZIh5zbQ8lYAZLiRtwZlTyjmN8fx3I6zT5fgO')
 
-    r = requests.post(url, headers=headers, auth=auth, data = json.dumps(data))
+    r = requests.post(url, headers=headers, auth=auth, data = data)
     json_data = r.json()
     print(json_data)
     return json_data['access_token']
