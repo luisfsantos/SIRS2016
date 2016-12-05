@@ -19,8 +19,21 @@ def paypalAPI(request, id):
         payment_serializer = PaymentSerializer(data=request.data)
         if payment_serializer.is_valid():
             order = Order.objects.get(identifier = payment_serializer.validated_data['identifier'])
+            paymentID = payment_serializer.validated_data['paypal_confirm']['response_type']['id']
+            paymentDATA = checkPayment(paymentID)
 
-
+            state = paymentDATA.get('state')
+            amount = paymentDATA.get('transactions').get('amount').get('total')
+            currency = paymentDATA.get('transactions').get('amount').get('currency')
+            completion_state = paymentDATA.get('related_resources').get('sale').get('state')
+            if state == "approved" and order.price == float(amount) and currency == "EUR" and completion_state == "completed":
+                order.status = 'PR'
+                order.payment = 'CF'
+                order.paypal_id = paymentID
+                order.save()
+                return Response(createResponse("Order", "Payment Processed"), status=status.HTTP_200_OK)
+            else:
+                return Response(createResponse("Order", "Invalid Payment"), status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(createResponse("Order", payment_serializer.errors), status=status.HTTP_400_BAD_REQUEST)
 
@@ -33,8 +46,7 @@ def checkPayment(paymentID):
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + requestAuthToken()}
 
     r = requests.get(url, headers=headers)
-    json_data = r.json()
-    return json_data['id']
+    return r.json()
 
 
 
@@ -46,5 +58,4 @@ def requestAuthToken():
 
     r = requests.post(url, headers=headers, auth=auth, data = data)
     json_data = r.json()
-    print(json_data)
     return json_data['access_token']
