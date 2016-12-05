@@ -169,15 +169,21 @@
                 </ul>
             </nav>
             <div class="content">
+                <ul>
                 {% for order in table2.order_set.all %}
-                    <li> Order: {{ order.get_status_display }}
+
                     {% if order.status != 'AR' %}
+                        <li> Order: {{ order.get_status_display }}
+                        <ul>
                         {% for orderItem in order.order_items.all %}
                             <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
                         {% endfor %}
+                        </ul>
+                        </li>
                     {% endif %}
-                    </li>
+
                 {% endfor %}
+                </ul>
             </div>
         </div>
         <div class="col-md-6 quad">
@@ -201,15 +207,21 @@
                 </ul>
             </nav>
             <div class="content">
+                <ul>
                 {% for order in table3.order_set.all %}
-                    <li> Order: {{ order.get_status_display }}
+
                     {% if order.status != 'AR' %}
+                        <li> Order: {{ order.get_status_display }}
+                        <ul>
                         {% for orderItem in order.order_items.all %}
                             <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
                         {% endfor %}
+                        </ul>
+                        </li>
                     {% endif %}
-                    </li>
+
                 {% endfor %}
+                </ul>
             </div>
         </div>
         <div class="col-md-6 quad">
@@ -233,15 +245,21 @@
                 </ul>
             </nav>
             <div class="content">
+                <ul>
                 {% for order in table4.order_set.all %}
-                    <li> Order: {{ order.get_status_display }}
+
                     {% if order.status != 'AR' %}
+                        <li> Order: {{ order.get_status_display }}
+                        <ul>
                         {% for orderItem in order.order_items.all %}
                             <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
                         {% endfor %}
+                        </ul>
+                        </li>
                     {% endif %}
-                    </li>
+
                 {% endfor %}
+                </ul>
             </div>
         </div>
 
