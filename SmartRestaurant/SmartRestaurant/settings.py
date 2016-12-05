@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'AndroidAPI',
     'Payments',
     'Orders',
+    'Tables',
 ]
 
 MIDDLEWARE = [
