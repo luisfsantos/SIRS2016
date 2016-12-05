@@ -37,7 +37,7 @@ def paypalAPI(request):
         else:
             return Response(createResponse("Order", payment_serializer.errors), status=status.HTTP_400_BAD_REQUEST)
 
-    return Response(createResponse("testid", id))
+    return Response(createResponse("Order", "Payment"))
 
 
 
