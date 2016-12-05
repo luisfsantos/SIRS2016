@@ -44,7 +44,7 @@ def order_cancelAPI(request):
                 order.payment_method = 'CN'
                 order.status = 'AR'
                 order.save()
-                return Response(createResponse("Order", "Order Canceled"), status=status.HTTP_202_ACCEPTED)
+                return Response(createResponse("Order", "Order Canceled"), status=status.HTTP_200_OK)
             except UserOrders.DoesNotExist:
                 return Response(createResponse("Order", "That order does not exist or you cannot cancel it."))
 
