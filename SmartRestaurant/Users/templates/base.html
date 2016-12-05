@@ -2,18 +2,19 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>Smart Restaurant</title>
-  <meta name="description" content="Smart Restaurant">
-  <meta name="author" content="Tada">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <title>Smart Restaurant</title>
+    <meta name="description" content="Smart Restaurant">
+    <meta name="author" content="Tada">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
   	$('.message a').click(function(){
    		$('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-	});</script>
+	});
+    </script>
 
-  <style type="text/css">
+    <style type="text/css">
 
   	@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
@@ -115,14 +116,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-  </style>
 
-  <!--[if lt IE 9]>
+    </style>
+
+    <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-  <![endif]-->
+    <![endif]-->
 </head>
 
 <body>
-	{% block content %}{% endblock %}
+{% block content %}{% endblock %}
 </body>
 </html>
