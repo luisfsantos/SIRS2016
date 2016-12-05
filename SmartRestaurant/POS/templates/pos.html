@@ -131,7 +131,7 @@
             </nav>
             <div class="content">
                 {% for order in table1.order_set.all %}
-                    <li> Order: {{ order.status_display }}
+                    <li> Order: {{ order.get_status_display }}
                     {% if order.status != 'AR' %}
                         {% for orderItem in order.order_items.all %}
                             <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
@@ -144,7 +144,7 @@
 
         <div class="col-md-6 quad">
             <nav class="navbar navbar-default table-header">
-                <span class="navbar-brand">Table 2</span>
+                <span class="navbar-brand">Table {{ table2.number }}</span>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form">
@@ -163,12 +163,20 @@
                 </ul>
             </nav>
             <div class="content">
-                [insert content here]
+                {% for order in table2.order_set.all %}
+                    <li> Order: {{ order.get_status_display }}
+                    {% if order.status != 'AR' %}
+                        {% for orderItem in order.order_items.all %}
+                            <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    </li>
+                {% endfor %}
             </div>
         </div>
         <div class="col-md-6 quad">
             <nav class="navbar navbar-default table-header">
-                <span class="navbar-brand">Table 3</span>
+                <span class="navbar-brand">Table {{ table3.number }}</span>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form">
@@ -187,12 +195,20 @@
                 </ul>
             </nav>
             <div class="content">
-                [insert content here]
+                {% for order in table3.order_set.all %}
+                    <li> Order: {{ order.get_status_display }}
+                    {% if order.status != 'AR' %}
+                        {% for orderItem in order.order_items.all %}
+                            <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    </li>
+                {% endfor %}
             </div>
         </div>
         <div class="col-md-6 quad">
             <nav class="navbar navbar-default table-header">
-                <span class="navbar-brand">Table 4</span>
+                <span class="navbar-brand">Table {{ table4.number }}</span>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form">
@@ -211,7 +227,15 @@
                 </ul>
             </nav>
             <div class="content">
-                [insert content here]
+                {% for order in table4.order_set.all %}
+                    <li> Order: {{ order.get_status_display }}
+                    {% if order.status != 'AR' %}
+                        {% for orderItem in order.order_items.all %}
+                            <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    </li>
+                {% endfor %}
             </div>
         </div>
 
