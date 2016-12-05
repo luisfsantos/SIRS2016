@@ -17,7 +17,7 @@ def posView(request):
         if request.method == "POST":
             return HttpResponseRedirect('/menu/ingredients')
 
-    return render(request, 'pos.html', {'table1': TableModel.objects.get(pk=1), 'table2': TableModel.objects.get(pk=1), 'table3': TableModel.objects.get(pk=1), 'table4': TableModel.objects.get(pk=1)})
+    return render(request, 'pos.html', {'table1': TableModel.objects.get(number=1), 'table2': TableModel.objects.get(number=1), 'table3': TableModel.objects.get(number=1), 'table4': TableModel.objects.get(number=1)})
 
 def login_user(request):
     form = 1
