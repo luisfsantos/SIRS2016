@@ -28,6 +28,8 @@ class Order(models.Model):
     RECEIVED = 'RE'
     FETCH = 'FE'
     NONE = 'NO'
+    CASH = 'CA'
+    PAYPAL = 'PP'
 
     STATUS_CHOICES = (
         (PENDING, 'Pending'),
@@ -48,6 +50,11 @@ class Order(models.Model):
         (RECEIVED, "Received")
     )
 
+    METHOD_CHOICES= (
+        (CASH, "Cash"),
+        (PAYPAL, "PayPal"),
+    )
+
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     table = models.ForeignKey(TableModel, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=7)
@@ -62,6 +69,10 @@ class Order(models.Model):
         max_length=2,
         choices=STATUS_CHOICES,
         default=PENDING,
+    )
+    payment_method = models.CharField(
+        max_length=2,
+        choices=METHOD_CHOICES,
     )
     paypal_id = models.CharField(max_length=100, blank=True)
     cash = models.CharField(
