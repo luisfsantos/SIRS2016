@@ -4,6 +4,7 @@ from Orders.models import OrderItem, Order, UserOrders
 from Menu.models import Meal
 from Users.serializers import UserSerializer
 from django.db import transaction
+from Tables.models import TableModel
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -25,10 +26,10 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     order_items = OrderItemSerializer(many=True)
-
+    table_id = serializers.CharField(source='table.table_id')
     class Meta:
         model = Order
-        fields = ('identifier', 'order_items', 'price')
+        fields = ('identifier', 'order_items', 'price', 'table_id')
         extra_kwargs = {'identifier': {'read_only': True}, 'price': {'read_only': True}}
 
     def create(self, validated_data):
@@ -44,6 +45,7 @@ class OrderSerializer(serializers.ModelSerializer):
                 )
                 total_price += Meal.objects.get(pk=order_item['menu_item']['id']).price * order_item['quantity']
                 order.order_items.add(item)
+            order.table = TableModel.objects.get(table_id=validated_data['table_id']['table_id'])
             order.price = total_price
             order.save()
             return order

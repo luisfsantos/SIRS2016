@@ -1,17 +1,7 @@
 from django.shortcuts import render
-
-from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view, throttle_classes
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.throttling import AnonRateThrottle
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.utils.decorators import method_decorator
-from Common.responses import createResponse
 from Users.forms import UserForm, UserProfileForm, LoginForm
 # Create your views here.
 

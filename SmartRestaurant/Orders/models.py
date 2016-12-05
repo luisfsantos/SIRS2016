@@ -5,6 +5,7 @@ from django.db import models
 # Create your models here.
 from Menu.models import Meal
 from django.contrib.auth.models import User
+from Tables.models import TableModel
 
 
 class UserOrders(models.Model):
@@ -19,6 +20,7 @@ class OrderItem(models.Model):
 class Order(models.Model):
 
     PENDING = 'PE'
+    ARCHIVED = 'AR'
     CONFIRMED = 'CF'
     CANCELED = 'CN'
     PROCESSING = 'PR'
@@ -31,6 +33,7 @@ class Order(models.Model):
         (PENDING, 'Pending'),
         (PROCESSING, 'Processing'),
         (DELIVERED, 'Delivered'),
+        (ARCHIVED, 'Archived'),
     )
 
     PAYMENT_CHOICES = (
@@ -46,6 +49,7 @@ class Order(models.Model):
     )
 
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    table = models.ForeignKey(TableModel, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=7)
     order_items = models.ManyToManyField(OrderItem)
     payment = models.CharField(
@@ -54,7 +58,6 @@ class Order(models.Model):
         default=PENDING,
     )
     date_created = models.DateTimeField(auto_now_add=True)
-
     status = models.CharField(
         max_length=2,
         choices=STATUS_CHOICES,

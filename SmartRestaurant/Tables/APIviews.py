@@ -1,5 +1,3 @@
-from django.contrib.auth.decorators import login_required
-
 # Create your views here.
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -7,6 +5,7 @@ from rest_framework.response import Response
 from Tables.serializers import TableSerializer
 from Tables.models import TableModel
 from Common.responses import createResponse
+from django.contrib.auth.decorators import login_required
 
 
 @api_view(["POST", "GET"])

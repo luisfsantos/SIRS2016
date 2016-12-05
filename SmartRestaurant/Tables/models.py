@@ -8,6 +8,11 @@ from django.contrib.auth.models import User
 class TableModel(models.Model):
     user = models.ForeignKey(User, editable=True, null=True)
     table_id = models.CharField(editable=False, unique=True, max_length=100)
+    number = models.IntegerField()
     number_of_places = models.IntegerField()
+
+    def clearTable(self):
+        self.user = None
+        self.save()
 
 

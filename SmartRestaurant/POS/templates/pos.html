@@ -111,7 +111,7 @@
     <div class="line">
         <div class="col-md-6 quad">
             <nav class="navbar navbar-default table-header">
-                <span class="navbar-brand">Table 1</span>
+                <span class="navbar-brand">Table {{ table1.number }}</span>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form">
@@ -130,7 +130,11 @@
                 </ul>
             </nav>
             <div class="content">
-                [insert content here]
+                {% for order in table1.order_set.all %}
+                    {% for orderItem in order.order_items.all %}
+                        <li>Food : {{ orderItem.menu_item.name }}, Type: {{ orderItem.quantity }}</li>
+                    {% endfor %}
+                {% endfor %}
             </div>
         </div>
 
