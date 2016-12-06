@@ -3,7 +3,6 @@ from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from Users.forms import UserForm, UserProfileForm, LoginForm
-from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 
@@ -14,7 +13,7 @@ def register(request):
     """
     if request.user.is_superuser:
         if request.method == "POST":
-            uform = UserCreationForm(data=request.POST)
+            uform = UserForm(data=request.POST)
             pform = UserProfileForm(data=request.POST)
             if uform.is_valid() and pform.is_valid():
                 user = uform.save()
@@ -22,7 +21,7 @@ def register(request):
                 pform.save()
                 return HttpResponseRedirect('/accounts')
         else:
-            uform = UserCreationForm()
+            uform = UserForm()
             pform = UserProfileForm()
 
         return render(request, 'register.html', {'uform': uform, 'pform': pform})
