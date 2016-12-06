@@ -104,6 +104,10 @@
         list-style-type:none;
     }
 
+    .order-line {
+        font-size:1.5em;
+    }
+
 
 
 
@@ -144,20 +148,21 @@
                 </ul>
             </nav>
             <div class="content">
-                <div class="col-md-12 order">
-                    {% for order in table1.order_set.all %}
 
+                {% for order in table1.order_set.all %}
+                <div class="col-md-12 order">
                     {% if order.status != 'AR' %}
-                    <span class="order-line navbar navbar-default"> Order: {{ order.get_status_display }}
+                    <div class="order-line navbar navbar-default"> Order: {{ order.get_status_display }}
                         <ul>
                         {% for orderItem in order.order_items.all %}
                             <li class="order-item"><b>Item:</b> {{ orderItem.menu_item.name }}, <b>Quantity:</b> {{ orderItem.quantity }}</li>
                         {% endfor %}
                         </ul>
-                        </span>
+                        </div>
                     {% endif %}
-                    {% endfor %}
                 </div>
+                {% endfor %}
+
             </div>
         </div>
         {% endfor %}
