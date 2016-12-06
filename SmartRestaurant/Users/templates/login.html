@@ -8,18 +8,19 @@
                 {% for message in messages %}
                     <p>{{ message }}</p>
                 {% endfor %}
-                <form action="/login/" method="post">
-                        {% csrf_token %}
-                        {{ form }}
-                        <input type="submit" value="Submit" class="form_button" />
-                </form>
-                {% if not active %}
-                    <p>This user is not active please contact support admin@smartrestaurant.com</p>
-                {% endif %}
-                {% if invalid %}
-                    <p>Invalid login credentials</p>
-                {% endif %}
             {% endif %}
+            <form action="/login/" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Submit" class="form_button" />
+            </form>
+            {% if not active %}
+                <p>This user is not active please contact support admin@smartrestaurant.com</p>
+            {% endif %}
+            {% if invalid %}
+                <p>Invalid login credentials</p>
+            {% endif %}
+
         </div>
     </div>
 
