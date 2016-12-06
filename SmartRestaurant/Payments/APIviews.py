@@ -9,12 +9,6 @@ from Common.responses import createResponse
 from Payments.serializers import PaymentSerializer
 from Orders.models import Order
 
-import requests
-import json
-from requests.auth import HTTPBasicAuth
-import ssl
-import time
-
 
 import paypalrestsdk
 paypalrestsdk.configure({
@@ -23,6 +17,7 @@ paypalrestsdk.configure({
   "client_secret": "EFwz3idXza8ETcrRWZ4t2_N1PYJDCpot4YT6rZxzYXUiZIh5zbQ8lYAZLiRtwZlTyjmN8fx3I6zT5fgO" })
 
 @api_view(["GET", "POST"])
+@login_required()
 def paypalAPI(request):
     if request.method == 'POST':
         payment_serializer = PaymentSerializer(data=request.data)
@@ -40,6 +35,7 @@ def paypalAPI(request):
                 order.payment = 'CF'
                 order.paypal_id = paymentID
                 order.save()
+                createInvoice(paymentDATA, request.user)
                 return Response(createResponse("Order", "Payment Processed"), status=status.HTTP_200_OK)
             else:
                 return Response(createResponse("Order", "Invalid Payment"), status=status.HTTP_400_BAD_REQUEST)
@@ -49,25 +45,15 @@ def paypalAPI(request):
     return Response(createResponse("Order", "Payment"))
 
 
+def createInvoice(paymentDATA, user):
+    merchant_info = { 'email': 'smartrestaurant@restaurant.com',}
+    if user.email != None:
+        email = user.email
+    else:
+        email = paymentDATA.payer.payer_info.email
+    billing_info = { "email": email, "first_name": user.first_name, "last_name": user.last_name}
+    items = paymentDATA.transactions[0].item_list.items
 
-def checkPayment(paymentID):
-    url = "https://api-3t.sandbox.paypal.com/v1/payments/payment/"+paymentID
-    headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + requestAuthToken()}
 
-    r = requests.get(url, headers=headers)
-    return r.json()
-
-
-
-def requestAuthToken():
-    url = "https://api-3t.sandbox.paypal.com/v1/oauth2/token"
-    headers = {'Accept': 'application/json', 'Accept-Language': 'en_US', }
-    data = 'grant_type=client_credentials'
-    auth = HTTPBasicAuth('Ac46d01UTodbt_cVxaGtUgpRiBVAjGHcPGx2Q55LOx0A4qRHNVYSksBKwQUPgNX5aIkKUI24DM1G6nfV','EFwz3idXza8ETcrRWZ4t2_N1PYJDCpot4YT6rZxzYXUiZIh5zbQ8lYAZLiRtwZlTyjmN8fx3I6zT5fgO')
-    try:
-        r = requests.post(url, headers=headers, auth=auth, data = data)
-    except requests.exceptions.SSLError:
-        time.sleep(5)
-        r = requests.post(url, headers=headers, auth=auth, data=data)
-    json_data = r.json()
-    return json_data['access_token']
+    invoice = paypalrestsdk.Invoice({'merchant_info' : merchant_info, 'billing_info' : billing_info, 'items': items})
+    invoice.send()
