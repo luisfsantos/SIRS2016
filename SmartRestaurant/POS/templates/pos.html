@@ -98,6 +98,7 @@
 
     .order {
         border: 1px solid #e7e7e7;
+        padding:0;
     }
 
     ul {
@@ -106,6 +107,10 @@
 
     .order-line {
         font-size:1.5em;
+    }
+
+    .order-item {
+        margin-bottom:7px;
     }
 
 
@@ -157,8 +162,7 @@
                         <div class="order-line navbar navbar-default"> Order: {{ order.get_status_display }}</div>
                         <ul>
                             {% for orderItem in order.order_items.all %}
-                            <li class="order-item"><b>Item:</b> {{ orderItem.menu_item.name }}, <b>Quantity:</b> {{
-                                orderItem.quantity }}
+                            <li class="order-item"><b>Item:</b> {{ orderItem.menu_item.name }}, <b>Quantity:</b> {{ orderItem.quantity }}
                             </li>
                             {% endfor %}
                         </ul>
