@@ -33,7 +33,7 @@ def clean_table(request):
 
                         stdlogger.warning(id + "This affects:")
                         for order in table.order_set.all():
-                            stdlogger.warning(id + "Order: " + order.identifier + " which has status " + order.get_status_display())
+                            stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display())
                             order.status = 'AR'
                             order.save()
                         table.save()
