@@ -6,7 +6,8 @@
         <div class="form">
             {% if messages %}
                 {% for message in messages %}
-                    <p>{{ message }}</p>
+                    <div style="border:2px solid #676767"></div>
+                    <p style="color:red;">{{ message }}</p>
                 {% endfor %}
             {% endif %}
             <form action="/login/" method="post">
