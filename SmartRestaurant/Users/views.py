@@ -30,7 +30,7 @@ def register_staff(request):
         return render(request, 'register.html', {'uform': uform, 'pform': pform})
     return render(request, 'register.html')
 
-def login_user(request):
+def login_staff(request):
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
