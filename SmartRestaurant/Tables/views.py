@@ -12,7 +12,7 @@ def clean_table(request):
             ctform = CleanTableForm(data=request.POST)
             if ctform.is_valid():
                 try:
-                    table = TableModel.objects.get(ctform.cleaned_data.get('table_id'))
+                    table = TableModel.objects.get(table_id = ctform.cleaned_data.get('table_id'))
                     table.user = None
                     table.order_set.all().clean()
                 except TableModel.DoesNotExist:
