@@ -15,7 +15,7 @@ def clean_table(request):
                     table = TableModel.objects.get(table_id = ctform.cleaned_data.get('table_id'))
                     table.user = None
                     for order in table.order_set.all():
-                        order.table = None
+                        order.status = 'AR'
                         order.save()
                     table.save()
                 except TableModel.DoesNotExist:

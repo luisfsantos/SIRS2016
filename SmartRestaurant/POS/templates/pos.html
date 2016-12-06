@@ -114,6 +114,7 @@
 </nav>
 <div class="container fill">
     <div class="line">
+        {% for table1 in tables ‰}
         <div class="col-md-6 quad">
             <nav class="navbar navbar-default table-header">
                 <span class="navbar-brand">Table {{ table1.number }}</span>
@@ -154,121 +155,8 @@
                 </ul>
             </div>
         </div>
+        {% endfor %}
 
-        <div class="col-md-6 quad">
-            <nav class="navbar navbar-default table-header">
-                <span class="navbar-brand">Table {{ table2.number }}</span>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <input type="submit" class="form-control" value="Table clear">
-                            </div>
-                        </form>
-                    </li>
-                    <li>
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <input type="submit" class="form-control" value="View Client Info">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
-            <div class="content">
-                <ul>
-                {% for order in table2.order_set.all %}
-
-                    {% if order.status != 'AR' %}
-                        <li> Order: {{ order.get_status_display }}
-                        <ul>
-                        {% for orderItem in order.order_items.all %}
-                            <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
-                        {% endfor %}
-                        </ul>
-                        </li>
-                    {% endif %}
-
-                {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-6 quad">
-            <nav class="navbar navbar-default table-header">
-                <span class="navbar-brand">Table {{ table3.number }}</span>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <input type="submit" class="form-control" value="Table clear">
-                            </div>
-                        </form>
-                    </li>
-                    <li>
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <input type="submit" class="form-control" value="View Client Info">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
-            <div class="content">
-                <ul>
-                {% for order in table3.order_set.all %}
-
-                    {% if order.status != 'AR' %}
-                        <li> Order: {{ order.get_status_display }}
-                        <ul>
-                        {% for orderItem in order.order_items.all %}
-                            <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
-                        {% endfor %}
-                        </ul>
-                        </li>
-                    {% endif %}
-
-                {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-6 quad">
-            <nav class="navbar navbar-default table-header">
-                <span class="navbar-brand">Table {{ table4.number }}</span>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <input type="submit" class="form-control" value="Table clear">
-                            </div>
-                        </form>
-                    </li>
-                    <li>
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <input type="submit" class="form-control" value="View Client Info">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
-            <div class="content">
-                <ul>
-                {% for order in table4.order_set.all %}
-
-                    {% if order.status != 'AR' %}
-                        <li> Order: {{ order.get_status_display }}
-                        <ul>
-                        {% for orderItem in order.order_items.all %}
-                            <li>Food : {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
-                        {% endfor %}
-                        </ul>
-                        </li>
-                    {% endif %}
-
-                {% endfor %}
-                </ul>
-            </div>
-        </div>
 
 
     </div>
