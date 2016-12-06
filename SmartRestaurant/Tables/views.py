@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404
 from Tables.models import TableModel
 from Tables.forms import CleanTableForm
@@ -16,8 +16,8 @@ def clean_table(request):
                     table.user = None
                     table.order_set.all().clean()
                 except TableModel.DoesNotExist:
-                    render(request, '/POS/pos.html')
+                    redirect('/pos/view')
 
-        return render(request, '/POS/pos.html')
+        return redirect('/pos/view')
     else:
         raise Http404
