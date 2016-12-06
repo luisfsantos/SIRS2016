@@ -161,7 +161,7 @@
                     {% if order.status != 'AR' %}
                     <div class="col-md-12 order">
                         <nav class="order-line navbar navbar-default">
-                            Order: {{ order.get_status_display }}
+                            <span class="navbar-brand">Order: {{ order.get_status_display }}</span>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
                                     <form class="navbar-form" action="" method="post">
