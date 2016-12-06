@@ -87,7 +87,7 @@
         border-radius: 0 !important;
     }
 
-    .navbar-brand {
+    .employee, .table-no {
         color:#fff !important;
     }
 
@@ -107,12 +107,12 @@
     }
 
     .order-line {
-        font-size:1.5em;
+        font-size:1.2em;
         padding-left:7px;
     }
 
     .order-item {
-        margin-bottom:7px;
+        margin-top:8px;
     }
 
 
@@ -122,7 +122,7 @@
 <body>
 
 <nav class="navbar navbar-default main-nav">
-    <span class="navbar-brand">{{ user_name }}</span>
+    <span class="navbar-brand employee">{{ user_name }}</span>
     <ul class="nav navbar-nav navbar-right" style="padding-right:16px;">
         <li>
             <a href="{% url 'accounts:logout' %}" class="btn btn-default navbar-btn" role="button">Logout</a>
@@ -134,7 +134,7 @@
         {% for table1 in tables %}
         <div class="col-md-6 quad">
             <nav class="navbar navbar-default table-header">
-                <span class="navbar-brand">Table {{ table1.number }}</span>
+                <span class="navbar-brand table-no">Table {{ table1.number }}</span>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form" action="/tables/clean/" method="post">
