@@ -23,17 +23,16 @@ def clean_table(request):
                 if ctform.is_valid():
                     try:
                         table = TableModel.objects.get(table_id=ctform.cleaned_data.get('table_id'))
-                        id = str(uuid.uuid4()) + ": "
+                        id = "Clean Operation: " + str(uuid.uuid4()) + " : "
 
-                        whois_name = request.user.get_full_name() if request.user.get_full_name() is not None else request.user.username
+                        whois_name = str(request.user.get_full_name()) if request.user.get_full_name() is not None else request.user.username
                         whois_id = request.user.userprofile.nif if request.user.userprofile.nif is not None else request.user.email
                         stdlogger.warning(id + "The table: " + ctform.cleaned_data.get('table_id') + " is getting cleaned by "
                                           + whois_name + " " + whois_id)
                         table.user = None
 
-                        stdlogger.warning(id + "This affects:")
-                        for order in table.order_set.all():
-                            stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display())
+                        for order in table.order_set.filter(status='AR'):
+                            stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display() + "has been archived")
                             order.status = 'AR'
                             order.save()
                         table.save()
