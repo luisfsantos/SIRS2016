@@ -12,7 +12,7 @@ import butterknife.OnClick;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.ConfirmPaymentSR;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.ConfirmPayPalPaymentSR;
 
 /**
  * Created by Catarina on 03/12/2016.
@@ -30,7 +30,12 @@ public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask
     @Override
     public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        sendConfirmation();
+        int payment_method = getIntent().getIntExtra(OrderPaymentActivity.INTENT_PAYMENT_METHOD, 0);
+        if (payment_method == ChoosePaymentMethodActivity.PAYPAL_CHOSEN) {
+            sendPayPalConfirmation();
+        } else if (payment_method == ChoosePaymentMethodActivity.CASH_CHOSEN) {
+            onRequestFinished(true);
+        }
     }
 
     /**
@@ -42,16 +47,11 @@ public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask
      * For sample mobile backend interactions, see
      * https://github.com/paypal/rest-api-sdk-python/tree/master/samples/mobile_backend
      */
-    private void sendConfirmation() {
+    private void sendPayPalConfirmation() {
         Intent intent = getIntent();
-        int payment_method = intent.getIntExtra(OrderPaymentActivity.INTENT_PAYMENT_METHOD, 0);
         String identifier = intent.getStringExtra(OrderPaymentActivity.INTENT_ORDER_ID);
-        if (payment_method == ChoosePaymentMethodActivity.PAYPAL_CHOSEN) {
-            PaymentConfirmation confirm = intent.getParcelableExtra(OrderPaymentActivity.INTENT_CONFIRM);
-            new ConfirmPaymentSR(this).execute(payment_method, identifier, confirm.toJSONObject());
-        } else if (payment_method == ChoosePaymentMethodActivity.CASH_CHOSEN) {
-            new ConfirmPaymentSR(this).execute(payment_method, identifier);
-        }
+        PaymentConfirmation confirm = intent.getParcelableExtra(OrderPaymentActivity.INTENT_CONFIRM);
+        new ConfirmPayPalPaymentSR(this).execute(identifier, confirm.toJSONObject());
     }
 
     @Override
@@ -65,7 +65,7 @@ public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask
         boolean payment_ok = (boolean) object;
         if (!payment_ok && !retried) {
             retried = true;
-            sendConfirmation();
+            sendPayPalConfirmation();
             return;
         }
         String title;

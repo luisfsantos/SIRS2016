@@ -14,18 +14,20 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ChoosePaymentMethodA
 /**
  * Created by Catarina on 03/12/2016.
  */
-public class ConfirmPaymentSR extends AsyncTask<Object, Void, WebRequest.WebResult> {
+public class ConfirmPayPalPaymentSR extends AsyncTask<Object, Void, WebRequest.WebResult> {
 
     private static final String TAG = "ConfirmPayment";
 
     private static final String CONFIRM_BASE = BuildConfig.SERVER_URL
             + BuildConfig.PAYMENTS_DIR
-            + BuildConfig.PAY_DIR;
+            + BuildConfig.PAY_DIR
+            + BuildConfig.PAYPAL_DIR
+            + BuildConfig.POST_PROMPT;
 
     private static CallsAsyncTask activity;
     private ProgressDialog pd;
 
-    public ConfirmPaymentSR(CallsAsyncTask delegate) {
+    public ConfirmPayPalPaymentSR(CallsAsyncTask delegate) {
         activity = delegate;
         pd = new ProgressDialog((Activity) activity);
     }
@@ -45,21 +47,11 @@ public class ConfirmPaymentSR extends AsyncTask<Object, Void, WebRequest.WebResu
     @Override
     protected WebRequest.WebResult doInBackground(Object... params) {
         HashMap<String, Object> search = new HashMap<>();
-        String url = CONFIRM_BASE;
 
-        int payment_method = (int) params[0];
-        switch (payment_method) {
-            case ChoosePaymentMethodActivity.CASH_CHOSEN:
-                url += BuildConfig.CASH_DIR + BuildConfig.POST_PROMPT;
-                search.put("identifier", params[1]);
-                break;
-            case ChoosePaymentMethodActivity.PAYPAL_CHOSEN:
-                url += BuildConfig.PAYPAL_DIR + BuildConfig.POST_PROMPT;
-                search.put("identifier", params[1]);
-                search.put("paypal_confirm", params[2]);
-                break;
-        }
-        return new WebRequest().makeWebServiceCall(url, WebRequest.POSTRequest, search);
+        search.put("identifier", params[0]);
+        search.put("paypal_confirm", params[1]);
+
+        return new WebRequest().makeWebServiceCall(CONFIRM_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override

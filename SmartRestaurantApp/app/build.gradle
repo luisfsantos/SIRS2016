@@ -22,7 +22,6 @@ android {
         buildConfigField "String", "REQUEST_DIR", '"request"'
         buildConfigField "String", "PAYMENTS_DIR", '"payments/"'
         buildConfigField "String", "PAY_DIR", '"pay/"'
-        buildConfigField "String", "CASH_DIR", '"cash"'
         buildConfigField "String", "PAYPAL_DIR", '"paypal"'
         buildConfigField "String", "CANCEL_DIR", '"cancel"'
         buildConfigField "String", "TABLE_VERIFY_DIR", '"table/verify"'
