@@ -119,9 +119,11 @@
                 <span class="navbar-brand">Table {{ table1.number }}</span>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <form class="navbar-form">
+                        <form class="navbar-form" action="/tables/clean">
+                            {% csrf_token %}
                             <div class="form-group">
-                                <input type="submit" class="form-control" value="Table clear">
+                                <input type="hidden" name="table_id" class="form-control" value ="{{ table1.table_id }}">
+                                <input type="submit" class="form-control" value="Clear Table">
                             </div>
                         </form>
                     </li>
