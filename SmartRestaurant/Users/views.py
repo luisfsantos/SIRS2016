@@ -1,13 +1,12 @@
+from django.contrib import messages
 from django.contrib.auth.models import Group
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from Users.forms import UserForm, UserProfileForm, LoginForm
 # Create your views here.
 
-
-@login_required
 def register_staff(request):
     """
     Register Staff to the System
@@ -28,7 +27,9 @@ def register_staff(request):
             pform = UserProfileForm()
 
         return render(request, 'register.html', {'uform': uform, 'pform': pform})
-    return render(request, 'register.html')
+    else:
+        messages.add_message(request, messages.INFO, "You can't register users if you don't have Admin status.")
+        return redirect('/login')
 
 def login_staff(request):
     form = LoginForm()

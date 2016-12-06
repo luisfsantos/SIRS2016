@@ -12,7 +12,7 @@ from Tables.models import TableModel
 
 def posView(request):
     if request.user.is_anonymous:
-        messages.add_message(request, messages.INFO, "You can access this view if you arent logged in")
+        messages.add_message(request, messages.INFO, "You can't access the POS console if you aren't logged in.")
         return redirect('/login')
     else:
         if request.user.groups.filter(name='staff') or request.user.is_superuser:
@@ -25,7 +25,7 @@ def posView(request):
                                                     'table3': TableModel.objects.get(number=3),
                                                     'table4': TableModel.objects.get(number=4)})
         else:
-            messages.add_message(request, messages.INFO, "You do not have permission to view this url")
+            messages.add_message(request, messages.INFO, "You do not have permission to view the POS console.")
             return redirect('/login')
 
 
