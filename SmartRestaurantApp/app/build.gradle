@@ -20,6 +20,12 @@ android {
         buildConfigField "String", "DE_DIR", '"desserts"'
         buildConfigField "String", "ORDER_DIR", '"order/"'
         buildConfigField "String", "REQUEST_DIR", '"request"'
+        buildConfigField "String", "PAYMENTS_DIR", '"payments/"'
+        buildConfigField "String", "PAY_DIR", '"pay/"'
+        buildConfigField "String", "CASH_DIR", '"cash"'
+        buildConfigField "String", "PAYPAL_DIR", '"paypal"'
+        buildConfigField "String", "CANCEL_DIR", '"cancel"'
+        buildConfigField "String", "TABLE_VERIFY_DIR", '"table/verify"'
         buildConfigField "String", "POST_PROMPT", '"/"'
 
         buildConfigField "String", "PAYPAL_CLIENT_ID", '"Ac46d01UTodbt_cVxaGtUgpRiBVAjGHcPGx2Q55LOx0A4qRHNVYSksBKwQUPgNX5aIkKUI24DM1G6nfV"'

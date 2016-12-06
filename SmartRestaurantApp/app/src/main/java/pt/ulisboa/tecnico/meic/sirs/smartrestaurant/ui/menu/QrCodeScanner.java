@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.FetchMenuSR;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.SendQRTableSR;
 
 /**
  * Created by Catarina on 15/11/2016.
@@ -18,7 +20,7 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.FetchMenuSR;
 public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler, CallsAsyncTask {
 
     private static boolean ASYNC_DONE = false;
-    private static final String KEY_QR_CODE = "QR_CODE";
+    protected static final String KEY_QR_CODE = "QR_CODE";
     private ZXingScannerView mScannerView;
 
     @Override
@@ -48,18 +50,28 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         Log.d("Scanner", rawResult.getText());
         Log.d("Scanner", rawResult.getBarcodeFormat().toString());
 
-        if (ASYNC_DONE) {
-            Intent intent = new Intent(QrCodeScanner.this, MenuListActivity.class);
-            //intent.putExtra(KEY_QR_CODE, rawResult.getText());
-            //setResult(RESULT_OK, intent);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
+        Intent data = new Intent();
+        data.putExtra(KEY_QR_CODE, rawResult.getText());
+        data.putExtra("ASYNC_DONE", ASYNC_DONE);
+        if (getParent() == null) {
+            setResult(Activity.RESULT_OK, data);
         } else {
-            Intent intent = new Intent(QrCodeScanner.this, LoadingMenuActivity.class);
-            startActivity(intent);
-            finish();
+            getParent().setResult(Activity.RESULT_OK, data);
         }
+        finish();
+
+//        if (ASYNC_DONE) {
+//            Intent intent = new Intent(QrCodeScanner.this, MenuListActivity.class);
+//            //intent.putExtra(KEY_QR_CODE, rawResult.getText());
+//            //setResult(RESULT_OK, intent);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent);
+//            finish();
+//        } else {
+//            Intent intent = new Intent(QrCodeScanner.this, LoadingMenuActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
     }
 
     @Override

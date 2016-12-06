@@ -16,7 +16,7 @@ public class SlidingTabsAdapter extends FragmentPagerAdapter {
 
     private final int PAGE_COUNT = 3;
     private String[] tabTitles;
-    static String[] searchTopics = new String[] {BuildConfig.AP_DIR, BuildConfig.MC_DIR,  BuildConfig.DE_DIR};
+    static String[] mealTypes = new String[] {BuildConfig.AP_DIR, BuildConfig.MC_DIR,  BuildConfig.DE_DIR};
     private Context context;
 
     public SlidingTabsAdapter(FragmentManager fm, Context context) {
@@ -38,7 +38,7 @@ public class SlidingTabsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         MenuListFragment f = new MenuListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("searchTopic", searchTopics[position]);
+        bundle.putString("searchTopic", mealTypes[position]);
         f.setArguments(bundle);
         return f;
     }

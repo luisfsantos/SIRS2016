@@ -32,7 +32,8 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.Order;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.data.RestaurantMenu;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.base.BaseActivity;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CallsAsyncTask;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.GetOrderInfoSR;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.CancelOrderSR;
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.RegisterOrderSR;
 
 /**
  * Created by Catarina on 14/11/2016.
@@ -92,7 +93,8 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
 
     @OnClick(R.id.submit_order)
     public void onSubmitOrderClicked(View view) {
-        new GetOrderInfoSR(this).execute(Order.toJSONArray());
+        String payment = payment_chosen == ChoosePaymentMethodActivity.PAYPAL_CHOSEN ? "PP" : "CA";
+        new RegisterOrderSR(this).execute(Order.TABLE_ID, Order.toJSONArray(), payment);
     }
 
     @Override
@@ -193,6 +195,7 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
                     Intent intent = new Intent(OrderPaymentActivity.this, AfterPaymentActivity.class);
                     intent.putExtra(INTENT_PAYMENT_METHOD, payment_chosen);
                     intent.putExtra(INTENT_CONFIRM, confirm);
+                    intent.putExtra(INTENT_ORDER_ID, order.getString("identifier"));
                     startActivity(intent);
                     Order.clear();
                     finish();
@@ -203,6 +206,11 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
             Log.i(TAG, "The user canceled.");
+            try {
+                new CancelOrderSR(this).execute(order.getString("identifier"));
+            } catch (JSONException e) {
+                Log.e(TAG, "an extremely unlikely failure occurred: ", e);
+            }
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
             Log.i(TAG, "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
         }
