@@ -105,6 +105,8 @@
     }
 
 
+
+
 </style>
 <body>
 
@@ -115,7 +117,6 @@
             <a href="{% url 'accounts:logout' %}" class="btn btn-default navbar-btn" role="button">Logout</a>
         </li>
     </ul>
-    </div>
 </nav>
 <div class="container fill">
     <div class="line">
@@ -128,7 +129,7 @@
                         <form class="navbar-form" action="/tables/clean/" method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <input type="hidden" name="table_id" class="form-control" value ="{{ table1.table_id }}">
+                                <input type="hidden" name="table_id" class="form-control" value="{{ table1.table_id }}">
                                 <input type="submit" class="form-control" value="Clear Table">
                             </div>
                         </form>
@@ -143,24 +144,23 @@
                 </ul>
             </nav>
             <div class="content">
+                <div class="col-md-12 order">
+                    {% for order in table1.order_set.all %}
 
-                {% for order in table1.order_set.all %}
-                    <div class="order">
                     {% if order.status != 'AR' %}
-                        <span class="order_line"> Order: {{ order.get_status_display }}
+                    <span class="order-line navbar navbar-default"> Order: {{ order.get_status_display }}
                         <ul>
                         {% for orderItem in order.order_items.all %}
-                            <li class="order_item"><b>Item:</b> {{ orderItem.menu_item.name }}, <b>Quantity:</b> {{ orderItem.quantity }}</li>
+                            <li class="order-item"><b>Item:</b> {{ orderItem.menu_item.name }}, <b>Quantity:</b> {{ orderItem.quantity }}</li>
                         {% endfor %}
                         </ul>
                         </span>
                     {% endif %}
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
         {% endfor %}
-
 
 
     </div>
