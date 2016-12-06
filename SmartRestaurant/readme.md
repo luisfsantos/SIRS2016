@@ -25,3 +25,9 @@ To run the server simply run:
 ```
 python manage.py runserver
 ```
+
+###Dependencies
+
+```
+apt-get install libssl-dev libffi-dev
+```
