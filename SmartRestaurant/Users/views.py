@@ -3,7 +3,9 @@ from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from Users.forms import UserForm, UserProfileForm, LoginForm
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
+
 
 @login_required
 def register(request):
@@ -12,7 +14,7 @@ def register(request):
     """
     if request.user.is_superuser:
         if request.method == "POST":
-            uform = UserForm(data=request.POST)
+            uform = UserCreationForm(data=request.POST)
             pform = UserProfileForm(data=request.POST)
             if uform.is_valid() and pform.is_valid():
                 user = uform.save()
