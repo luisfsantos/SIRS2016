@@ -5,12 +5,9 @@
 	<div class="login-page">
         <div class="form">
             {% if messages %}
-                 <ul class="messages">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                 </ul>
-            {% else %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
                 <form action="/login/" method="post">
                         {% csrf_token %}
                         {{ form }}
