@@ -31,7 +31,7 @@ def paypalAPI(request):
             paymentID = payment_serializer.validated_data['paypal_confirm']['response']['id']
             paymentDATA = paypalrestsdk.Payment.find(paymentID)
             state = paymentDATA.state
-            resources = paymentDATA.related_resources
+            resources = paymentDATA.transactions.related_resources
             amount = resources.amount.total
             currency = resources.amount.currency
             completion_state = resources.state
