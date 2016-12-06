@@ -31,15 +31,9 @@ def paypalAPI(request):
             paymentID = payment_serializer.validated_data['paypal_confirm']['response']['id']
             paymentDATA = paypalrestsdk.Payment.find(paymentID)
             state = paymentDATA.state
-            transactions = paymentDATA.transactions
-            transactions1 = paymentDATA.transactions[0]
-
-            amount_2 = paymentDATA.transactions[0].amount
-            amount_3 = transactions1.amount
-            amount_d = paymentDATA.transactions[0].get('amount')
-            amount = paymentDATA.transactions[0].get('amount').get('total')
-            currency = paymentDATA.transactions[0].get('amount').get('currency')
-            completion_state = paymentDATA.transactions[0].get('related_resources')[0].get('sale').get('state')
+            amount = paymentDATA.transactions[0].amount.total
+            currency = paymentDATA.transactions[0].amount.currency
+            completion_state = paymentDATA.transactions[0].related_resources[0].sale.state
             #add error handling when things dont go as planed for each case
             if state == "approved" and float(order.price) == float(amount) and currency == "EUR" and completion_state == "completed":
                 order.status = 'PR'
