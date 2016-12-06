@@ -24,8 +24,11 @@ def clean_table(request):
                     try:
                         table = TableModel.objects.get(table_id=ctform.cleaned_data.get('table_id'))
                         id = str(uuid.uuid4()) + ": "
+
+                        whois_name = request.user.get_full_name() if request.user.get_full_name() is not None else request.user.username
+                        whois_id = request.user.userprofile.nif if request.user.userprofile.nif is not None else request.user.email
                         stdlogger.warning(id + "The table: " + ctform.cleaned_data.get('table_id') + " is getting cleaned by "
-                                          + request.user.get_full_name() + " " + request.user.userprofile.nif)
+                                          + whois_name + " " + whois_id)
                         table.user = None
 
                         stdlogger.warning(id + "This affects:")
