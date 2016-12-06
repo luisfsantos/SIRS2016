@@ -16,6 +16,7 @@ def clean_table(request):
                     table.user = None
                     for order in table.order_set.all():
                         order.table = None
+                        order.save()
                     table.save()
                 except TableModel.DoesNotExist:
                     redirect('/pos/view')
