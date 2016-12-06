@@ -57,5 +57,7 @@ def createInvoice(paymentDATA, user):
     invoice_aux = paypalrestsdk.Invoice(
         {'merchant_info': merchant_info, 'billing_info': billing_info, 'items': items})
     created = invoice_aux.create()
+    if not created:
+        erros= invoice_aux.error
     invoice = paypalrestsdk.Invoice.find(invoice_aux.id)
     invoice.send()
