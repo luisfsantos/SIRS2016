@@ -97,7 +97,7 @@
     }
 
     .order {
-        border-bottom: 1px solid #676767;
+        border: 1px solid #e7e7e7;
     }
 
     ul {
@@ -151,9 +151,9 @@
             <div class="content">
 
                 {% for order in table1.order_set.all %}
-                <div class="col-md-12">
-                    {% if order.status != 'AR' %}
-                    <div class="order">
+
+                    {% if order.status != 'AR'
+                    <div class="col-md-12 order">
                         <div class="order-line navbar navbar-default"> Order: {{ order.get_status_display }}</div>
                         <ul>
                             {% for orderItem in order.order_items.all %}
@@ -164,7 +164,6 @@
                         </ul>
                     </div>
                     {% endif %}
-                </div>
                 {% endfor %}
 
             </div>
