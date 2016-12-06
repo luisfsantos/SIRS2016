@@ -31,6 +31,13 @@ public class OrderListFragment extends ListFragment {
         setListAdapter(new OrderListAdapter(getContext()));
         setHasOptionsMenu(true);
     }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        View  emptyView = getActivity().getLayoutInflater().inflate(R.layout.include_empty_cart, null);
+        ((ViewGroup)getListView().getParent()).addView(emptyView);
+        getListView().setEmptyView(emptyView);
+    }
 
     private class OrderListAdapter extends BaseAdapter {
         UpdateTotalPriceInterface context;

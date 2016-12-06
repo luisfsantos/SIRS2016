@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,11 +19,11 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
  * Created by Catarina on 30/11/2016.
  */
 
-public class GetOrderInfoSR extends AsyncTask<JSONArray, Void, WebRequest.WebResult> {
+public class RegisterOrderSR extends AsyncTask<Object, Void, WebRequest.WebResult> {
 
-    private static final String TAG = "GetOrderInfo";
+    private static final String TAG = "RegisterOrder";
 
-    private static final String ORDER_BASE = BuildConfig.SERVER_URL
+    private static final String REGISTER_BASE = BuildConfig.SERVER_URL
             + BuildConfig.ORDER_DIR
             + BuildConfig.REQUEST_DIR
             + BuildConfig.POST_PROMPT;
@@ -32,7 +31,7 @@ public class GetOrderInfoSR extends AsyncTask<JSONArray, Void, WebRequest.WebRes
     private static CallsAsyncTask activity;
     private ProgressDialog pd;
 
-    public GetOrderInfoSR(CallsAsyncTask delegate) {
+    public RegisterOrderSR(CallsAsyncTask delegate) {
         activity = delegate;
         pd = new ProgressDialog((Activity) activity);
     }
@@ -44,10 +43,12 @@ public class GetOrderInfoSR extends AsyncTask<JSONArray, Void, WebRequest.WebRes
     }
 
     @Override
-    protected WebRequest.WebResult doInBackground(JSONArray... params) {
+    protected WebRequest.WebResult doInBackground(Object... params) {
         HashMap<String, Object> search = new HashMap<>();
-        search.put("order_items", params[0]);
-        return new WebRequest().makeWebServiceCall(ORDER_BASE, WebRequest.POSTRequest, search);
+        search.put("table_id", params[0]);
+        search.put("order_items", params[1]);
+        search.put("payment_method", params[2]);
+        return new WebRequest().makeWebServiceCall(REGISTER_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override

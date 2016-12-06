@@ -61,5 +61,8 @@
     <string name="hooray">Hooray!</string>
     <string name="order_successful">Your order has been successfully registered and your food is now being prepared.\n\n Enjoy your meal! :-)</string>
     <string name="go_to_menu">Go to Menu</string>
+    <string name="something_wrong">Something went wrong…</string>
+    <string name="inconsistencies_detected">We detected some inconsistencies in your payment confirmation and your order has been cancelled.\n\nPlease do not try to place another order.\nOur manager will meet you shortly at your table to get things sorted out.\n\nPlease stand by.</string>
+    <string name="empty_cart">Nothing to show</string>
 
 </resources>

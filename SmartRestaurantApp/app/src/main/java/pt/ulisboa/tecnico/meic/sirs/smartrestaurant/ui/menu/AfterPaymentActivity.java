@@ -17,22 +17,21 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.ConfirmPaymentSR;
 /**
  * Created by Catarina on 03/12/2016.
  */
-public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask{
+public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask {
 
     private static final String TAG = "AfterPaymentActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout. ...);
         Intent intent = getIntent();
         int payment_method = intent.getIntExtra(OrderPaymentActivity.INTENT_PAYMENT_METHOD, 0);
+        String identifier = intent.getStringExtra(OrderPaymentActivity.INTENT_ORDER_ID);
 
         if (payment_method == ChoosePaymentMethodActivity.PAYPAL_CHOSEN) {
             PaymentConfirmation confirm = intent.getParcelableExtra(OrderPaymentActivity.INTENT_CONFIRM);
-            new ConfirmPaymentSR(this).execute(payment_method, confirm.toJSONObject());
-        } else if ( payment_method == ChoosePaymentMethodActivity.CASH_CHOSEN) {
-            String identifier = intent.getStringExtra(OrderPaymentActivity.INTENT_ORDER_ID);
+            new ConfirmPaymentSR(this).execute(payment_method, identifier, confirm.toJSONObject());
+        } else if (payment_method == ChoosePaymentMethodActivity.CASH_CHOSEN) {
             new ConfirmPaymentSR(this).execute(payment_method, identifier);
         }
         /**
@@ -53,21 +52,32 @@ public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask
 
     @Override
     public void onRequestFinished(Object object) {
-        setContentView(R.layout.activity_after_payment);
+
+        boolean payment_ok = (boolean) object;
+        String title;
+        if (payment_ok) {
+            setContentView(R.layout.activity_after_payment_ok);
+            title = "Order Registered";
+        } else {
+            setContentView(R.layout.activity_after_payment_fraud);
+            title = "Order Cancelled";
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setToolbar(toolbar);
+        getSupportActionBar().setTitle(title);
+
         ButterKnife.bind(this);
     }
 
     @OnClick(R.id.go_to_menu)
-    public void onGoToMenuClicked(View view){
+    public void onGoToMenuClicked(View view) {
         onBackPressed();
     }
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(AfterPaymentActivity.this, MenuListActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }
