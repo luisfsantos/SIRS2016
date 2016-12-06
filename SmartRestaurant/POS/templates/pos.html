@@ -99,6 +99,7 @@
     .order {
         border: 1px solid #e7e7e7;
         padding:0;
+        margin-bottom:10px;
     }
 
     ul {
@@ -107,12 +108,12 @@
 
     .order-line {
         font-size:1.5em;
+        padding-left:7px;
     }
 
     .order-item {
         margin-bottom:7px;
     }
-
 
 
 
@@ -159,7 +160,25 @@
 
                     {% if order.status != 'AR' %}
                     <div class="col-md-12 order">
-                        <div class="order-line navbar navbar-default"> Order: {{ order.get_status_display }}</div>
+                        <nav class="order-line navbar navbar-default">
+                            Order: {{ order.get_status_display }}
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <form class="navbar-form" action="" method="post">
+                                        <div class="form-group">
+                                            <input type="submit" class="form-control" value="Button 1">
+                                        </div>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form class="navbar-form" action="" method="post">
+                                        <div class="form-group">
+                                            <input type="submit" class="form-control" value="Button 2">
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </nav>
                         <ul>
                             {% for orderItem in order.order_items.all %}
                             <li class="order-item"><b>Item:</b> {{ orderItem.menu_item.name }}, <b>Quantity:</b> {{ orderItem.quantity }}
