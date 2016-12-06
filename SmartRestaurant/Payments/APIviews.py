@@ -43,7 +43,7 @@ def paypalAPI(request):
 
 
 def checkPayment(paymentID):
-    url = "https://api.sandbox.paypal.com/v1/payments/payment/"+paymentID
+    url = "https://api-3t.sandbox.paypal.com/v1/payments/payment/"+paymentID
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + requestAuthToken()}
 
     r = requests.get(url, headers=headers)
