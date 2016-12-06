@@ -96,8 +96,13 @@
         padding-bottom: 7px;
     }
 
+    .order {
+        border-bottom: 1px solid #676767;
+    }
 
-
+    ul {
+        list-style-type:none;
+    }
 
 
 </style>
@@ -110,7 +115,6 @@
             <a href="{% url 'accounts:logout' %}" class="btn btn-default navbar-btn" role="button">Logout</a>
         </li>
     </ul>
-    </div>
 </nav>
 <div class="container fill">
     <div class="line">
@@ -138,26 +142,25 @@
                 </ul>
             </nav>
             <div class="content">
-                <ul>
-                {% for order in table1.order_set.all %}
 
+                {% for order in table1.order_set.all %}
+                    <div class="col-md-12 order">
                     {% if order.status != 'AR' %}
-                        <li> Order: {{ order.get_status_display }}
+                        <span class="order_line"> Order: {{ order.get_status_display }}
                         <ul>
                         {% for orderItem in order.order_items.all %}
-                            <li>Item: {{ orderItem.menu_item.name }}, Quantity: {{ orderItem.quantity }}</li>
+                            <li class="order_item"><b>Item:</b> {{ orderItem.menu_item.name }}, <b>Quantity:</b> {{ orderItem.quantity }}</li>
                         {% endfor %}
                         </ul>
-                        </li>
+                        </span>
                     {% endif %}
+                    </div>
 
                 {% endfor %}
                 </ul>
             </div>
         </div>
         {% endfor %}
-
-
 
     </div>
 </div>
