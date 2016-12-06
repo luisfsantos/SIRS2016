@@ -152,7 +152,7 @@
 
                 {% for order in table1.order_set.all %}
 
-                    {% if order.status != 'AR'
+                    {% if order.status != 'AR' %}
                     <div class="col-md-12 order">
                         <div class="order-line navbar navbar-default"> Order: {{ order.get_status_display }}</div>
                         <ul>
@@ -165,7 +165,6 @@
                     </div>
                     {% endif %}
                 {% endfor %}
-
             </div>
         </div>
         {% endfor %}
