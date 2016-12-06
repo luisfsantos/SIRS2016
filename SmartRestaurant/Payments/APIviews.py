@@ -33,8 +33,10 @@ def paypalAPI(request):
             state = paymentDATA.state
             transactions = paymentDATA.transactions
             transactions1 = paymentDATA.transactions[0]
-            amount_d = paymentDATA.transactions[0].get('amount')
+
             amount_2 = paymentDATA.transactions[0].amount
+            amount_3 = transactions1.amount
+            amount_d = paymentDATA.transactions[0].get('amount')
             amount = paymentDATA.transactions[0].get('amount').get('total')
             currency = paymentDATA.transactions[0].get('amount').get('currency')
             completion_state = paymentDATA.transactions[0].get('related_resources')[0].get('sale').get('state')
