@@ -50,11 +50,11 @@ public class ConfirmPaymentSR extends AsyncTask<Object, Void, WebRequest.WebResu
         int payment_method = (int) params[0];
         switch (payment_method) {
             case ChoosePaymentMethodActivity.CASH_CHOSEN:
-                url += BuildConfig.CASH_DIR;
+                url += BuildConfig.CASH_DIR + BuildConfig.POST_PROMPT;
                 search.put("identifier", params[1]);
                 break;
             case ChoosePaymentMethodActivity.PAYPAL_CHOSEN:
-                url += BuildConfig.PAYPAL_DIR;
+                url += BuildConfig.PAYPAL_DIR + BuildConfig.POST_PROMPT;
                 search.put("identifier", params[1]);
                 search.put("paypal_confirm", params[2]);
                 break;

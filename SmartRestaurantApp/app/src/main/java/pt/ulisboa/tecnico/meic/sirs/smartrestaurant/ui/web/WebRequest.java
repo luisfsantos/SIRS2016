@@ -26,8 +26,9 @@ import java.util.Map;
  */
 public class WebRequest {
     private static final String TAG = "WebRequest";
-    public final static int GETRequest = 1;
-    public final static int POSTRequest = 2;
+    final static int GETRequest = 1;
+    final static int POSTRequest = 2;
+    private final static int TIMEOUT = 45;
     private static final CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
 
     public static void clearCookies() {
@@ -67,8 +68,8 @@ public class WebRequest {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestProperty("Referer", urladdress);
-            conn.setReadTimeout(15001);
-            conn.setConnectTimeout(15001);
+            conn.setReadTimeout(TIMEOUT * 1000);
+            conn.setConnectTimeout(TIMEOUT * 1000);
             conn.setDoInput(true);
 
             conn.setRequestProperty("Content-Type", "application/json");
