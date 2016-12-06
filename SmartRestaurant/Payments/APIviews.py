@@ -37,7 +37,7 @@ def paypalAPI(request):
                 order.payment = 'CF'
                 order.paypal_id = paymentID
                 order.save()
-                createInvoice(paymentDATA, request.user)
+                #createInvoice(paymentDATA, request.user)
                 return Response(createResponse("Order", "Payment Processed"), status=status.HTTP_200_OK)
             else:
                 return Response(createResponse("Order", "Invalid Payment"), status=status.HTTP_400_BAD_REQUEST)

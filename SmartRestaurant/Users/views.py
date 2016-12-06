@@ -18,7 +18,7 @@ def register(request):
                 user = uform.save()
                 pform = UserProfileForm(data=request.POST, instance=user.userprofile)
                 pform.save()
-                return HttpResponseRedirect('/menu/ingredients')
+                return HttpResponseRedirect('/accounts')
         else:
             uform = UserForm()
             pform = UserProfileForm()
@@ -33,6 +33,7 @@ def login_user(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+            raise Exception
             user = authenticate(username=username, password=password)
             if user:
                 if user.is_active:
