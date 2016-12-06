@@ -5,7 +5,7 @@ from Users import APIviews
 
 urlpatterns = [
     url(r'^accounts/$', APIviews.AccountListAPI),
-    url(r'^register/$', views.register),
+    url(r'^register/$', views.register_staff),
     url(r'^login/$', views.login_user),
     url(r'^logout/$', APIviews.logout_userAPI),
     url(r'^test/$', APIviews.test_loggedinAPI),

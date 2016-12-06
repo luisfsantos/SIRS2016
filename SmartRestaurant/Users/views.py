@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
@@ -7,7 +8,7 @@ from Users.forms import UserForm, UserProfileForm, LoginForm
 
 
 @login_required
-def register(request):
+def register_staff(request):
     """
     Register Staff to the System
     """
@@ -17,9 +18,11 @@ def register(request):
             pform = UserProfileForm(data=request.POST)
             if uform.is_valid() and pform.is_valid():
                 user = uform.save()
+                g = Group.objects.get(name='staff')
+                g.user_set.add(user)
                 pform = UserProfileForm(data=request.POST, instance=user.userprofile)
                 pform.save()
-                return HttpResponseRedirect('/accounts')
+                return HttpResponseRedirect('/admin')
         else:
             uform = UserForm()
             pform = UserProfileForm()
@@ -38,7 +41,7 @@ def login_user(request):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect('/accounts')
+                    return HttpResponseRedirect('/pos/view')
                 else:
                     return render(request, 'login.html', {'form': form, 'active': False, 'invalid': False})
             else:
