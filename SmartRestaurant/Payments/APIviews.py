@@ -49,10 +49,7 @@ def paypalAPI(request):
 
 def createInvoice(paymentDATA, user):
     merchant_info = {'email': 'smartrestaurant@restaurant.com', }
-    if user.email != None:
-        email = user.email
-    else:
-        email = paymentDATA.payer.payer_info.email
+    email = paymentDATA.payer.payer_info.email
     billing_info = {"email": email, "first_name": user.first_name, "last_name": user.last_name}
     items = paymentDATA.transactions[0].item_list.items
     items_info = []
@@ -60,10 +57,9 @@ def createInvoice(paymentDATA, user):
         item_info = {'name' : item.name, 'quantity' : item.quantity, 'unit_price': {"currency":item.currency, "value": item.price} }
         items_info.append(item_info)
 
-    invoice_aux = paypalrestsdk.Invoice(
+    invoice = paypalrestsdk.Invoice(
         {'merchant_info': merchant_info, 'billing_info': [billing_info,], 'items': items_info})
-    created = invoice_aux.create()
-    if not created:
-        erros = invoice_aux.error
-    invoice = paypalrestsdk.Invoice.find(invoice_aux.id)
-    invoice.send()
+    created = invoice.create()
+    if created:
+        invoice.send()
+    return created
