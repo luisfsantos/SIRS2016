@@ -15,6 +15,13 @@ from requests.auth import HTTPBasicAuth
 import ssl
 import time
 
+
+import paypalrestsdk
+paypalrestsdk.configure({
+  "mode": "sandbox", # sandbox or live
+  "client_id": "Ac46d01UTodbt_cVxaGtUgpRiBVAjGHcPGx2Q55LOx0A4qRHNVYSksBKwQUPgNX5aIkKUI24DM1G6nfV",
+  "client_secret": "EFwz3idXza8ETcrRWZ4t2_N1PYJDCpot4YT6rZxzYXUiZIh5zbQ8lYAZLiRtwZlTyjmN8fx3I6zT5fgO" })
+
 @api_view(["GET", "POST"])
 def paypalAPI(request):
     if request.method == 'POST':
@@ -22,7 +29,7 @@ def paypalAPI(request):
         if payment_serializer.is_valid():
             order = Order.objects.get(identifier = payment_serializer.validated_data['identifier'])
             paymentID = payment_serializer.validated_data['paypal_confirm']['response']['id']
-            paymentDATA = checkPayment(paymentID)
+            paymentDATA = paypalrestsdk.Payment.find(paymentID)
 
             state = paymentDATA.get('state')
             amount = paymentDATA.get('transactions')[0].get('amount').get('total')
