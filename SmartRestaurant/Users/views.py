@@ -48,3 +48,8 @@ def login_staff(request):
             else:
                 return render(request, 'login.html', {'form': form, 'active': True, 'invalid': True})
     return render(request, 'login.html', {'form': form, 'active': True, 'invalid': False})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/login')
