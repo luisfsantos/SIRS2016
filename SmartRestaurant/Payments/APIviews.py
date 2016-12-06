@@ -60,7 +60,7 @@ def requestAuthToken():
     auth = HTTPBasicAuth('Ac46d01UTodbt_cVxaGtUgpRiBVAjGHcPGx2Q55LOx0A4qRHNVYSksBKwQUPgNX5aIkKUI24DM1G6nfV','EFwz3idXza8ETcrRWZ4t2_N1PYJDCpot4YT6rZxzYXUiZIh5zbQ8lYAZLiRtwZlTyjmN8fx3I6zT5fgO')
     try:
         r = requests.post(url, headers=headers, auth=auth, data = data)
-    except Exception:
+    except requests.exceptions.SSLError:
         time.sleep(5)
         r = requests.post(url, headers=headers, auth=auth, data=data)
     json_data = r.json()
