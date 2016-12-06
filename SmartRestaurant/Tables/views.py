@@ -23,7 +23,7 @@ def clean_table(request):
                 if ctform.is_valid():
                     try:
                         table = TableModel.objects.get(table_id=ctform.cleaned_data.get('table_id'))
-                        id = uuid.uuid4() + ": "
+                        id = str(uuid.uuid4()) + ": "
                         stdlogger.warning(id + "The table: " + ctform.cleaned_data.get('table_id') + " is getting cleaned by "
                                           + request.user.get_full_name() + " " + request.user.userprofile.nif)
                         table.user = None
