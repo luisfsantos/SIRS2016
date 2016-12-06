@@ -52,8 +52,7 @@ class Order(models.Model):
 
     METHOD_CHOICES= (
         (CASH, "Cash"),
-        (PAYPAL, "PayPal"),
-        (CANCELED, "Canceled")
+        (PAYPAL, "PayPal")
     )
 
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)

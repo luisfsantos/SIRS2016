@@ -15,7 +15,6 @@ from Orders.serializers import OrderSerializer, ViewOrderSerializer, UserOrdersS
 @api_view(["POST", "GET"])
 @login_required()
 def order_requestAPI(request):
-
     if request.method == "POST":
         order_serializer = OrderSerializer(data=request.data)
         if order_serializer.is_valid():
@@ -33,6 +32,7 @@ def order_requestAPI(request):
         else:
             return Response(createResponse("Order", "Request an order!"))
 
+
 @api_view(["POST", "GET"])
 @login_required()
 def order_cancelAPI(request):
@@ -40,20 +40,23 @@ def order_cancelAPI(request):
         cancel_serializer = CancelOrderSerializer(data=request.data)
         if cancel_serializer.is_valid():
             try:
-                user_order = UserOrders.objects.get(user=request.user, order=cancel_serializer.validated_data['identifier']);
-                order = Order.objects.get(identifier = user_order.order)
-                order.payment_method = 'CN'
+                user_order = UserOrders.objects.get(user=request.user,
+                                                    order=cancel_serializer.validated_data['identifier'])
+                order = Order.objects.get(identifier=user_order.order)
+                order.payment = 'CN'
                 order.status = 'AR'
+                user_order.delete()
                 order.save()
                 return Response(createResponse("Order", "Order Canceled"), status=status.HTTP_200_OK)
             except UserOrders.DoesNotExist:
-                return Response(createResponse("Order", "That order does not exist or you cannot cancel it."))
+                return Response(createResponse("Order", "That order does not exist or you cannot cancel it."), status=status.HTTP_400_BAD_REQUEST)
 
         else:
             return Response(createResponse("Order", cancel_serializer.errors), status=status.HTTP_400_BAD_REQUEST)
 
     else:
         return Response(createResponse("Order", "Cancel an order"))
+
 
 @api_view(["GET"])
 @login_required()
