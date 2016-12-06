@@ -102,7 +102,7 @@
     <span class="navbar-brand">{{ user_name }}</span>
     <ul class="nav navbar-nav navbar-right" style="padding-right:16px;">
         <li>
-            <a href=""><button type="button" class="btn btn-default navbar-btn">Logout</button></a>
+            <a href="{% url 'accounts:logout' %}" class="btn btn-default navbar-btn" role="button">Logout</a>
         </li>
     </ul>
     </div>

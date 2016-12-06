@@ -52,4 +52,5 @@ def login_staff(request):
 
 def logout_user(request):
     logout(request)
+    messages.add_message(request, messages.INFO, "You are now logged out.")
     return redirect('/login')
