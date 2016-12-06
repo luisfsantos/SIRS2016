@@ -20,7 +20,7 @@ def posView(request):
                 return HttpResponseRedirect('/menu/ingredients')
             else:
                 tables = TableModel.objects.all().order_by('number')
-                return render(request, 'pos.html', {'user_name': request.user.first_name + request.user.last_name,
+                return render(request, 'pos.html', {'user_name': request.user.first_name + " " + request.user.last_name,
                                                     'tables': tables})
         else:
             messages.add_message(request, messages.INFO, "You do not have permission to view the POS console.")
