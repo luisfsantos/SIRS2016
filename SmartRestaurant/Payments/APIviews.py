@@ -12,6 +12,8 @@ from Orders.models import Order
 import requests
 import json
 from requests.auth import HTTPBasicAuth
+import ssl
+import time
 
 @api_view(["GET", "POST"])
 def paypalAPI(request):
@@ -56,7 +58,10 @@ def requestAuthToken():
     headers = {'Accept': 'application/json', 'Accept-Language': 'en_US', }
     data = 'grant_type=client_credentials'
     auth = HTTPBasicAuth('Ac46d01UTodbt_cVxaGtUgpRiBVAjGHcPGx2Q55LOx0A4qRHNVYSksBKwQUPgNX5aIkKUI24DM1G6nfV','EFwz3idXza8ETcrRWZ4t2_N1PYJDCpot4YT6rZxzYXUiZIh5zbQ8lYAZLiRtwZlTyjmN8fx3I6zT5fgO')
-
-    r = requests.post(url, headers=headers, auth=auth, data = data)
+    try:
+        r = requests.post(url, headers=headers, auth=auth, data = data)
+    except ssl.SSLError:
+        time.sleep(1)
+        r = requests.post(url, headers=headers, auth=auth, data=data)
     json_data = r.json()
     return json_data['access_token']
