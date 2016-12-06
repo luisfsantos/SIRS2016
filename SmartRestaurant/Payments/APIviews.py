@@ -61,7 +61,7 @@ def requestAuthToken():
     try:
         r = requests.post(url, headers=headers, auth=auth, data = data)
     except ssl.SSLError:
-        time.sleep(1)
+        time.sleep(5)
         r = requests.post(url, headers=headers, auth=auth, data=data)
     json_data = r.json()
     return json_data['access_token']
