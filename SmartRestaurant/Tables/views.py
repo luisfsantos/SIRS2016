@@ -14,7 +14,8 @@ def clean_table(request):
                 try:
                     table = TableModel.objects.get(table_id = ctform.cleaned_data.get('table_id'))
                     table.user = None
-                    table.order_set.all().clean()
+                    for order in table.order_set.all():
+                        order.table = None
                     table.save()
                 except TableModel.DoesNotExist:
                     redirect('/pos/view')
