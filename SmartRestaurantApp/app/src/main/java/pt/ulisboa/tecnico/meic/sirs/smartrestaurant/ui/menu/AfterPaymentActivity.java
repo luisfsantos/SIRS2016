@@ -20,29 +20,38 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web.ConfirmPaymentSR;
 public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask {
 
     private static final String TAG = "AfterPaymentActivity";
+    private boolean retried = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        sendConfirmation();
+    }
+
+    /**
+     * send 'confirm' (and possibly confirm.getPayment() to your server for verification
+     * or consent completion.
+     * See https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
+     * for more details.
+     *
+     * For sample mobile backend interactions, see
+     * https://github.com/paypal/rest-api-sdk-python/tree/master/samples/mobile_backend
+     */
+    private void sendConfirmation() {
         Intent intent = getIntent();
         int payment_method = intent.getIntExtra(OrderPaymentActivity.INTENT_PAYMENT_METHOD, 0);
         String identifier = intent.getStringExtra(OrderPaymentActivity.INTENT_ORDER_ID);
-
         if (payment_method == ChoosePaymentMethodActivity.PAYPAL_CHOSEN) {
             PaymentConfirmation confirm = intent.getParcelableExtra(OrderPaymentActivity.INTENT_CONFIRM);
             new ConfirmPaymentSR(this).execute(payment_method, identifier, confirm.toJSONObject());
         } else if (payment_method == ChoosePaymentMethodActivity.CASH_CHOSEN) {
             new ConfirmPaymentSR(this).execute(payment_method, identifier);
         }
-        /**
-         * send 'confirm' (and possibly confirm.getPayment() to your server for verification
-         * or consent completion.
-         * See https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
-         * for more details.
-         *
-         * For sample mobile backend interactions, see
-         * https://github.com/paypal/rest-api-sdk-python/tree/master/samples/mobile_backend
-         */
     }
 
     @Override
@@ -54,6 +63,11 @@ public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask
     public void onRequestFinished(Object object) {
 
         boolean payment_ok = (boolean) object;
+        if (!payment_ok && !retried) {
+            retried = true;
+            sendConfirmation();
+            return;
+        }
         String title;
         if (payment_ok) {
             setContentView(R.layout.activity_after_payment_ok);
