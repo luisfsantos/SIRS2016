@@ -54,7 +54,8 @@ def createInvoice(paymentDATA, user):
     billing_info = {"email": email, "first_name": user.first_name, "last_name": user.last_name}
     items = paymentDATA.transactions[0].item_list.items
 
-    invoice = paypalrestsdk.Invoice(
+    invoice_aux = paypalrestsdk.Invoice(
         {'merchant_info': merchant_info, 'billing_info': billing_info, 'items': items})
-    invoice.create()
+    invoice_aux.create()
+    invoice = paypalrestsdk.Invoice.find(invoice_aux.id)
     invoice.send()
