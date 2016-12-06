@@ -22,7 +22,7 @@ def register(request):
                 pform.save()
                 return HttpResponseRedirect('/accounts')
         else:
-            uform = UserForm()
+            uform = UserCreationForm()
             pform = UserProfileForm()
 
         return render(request, 'register.html', {'uform': uform, 'pform': pform})
