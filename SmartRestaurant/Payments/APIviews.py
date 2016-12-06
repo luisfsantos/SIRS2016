@@ -61,7 +61,7 @@ def createInvoice(paymentDATA, user):
         items_info.append(item_info)
 
     invoice_aux = paypalrestsdk.Invoice(
-        {'merchant_info': merchant_info, 'billing_info': billing_info, 'items': items})
+        {'merchant_info': merchant_info, 'billing_info': billing_info, 'items': items_info})
     created = invoice_aux.create()
     if not created:
         erros = invoice_aux.error
