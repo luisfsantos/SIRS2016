@@ -2,28 +2,29 @@
 
 {% block content %}
 
-	<div class="login-page">
-        <div class="form">
-            {% if messages %}
-                {% for message in messages %}
-                    <div style="border:2px solid #676767"></div>
-                    <p style="color:red;">{{ message }}</p>
-                {% endfor %}
-            {% endif %}
-            <form action="/login/" method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <input type="submit" value="Submit" class="form_button" />
-            </form>
-            {% if not active %}
-                <p>This user is not active please contact support admin@smartrestaurant.com</p>
-            {% endif %}
-            {% if invalid %}
-                <p>Invalid login credentials</p>
-            {% endif %}
-
+<div class="login-page">
+    <div class="form">
+        {% if messages %}
+        <div style="border:2px solid #676767">
+            {% for message in messages %}
+            <p style="color:red;">{{ message }}</p>
+            {% endfor %}
         </div>
+        {% endif %}
+        <form action="/login/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" class="form_button"/>
+        </form>
+        {% if not active %}
+        <p>This user is not active please contact support admin@smartrestaurant.com</p>
+        {% endif %}
+        {% if invalid %}
+        <p>Invalid login credentials</p>
+        {% endif %}
+
     </div>
+</div>
 
 
 {% endblock %}
