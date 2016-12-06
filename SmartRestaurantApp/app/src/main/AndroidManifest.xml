@@ -22,65 +22,80 @@
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity"
             android:label="Session start"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SplashScreen" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SplashScreen"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoginActivity"
             android:label="User login"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LogoutActivity"
-            android:label="User logout"/>
+            android:label="User logout"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity"
             android:label="User Signup"
             android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SessionStartActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PromptQrScanActivity"
-            android:label="QR Code Scanner"/>
+            android:label="QR Code Scanner"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.QrCodeScanner"
             android:label="QR Code Scanner"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PromptQrScanActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PromptQrScanActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.NoNetworkConnectionActivity"
             android:label="No network"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PromptQrScanActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.PromptQrScanActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoadingMenuActivity"
             android:label="Loading Menu"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.QrCodeScanner" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.QrCodeScanner"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.QrCodeScanner" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.QrCodeScanner"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuItemDetailActivity"
             android:label=""
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.AccountDetailsActivity"
             android:label="Account Details"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderListActivity"
             android:label="My Order"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.MenuListActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ChoosePaymentMethodActivity"
             android:label="Choose Payment Method"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderListActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderListActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderPaymentActivity"
             android:label="Checkout"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ChoosePaymentMethodActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ChoosePaymentMethodActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.AfterPaymentActivity"
             android:label="Order Registered"
-            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderPaymentActivity" />
+            android:parentActivityName="pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.OrderPaymentActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

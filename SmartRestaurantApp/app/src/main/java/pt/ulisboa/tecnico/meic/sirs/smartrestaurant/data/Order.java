@@ -17,6 +17,8 @@ import java.util.Map;
  */
 public class Order {
 
+    public static String TABLE_ID;
+
     /**
      * Stores the IDs of the MenuItems added to order
      */

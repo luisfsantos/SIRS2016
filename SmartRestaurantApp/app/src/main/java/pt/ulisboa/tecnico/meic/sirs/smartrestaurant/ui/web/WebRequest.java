@@ -98,7 +98,8 @@ public class WebRequest {
             InputStream inputStream;
 
             if (reqResponseCode == HttpURLConnection.HTTP_OK ||
-                    reqResponseCode == HttpURLConnection.HTTP_CREATED) {
+                    reqResponseCode == HttpURLConnection.HTTP_CREATED ||
+                    reqResponseCode == HttpURLConnection.HTTP_ACCEPTED) {
                 inputStream = conn.getInputStream();
             } else {
                 inputStream = conn.getErrorStream();
