@@ -10,7 +10,7 @@ User Info
     <h3>Order:</h3>
     <p>Identifier: {{order.identifier}}</p>
     <p>Table Number: {{order.table.number}}</p>
-    <p>Total Price: {{order.price}}</p>
+    <p>Total Price: € {{order.price}}</p>
     <p>Items:
     <ul>
         {% for orderitem in order.order_items.all %}
