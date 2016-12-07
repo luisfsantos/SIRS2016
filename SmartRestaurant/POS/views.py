@@ -149,6 +149,7 @@ def receive_cash_order(request):
                         if order.payment == 'PE' and order.cash == 'FE':
                             order.payment = 'CF'
                             order.cash = 'RE'
+                            order.status = 'PR'
                             order.save()
                             stdlogger.info("The user: " + whois_name + " " + whois_id + " fetched the money for order " + str(form.cleaned_data.get('identifier')))
                             return redirect('/pos/view')
