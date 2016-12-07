@@ -1,0 +1,40 @@
+{% extends "POS/base.html" %}
+
+{% block title %}
+User Info
+{% endblock %}
+
+{% block content %}
+<div class="col-md-3"></div>
+<div class="col-md-6">
+    <h3>Order:</h3>
+    <p>Identifier: {{order.identifier}}</p>
+    <p>Table Number: {{order.table.number}}</p>
+    <p>Total Price: {{order.price}}</p>
+    <p>Items:
+    <ul>
+        {% for orderitem in order.order_items.all %}
+        <li>Meal: {{orderitem.menu_item.name}}, Quantity: {{orderitem.quantity}}</li>
+        {%endfor%}
+    </ul>
+    </p>
+    <p>Order Status: {{order.get_status_display}}</p>
+    <p>Payment Method: {{order.get_payment_method_display}}
+    <ul>
+        {% if order.payment_method == 'PP' %}
+        <li>Paypal ID: {{order.paypal_id}}</li>
+        {% else %}
+        <li>Cash status: {{order.get_cash_display}}</li>
+        {% endif %}
+    </ul>
+    </p>
+    <p>Payment Status: {{order.get_payment_display}}</p>
+
+    <h3>User: </h3>
+    <p>Name: {{user_order.user.get_full_name}}</p>
+    <p>Email: {{user_order.user.email}}</p>
+    <p>NIF: {{user_order.user.userprofile.nif}}</p>
+
+</div>
+<div class="col-md-3"></div>
+{% endblock %}

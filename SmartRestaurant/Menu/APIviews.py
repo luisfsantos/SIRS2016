@@ -21,13 +21,6 @@ class MainListAPI(APIView):
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
-    @method_decorator(login_required)
-    def post(self, request, format=None):
-        meal = MealSerializer(data=request.data)
-        if meal.is_valid():
-            meal.save()
-            return Response(meal.data, status=status.HTTP_201_CREATED)
-        return Response(meal.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AppetizerListAPI(APIView):
     """
@@ -43,14 +36,6 @@ class AppetizerListAPI(APIView):
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
-    @method_decorator(login_required)
-    def post(self, request, format=None):
-        meal = MealSerializer(data=request.data)
-        if meal.is_valid():
-            meal.save()
-            return Response(meal.data, status=status.HTTP_201_CREATED)
-        return Response(meal.errors, status=status.HTTP_400_BAD_REQUEST)
-
 class DessertListAPI(APIView):
     """
     List all desserts, or create a new dessert.
@@ -65,14 +50,6 @@ class DessertListAPI(APIView):
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
-    @method_decorator(login_required)
-    def post(self, request, format=None):
-        meal = MealSerializer(data=request.data)
-        if meal.is_valid():
-            meal.save()
-            return Response(meal.data, status=status.HTTP_201_CREATED)
-        return Response(meal.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class IngredientListAPI(APIView):
     """
@@ -84,11 +61,3 @@ class IngredientListAPI(APIView):
         ingredient = Ingredient.objects.all()
         serializer = IngredientSerializer(ingredient, many=True)
         return Response(serializer.data)
-
-    @method_decorator(login_required)
-    def post(self, request, format=None):
-        ingredient = IngredientSerializer(data=request.data)
-        if ingredient.is_valid():
-            ingredient.save()
-            return Response(ingredient.data, status=status.HTTP_201_CREATED)
-        return Response(ingredient.errors, status=status.HTTP_400_BAD_REQUEST)
