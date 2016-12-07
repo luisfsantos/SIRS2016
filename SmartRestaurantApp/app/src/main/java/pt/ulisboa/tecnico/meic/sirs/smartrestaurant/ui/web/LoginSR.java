@@ -43,7 +43,7 @@ public class LoginSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         search.put("username", params[0]);
         search.put("password", params[1]);
 
-        return new WebRequest().makeWebServiceCall(LOGIN_BASE, WebRequest.POSTRequest, search);
+        return new WebRequest((Context)activity).makeWebServiceCall(LOGIN_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override

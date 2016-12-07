@@ -46,7 +46,7 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         search.put("last_name", params[4]);
         search.put("nif", Integer.parseInt(params[5]));
 
-        return new WebRequest().makeWebServiceCall(SIGNUP_BASE, WebRequest.POSTRequest, search);
+        return new WebRequest((Context)activity).makeWebServiceCall(SIGNUP_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override

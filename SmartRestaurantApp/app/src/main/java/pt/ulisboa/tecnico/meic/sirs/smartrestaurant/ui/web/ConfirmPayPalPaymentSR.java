@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -51,7 +52,7 @@ public class ConfirmPayPalPaymentSR extends AsyncTask<Object, Void, WebRequest.W
         search.put("identifier", params[0]);
         search.put("paypal_confirm", params[1]);
 
-        return new WebRequest().makeWebServiceCall(CONFIRM_BASE, WebRequest.POSTRequest, search);
+        return new WebRequest((Context)activity).makeWebServiceCall(CONFIRM_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override

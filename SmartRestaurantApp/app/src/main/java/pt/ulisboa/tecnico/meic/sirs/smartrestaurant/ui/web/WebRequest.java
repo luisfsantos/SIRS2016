@@ -1,11 +1,16 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -18,8 +23,22 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+
+import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 
 /**
  * Created by Catarina on 12/11/2016.
@@ -30,14 +49,53 @@ public class WebRequest {
     final static int POSTRequest = 2;
     private final static int TIMEOUT = 45;
     private static final CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+    private static SSLContext sslContext = null;
 
     public static void clearCookies() {
         cookieManager.getCookieStore().removeAll();
     }
 
-    //Constructor with no parameter
-    public WebRequest() {
+    public WebRequest(Context context) {
         CookieHandler.setDefault(cookieManager);
+        if (sslContext == null) {
+            try {
+                generateSSLContext(context);
+            } catch (CertificateException | KeyManagementException
+                    | NoSuchAlgorithmException | KeyStoreException
+                    | IOException e) {
+                Log.e(TAG, "Unable to initialize SSL Context: " + e.getMessage());
+            }
+        }
+    }
+
+    private void generateSSLContext(Context context) throws CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        // Load CAs from an InputStream
+        // (could be from a resource or ByteArrayInputStream or ...)
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+        InputStream caInput = new BufferedInputStream(context.getResources().openRawResource(R.raw.cert));
+        Certificate ca;
+        try {
+            ca = cf.generateCertificate(caInput);
+            System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
+        } finally {
+            caInput.close();
+        }
+
+        // Create a KeyStore containing our trusted CAs
+        String keyStoreType = KeyStore.getDefaultType();
+        KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+        keyStore.load(null, null);
+        keyStore.setCertificateEntry("ca", ca);
+
+        // Create a TrustManager that trusts the CAs in our KeyStore
+        String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+        tmf.init(keyStore);
+
+        // Create an SSLContext that uses our TrustManager
+        sslContext = SSLContext.getInstance("TLSv1.2");
+        sslContext.init(null, tmf.getTrustManagers(), null);
     }
 
     /**
@@ -65,7 +123,8 @@ public class WebRequest {
         try {
             Log.d(TAG, urladdress);
             url = new URL(urladdress);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            conn.setSSLSocketFactory(sslContext.getSocketFactory());
 
             conn.setRequestProperty("Referer", urladdress);
             conn.setReadTimeout(TIMEOUT * 1000);
@@ -88,7 +147,7 @@ public class WebRequest {
                 OutputStream out = conn.getOutputStream();
                 JSONObject jsonObject = new JSONObject();
                 for (Map.Entry<String, Object> entry : params.entrySet()) {
-                        jsonObject.put(entry.getKey(),entry.getValue());
+                    jsonObject.put(entry.getKey(), entry.getValue());
                 }
 
                 Log.d(TAG, jsonObject.toString());
@@ -121,7 +180,7 @@ public class WebRequest {
         }
     }
 
-    public class WebResult {
+    class WebResult {
         public final int code;
         public final String result;
 

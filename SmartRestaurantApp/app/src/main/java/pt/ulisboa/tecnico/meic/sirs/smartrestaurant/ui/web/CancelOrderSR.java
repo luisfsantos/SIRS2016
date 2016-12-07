@@ -39,7 +39,7 @@ public class CancelOrderSR extends AsyncTask<Object, Void, WebRequest.WebResult>
     protected WebRequest.WebResult doInBackground(Object... params) {
         HashMap<String, Object> search = new HashMap<>();
         search.put("identifier", params[0]);
-        return new WebRequest().makeWebServiceCall(ORDER_BASE, WebRequest.POSTRequest, search);
+        return new WebRequest((Context)activity).makeWebServiceCall(ORDER_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -36,7 +37,7 @@ public class SendQRTableSR extends AsyncTask<String, Void, WebRequest.WebResult>
         HashMap<String, Object> search = new HashMap<>();
         search.put("table_id", params[0]);
 
-        return new WebRequest().makeWebServiceCall(QR_BASE, WebRequest.POSTRequest, search);
+        return new WebRequest((Context)activity).makeWebServiceCall(QR_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override
