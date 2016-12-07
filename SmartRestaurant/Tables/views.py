@@ -31,10 +31,11 @@ def clean_table(request):
                                           + whois_name + " " + whois_id)
                         table.user = None
 
-                        for order in table.order_set.exclude(status='AR'):
-                            stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display() + "has been archived")
-                            order.status = 'AR'
-                            order.save()
+                        for order in table.order_set.filter(status='DE'):
+                            if order.payment == 'CF' or order.payment == 'CN':
+                                stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display() + "has been archived")
+                                order.status = 'AR'
+                                order.save()
                         table.save()
                     except TableModel.DoesNotExist:
                         redirect('/pos/view')
