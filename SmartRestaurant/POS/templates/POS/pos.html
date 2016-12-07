@@ -21,13 +21,6 @@ POS
                             </div>
                         </form>
                     </li>
-                    <li>
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <input type="submit" class="form-control" value="View Client Info">
-                            </div>
-                        </form>
-                    </li>
                 </ul>
             </nav>
             <div class="content">
@@ -39,6 +32,7 @@ POS
                     <nav class="order-line navbar navbar-default">
                         <span class="navbar-brand">Order: {{ order.get_status_display }}</span>
                         <ul class="nav navbar-nav navbar-right">
+                            {% if request.user.is_superuser %}
                             <li>
                                 <!-- THIS IS WHAT YOU ARE EDITING -->
                                 <form class="navbar-form" action="/pos/view/order/" method="post">
@@ -49,6 +43,7 @@ POS
                                     </div>
                                 </form>
                             </li>
+                            {% endif %}
                             <li>
                                 <form class="navbar-form" action="" method="post">
                                     <div class="form-group">
