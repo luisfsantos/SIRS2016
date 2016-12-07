@@ -30,12 +30,14 @@ POS
                 {% if order.status != 'AR' %}
                 <div class="col-md-12 order">
                     <nav class="order-line navbar navbar-default">
-                        <span class="navbar-brand">Order: {{ order.get_status_display }}</span>
+                        <span class="navbar-brand">
+                            Order: {{ order.get_status_display }}
+                        </span>
                         <ul class="nav navbar-nav navbar-right">
                             {% if request.user.is_superuser %}
                             <li>
                                 <!-- THIS IS WHAT YOU ARE EDITING -->
-                                <form class="navbar-form" action="/pos/view/order/" method="post">
+                                <form class="navbar-form" action="/pos/view/order/user/" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
@@ -43,14 +45,42 @@ POS
                                     </div>
                                 </form>
                             </li>
-                            {% endif %}
+                            {% else %}
                             <li>
-                                <form class="navbar-form" action="" method="post">
+                                <!-- THIS IS WHAT YOU ARE EDITING -->
+                                <form class="navbar-form" action="/pos/view/order/" method="post">
+                                    {% csrf_token %}
                                     <div class="form-group">
-                                        <input type="submit" class="form-control" value="Button 2">
+                                        <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
+                                        <input type="submit" class="form-control" value="View Order Info">
                                     </div>
                                 </form>
                             </li>
+                            {% endif %}
+                            {% if order.payment == 'CF' and order.status != 'DE' %}
+                            <li>
+                                <!-- THIS IS WHAT YOU ARE EDITING -->
+                                <form class="navbar-form" action="/pos/order/edit/processed/" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
+                                        <input type="submit" class="form-control" value="Delivered">
+                                    </div>
+                                </form>
+                            </li>
+                            {% endif %}
+                            {% if order.payment == 'PE' and order.cash == 'FE' %}
+                            <li>
+                                <!-- THIS IS WHAT YOU ARE EDITING -->
+                                <form class="navbar-form" action="/pos/order/pay/cash/" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
+                                        <input type="submit" class="form-control" value="Confirm Cash">
+                                    </div>
+                                </form>
+                            </li>
+                            {% endif %}
                         </ul>
                     </nav>
                     <ul>
