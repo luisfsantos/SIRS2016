@@ -128,6 +128,5 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
-    <include layout="@layout/include_navigation" />
 
 </android.support.v4.widget.DrawerLayout>
