@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^view/order/$', views.view_order_info),
     url(r'^order/edit/processed/$', views.process_order),
     url(r'^order/pay/cash/$', views.receive_cash_order),
+    url(r'^order/edit/fraud/$', views.fraud_handled),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

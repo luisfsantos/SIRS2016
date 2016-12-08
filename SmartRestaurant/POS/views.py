@@ -166,3 +166,32 @@ def receive_cash_order(request):
         else:
             stdlogger.warning("The user: " + whois_name + " " + whois_id + " attempted to deliver an order")
             raise Http404
+
+def fraud_handled(request):
+    if request.user.is_anonymous:
+        raise Http404
+    else:
+        whois_name = str(
+            request.user.get_full_name()) if request.user.get_full_name() is not None else request.user.username
+        whois_id = str(
+            request.user.userprofile.nif) if request.user.userprofile.nif is not None else request.user.email
+        if request.user.is_superuser:
+            if request.method == "POST":
+                form = OrderIDForm(data=request.POST)
+                if form.is_valid():
+                    try:
+                        order = Order.objects.get(identifier=form.cleaned_data.get('identifier'))
+                        if order.payment == 'FR':
+                            order.status = 'AR'
+                            order.save()
+                            stdlogger.info("The user: " + whois_name + " " + whois_id + " handled the fraud from order " + str(form.cleaned_data.get('identifier')))
+                            return redirect('/pos/view')
+                    except Order.DoesNotExist:
+                        stdlogger.info("The user: " + whois_name + " " + whois_id + " tried to handle a fraud from order " + str(
+                            form.cleaned_data.get('identifier')))
+                        redirect('/pos/view')
+            else:
+                return redirect('/pos/view')
+        else:
+            stdlogger.warning("The user: " + whois_name + " " + whois_id + " attempted to handle a fraud from an order")
+            raise Http404
