@@ -23,6 +23,7 @@ class Order(models.Model):
     ARCHIVED = 'AR'
     CONFIRMED = 'CF'
     CANCELED = 'CN'
+    FRAUD = 'FR'
     PROCESSING = 'PR'
     DELIVERED = 'DE'
     RECEIVED = 'RE'
@@ -36,6 +37,7 @@ class Order(models.Model):
         (PROCESSING, 'Processing'),
         (DELIVERED, 'Delivered'),
         (ARCHIVED, 'Archived'),
+        (FRAUD, 'Fraud')
     )
 
     PAYMENT_CHOICES = (

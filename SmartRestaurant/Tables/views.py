@@ -14,7 +14,7 @@ stdlogger = logging.getLogger(__name__)
 # Create your views here.
 def clean_table(request):
     """
-    Register Staff to the System
+    Clean table of delivered orders
     """
     if not request.user.is_anonymous:
         if request.user.groups.filter(name='staff') or request.user.is_superuser:
@@ -33,7 +33,7 @@ def clean_table(request):
 
                         for order in table.order_set.filter(status='DE'):
                             if order.payment == 'CF' or order.payment == 'CN':
-                                stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display() + "has been archived")
+                                stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display() + " has been archived")
                                 order.status = 'AR'
                                 order.save()
                         table.save()

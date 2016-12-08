@@ -36,9 +36,10 @@ def paypal_api(request):
             # createInvoice(paymentDATA, request.user)
             return Response(createResponse("Order", "Payment Processed"), status=status.HTTP_200_OK)
         else:
-            order.status = 'AR'
+            order.status = 'FR'
             order.payment = 'CN'
-            UserOrders.objects.get(order=order.identifier).delete()
+            order.save()
+            #UserOrders.objects.get(order=order.identifier).delete()
             return Response(createResponse("Order", "Invalid Payment"), status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -60,7 +61,7 @@ def paypal_api(request):
                     paymentDATA = paypalrestsdk.Payment.find(paymentID)
                     return verify_order(paymentDATA, order)
             except UserOrders.DoesNotExist:
-                return Response(createResponse("Order", "That order does not exist or you cannot cancel pay for it"),
+                return Response(createResponse("Order", "That order does not exist or you cannot pay for it"),
                                 status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(createResponse("Order", payment_serializer.errors), status=status.HTTP_400_BAD_REQUEST)
