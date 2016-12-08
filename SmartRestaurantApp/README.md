@@ -1,9 +1,16 @@
 # Smart Restaurant Mobile App
+
+**Important notice:**
+- **The Smart Restaurant Mobile App can only run on devices running Android Jelly Bean 4.2.x (API level 17) or later.**
+- **Given that the Smart Restaurant Mobile App uses the device's camera to locate the customer inside the restaurant, the app cannot be run on an Android emulator.**
+
+--
+
 ### Simply run the release APK
 
-1. Copy the file SmartRestaurantApp/app-release.apk to your phone and install it.
+1. Copy the file SmartRestaurantApp/app-release.apk to your phone and install it
    - Note that this APK has been digitally signed and is ready for release
-2. Open the Smart Restaurant app from your phone's app drawer.
+2. Open the Smart Restaurant app from your phone's app drawer
 
 ### Build the debug APK 
 
