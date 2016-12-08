@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -9,7 +10,6 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ChoosePaymentMethodActivity;
 
 /**
  * Created by Catarina on 03/12/2016.
@@ -27,9 +27,11 @@ public class ConfirmPayPalPaymentSR extends AsyncTask<Object, Void, WebRequest.W
     private static CallsAsyncTask activity;
     private ProgressDialog pd;
 
+
     public ConfirmPayPalPaymentSR(CallsAsyncTask delegate) {
         activity = delegate;
         pd = new ProgressDialog((Activity) activity);
+        pd.setCancelable(false);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class ConfirmPayPalPaymentSR extends AsyncTask<Object, Void, WebRequest.W
         search.put("identifier", params[0]);
         search.put("paypal_confirm", params[1]);
 
-        return new WebRequest().makeWebServiceCall(CONFIRM_BASE, WebRequest.POSTRequest, search);
+        return new WebRequest((Context)activity).makeWebServiceCall(CONFIRM_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override

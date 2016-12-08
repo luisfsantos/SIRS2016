@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -24,14 +26,29 @@ import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity;
 public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
 
     private final String SIGNUP_BASE = BuildConfig.SERVER_URL + BuildConfig.REGISTER_DIR + BuildConfig.POST_PROMPT;
-    CallsAsyncTask activity;
+    private CallsAsyncTask activity;
+    private ProgressDialog pd;
 
     public SignUpSR(CallsAsyncTask delegate) {
         this.activity = delegate;
+        pd = new ProgressDialog((Activity) activity);
+        pd.setCancelable(false);
     }
 
+    @Override
+    protected void onPreExecute() {
+        pd.setTitle("Signing up...");
+        pd.setMessage("Please wait");
+        pd.show();
+    }
+
+    @Override
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
+    }
+
+
     /**
-     *
      * @param params - email, username, password, first_name, last_name, nif
      * @return
      */
@@ -46,7 +63,7 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         search.put("last_name", params[4]);
         search.put("nif", Integer.parseInt(params[5]));
 
-        return new WebRequest().makeWebServiceCall(SIGNUP_BASE, WebRequest.POSTRequest, search);
+        return new WebRequest((Context) activity).makeWebServiceCall(SIGNUP_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override
@@ -82,9 +99,11 @@ public class SignUpSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         } catch (JSONException e) {
             ((SignUpActivity) activity).updateErrorView("An error occurred.");
         }
+
+        pd.dismiss();
     }
 
-    protected static void saveUserData(Context context, String email, String username, String firstName, String lastName, int nif) {
+    static void saveUserData(Context context, String email, String username, String firstName, String lastName, int nif) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.user_info_pref), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 

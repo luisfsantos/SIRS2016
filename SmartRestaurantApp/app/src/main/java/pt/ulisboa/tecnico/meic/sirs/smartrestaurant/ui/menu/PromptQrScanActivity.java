@@ -1,10 +1,16 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +31,7 @@ public class PromptQrScanActivity extends BaseActivity implements CallsAsyncTask
 
     private static boolean ASYNC_DONE = false;
     static final int SCAN_QR_REQUEST = 1;
+    static final int CAMERA_REQUEST_PERMISSION = 200;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +46,7 @@ public class PromptQrScanActivity extends BaseActivity implements CallsAsyncTask
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-              new FetchMenuSR(this).execute(SlidingTabsAdapter.mealTypes);
+            new FetchMenuSR(this).execute(SlidingTabsAdapter.mealTypes);
         } else {
             Intent intent = new Intent(PromptQrScanActivity.this, NoNetworkConnectionActivity.class);
             startActivity(intent);
@@ -49,10 +56,35 @@ public class PromptQrScanActivity extends BaseActivity implements CallsAsyncTask
 
     @OnClick(R.id.scan_qr_code)
     public void onScanQrCodeClicked(View view) {
+        if (hasPermission(Manifest.permission.CAMERA)) {
+            startScan();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_PERMISSION);
+        }
+    }
+
+    private void startScan() {
         Intent i = new Intent(PromptQrScanActivity.this, QrCodeScanner.class);
         i.putExtra("ASYNC_DONE", ASYNC_DONE);
         startActivityForResult(i, SCAN_QR_REQUEST);
     }
+
+    private boolean hasPermission(String permission) {
+        return (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_REQUEST_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startScan();
+                } else {
+                    ((TextView) findViewById(R.id.oops_text)).setText(R.string.camera_permission);
+                }
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -70,7 +102,8 @@ public class PromptQrScanActivity extends BaseActivity implements CallsAsyncTask
         if (table_ok) {
             Order.TABLE_ID = message;
             if (ASYNC_DONE) {
-                Intent intent = new Intent(PromptQrScanActivity.this, MenuListActivity.class);;
+                Intent intent = new Intent(PromptQrScanActivity.this, MenuListActivity.class);
+                ;
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
@@ -81,7 +114,7 @@ public class PromptQrScanActivity extends BaseActivity implements CallsAsyncTask
                 finish();
             }
         } else {
-            ((TextView)findViewById(R.id.oops_text)).setText(message);
+            ((TextView) findViewById(R.id.oops_text)).setText(message);
         }
     }
 

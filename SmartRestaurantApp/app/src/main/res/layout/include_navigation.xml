@@ -10,7 +10,7 @@
     app:headerLayout="@layout/navigation_header"
     app:menu="@menu/drawer_view">
 
-    <LinearLayout
+    <!--LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeight"
         android:orientation="vertical"
@@ -23,6 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/drawer_footer"/>
-    </LinearLayout>
+    </LinearLayout-->
 
 </android.support.design.widget.NavigationView>

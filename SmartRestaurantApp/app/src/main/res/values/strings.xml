@@ -1,7 +1,7 @@
 <resources>
     <!-- Shared preferences names -->
     <string name="user_info_pref">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_PREF</string>
-    <string name="cookie_pref">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.COOKIE_PREF</string>
+    <string name="camera_pref">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.camera_pref</string>
     <string name="user_info_email">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_EMAIL</string>
     <string name="user_info_username">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_USERNAME</string>
     <string name="user_info_first_name">pt.ulisboa.tecnico.meic.sirs.smartrestaurant.USER_INFO_FIRST_NAME</string>
@@ -64,5 +64,6 @@
     <string name="something_wrong">Something went wrong…</string>
     <string name="inconsistencies_detected">We detected some inconsistencies in your payment confirmation and your order has been cancelled.\n\nPlease do not try to place another order.\nOur manager will meet you shortly at your table to get things sorted out.\n\nPlease stand by.</string>
     <string name="empty_cart">Nothing to show</string>
+    <string name="camera_permission">You cannot use the Smart Restaurant application if you do not grant access to the camera. You will be prompted to use the camera solely for taking a picture of the QR code on your table.</string>
 
 </resources>

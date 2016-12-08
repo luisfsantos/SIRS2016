@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -20,7 +21,7 @@ public class TestSR extends AsyncTask<String, Void, WebRequest.WebResult> {
 
     @Override
     protected WebRequest.WebResult doInBackground(String... params) {
-        return new WebRequest().makeWebServiceCall(TEST_BASE, WebRequest.GETRequest);
+        return new WebRequest((Context)activity).makeWebServiceCall(TEST_BASE, WebRequest.GETRequest);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class LogoutSR extends AsyncTask<String, Void, WebRequest.WebResult> {
     @Override
     protected WebRequest.WebResult doInBackground(String... params) {
 
-        return new WebRequest().makeWebServiceCall(LOGOUT_BASE, WebRequest.GETRequest);
+        return new WebRequest((Context)activity).makeWebServiceCall(LOGOUT_BASE, WebRequest.GETRequest);
     }
 
     @Override

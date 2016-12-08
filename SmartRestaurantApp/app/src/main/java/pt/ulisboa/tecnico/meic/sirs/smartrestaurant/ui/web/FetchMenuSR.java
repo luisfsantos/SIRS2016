@@ -40,7 +40,7 @@ public class FetchMenuSR extends
         for (String s : search) {
             String url = MENU_BASE + s.replace(" ", "+");
             Log.i("url", url);
-            searchResults.put(s, new WebRequest().makeWebServiceCall(url, WebRequest.GETRequest).result);
+            searchResults.put(s, new WebRequest((Context)activity).makeWebServiceCall(url, WebRequest.GETRequest).result);
         }
         return searchResults;
     }

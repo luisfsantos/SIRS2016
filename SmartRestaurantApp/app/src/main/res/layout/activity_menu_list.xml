@@ -25,5 +25,5 @@
                 android:src="@drawable/ic_shopping_cart_white_24dp" />
         </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
-    <include layout="@layout/include_navigation" />
+    <!--include layout="@layout/include_navigation" /-->
 </android.support.v4.widget.DrawerLayout>

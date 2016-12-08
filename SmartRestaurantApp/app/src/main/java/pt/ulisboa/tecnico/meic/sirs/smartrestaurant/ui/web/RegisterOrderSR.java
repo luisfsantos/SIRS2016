@@ -48,7 +48,7 @@ public class RegisterOrderSR extends AsyncTask<Object, Void, WebRequest.WebResul
         search.put("table_id", params[0]);
         search.put("order_items", params[1]);
         search.put("payment_method", params[2]);
-        return new WebRequest().makeWebServiceCall(REGISTER_BASE, WebRequest.POSTRequest, search);
+        return new WebRequest((Context)activity).makeWebServiceCall(REGISTER_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override
