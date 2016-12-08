@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.throttling import AnonRateThrottle
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from Common.responses import createResponse
@@ -51,6 +51,8 @@ def registerAPI(request):
         if user_serializer.is_valid():
             user_serializer.save()
             user = User.objects.get(username=request.data.get("username", ''))
+            g = Group.objects.get(name='users')
+            g.user_set.add(user)
             login(request, user)
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
