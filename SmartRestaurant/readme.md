@@ -25,12 +25,15 @@ source env/bin/activate
 
 pip install -r requierments.txt
 
-mysql -u "root" -p < init_db.sql
 
 python manage.py makemigrations
 python manage.py migrate
 
-
+python manage.py loaddata export/fixtures/groups.json
+python manage.py loaddata export/fixtures/users.json
+python manage.py loaddata export/fixtures/tables.json
+python manage.py loaddata export/fixtures/initial_ingredient_data.json
+python manage.py loaddata export/fixtures/initial_meal_data.json
 
 python manage.py runserver
 
