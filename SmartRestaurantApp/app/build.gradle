@@ -1,9 +1,20 @@
 apply plugin: 'com.android.application'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
-
     defaultConfig {
         applicationId "pt.ulisboa.tecnico.meic.sirs.smartrestaurant"
         minSdkVersion 16
@@ -33,9 +44,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SERVER_URL", '"https://luissantos.me/api/"'
+            buildConfigField "String", "SERVER_URL", '"https://smartrestaurant.xyz/api/"'
+            signingConfig signingConfigs.config
         }
-
         debug {
             buildConfigField "String", "SERVER_URL", '"https://luissantos.me/api/"'
         }
@@ -44,7 +55,7 @@ android {
 
 dependencies {
     //compile 'com.android.volley:volley:1.0.0'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:${android_support_lib_version}"
     compile "com.android.support:design:${android_support_lib_version}"
     compile "com.android.support:cardview-v7:${android_support_lib_version}"
@@ -52,11 +63,11 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.code.gson:gson:2.8.0'
-
+    compile('com.mikepenz:materialdrawer:5.8.0@aar') {
+        transitive = true
+    }
     compile('com.paypal.sdk:paypal-android-sdk:2.15.1') {
         exclude group: 'io.card'
     }
-    compile 'com.google.android.gms:play-services-wallet:8.4.0'
-
-
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }

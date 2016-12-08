@@ -26,15 +26,16 @@ def clean_table(request):
                         id = "Clean Operation: " + str(uuid.uuid4()) + " : "
 
                         whois_name = str(request.user.get_full_name()) if request.user.get_full_name() is not None else request.user.username
-                        whois_id = request.user.userprofile.nif if request.user.userprofile.nif is not None else request.user.email
+                        whois_id = str(request.user.userprofile.nif) if request.user.userprofile.nif is not None else request.user.email
                         stdlogger.warning(id + "The table: " + ctform.cleaned_data.get('table_id') + " is getting cleaned by "
                                           + whois_name + " " + whois_id)
                         table.user = None
 
-                        for order in table.order_set.filter(status='AR'):
-                            stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display() + "has been archived")
-                            order.status = 'AR'
-                            order.save()
+                        for order in table.order_set.filter(status='DE'):
+                            if order.payment == 'CF' or order.payment == 'CN':
+                                stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display() + "has been archived")
+                                order.status = 'AR'
+                                order.save()
                         table.save()
                     except TableModel.DoesNotExist:
                         redirect('/pos/view')

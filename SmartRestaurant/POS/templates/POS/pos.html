@@ -1,0 +1,107 @@
+{% extends "POS/base.html" %}
+
+{% block title %}
+POS
+{% endblock %}
+
+{% block content %}
+<div class="container fill">
+    <div class="line">
+        {% for table1 in tables %}
+        <div class="col-md-6 quad">
+            <nav class="navbar navbar-default table-header">
+                <span class="navbar-brand table-no">Table {{ table1.number }}</span>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form" action="/tables/clean/" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="hidden" name="table_id" class="form-control" value="{{ table1.table_id }}">
+                                <input type="submit" class="form-control" value="Clear Table">
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+            <div class="content">
+
+                {% for order in table1.order_set.all %}
+
+                {% if order.status != 'AR' %}
+                <div class="col-md-12 order">
+                    <nav class="order-line navbar navbar-default">
+                        <span class="navbar-brand">
+                            Order: {{ order.get_status_display }}
+                            {% if order.payment_method == 'CA' and order.cash == 'FE' %}
+                            please fetch <b> € {{order.price}} </b>
+                            {% endif %}
+                        </span>
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if request.user.is_superuser %}
+                            <li>
+                                <!-- THIS IS WHAT YOU ARE EDITING -->
+                                <form class="navbar-form" action="/pos/view/order/user/" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
+                                        <input type="submit" class="form-control" value="View Client Info">
+                                    </div>
+                                </form>
+                            </li>
+                            {% else %}
+                            <li>
+                                <!-- THIS IS WHAT YOU ARE EDITING -->
+                                <form class="navbar-form" action="/pos/view/order/" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
+                                        <input type="submit" class="form-control" value="View Order Info">
+                                    </div>
+                                </form>
+                            </li>
+                            {% endif %}
+                            {% if order.payment == 'CF' and order.status != 'DE' %}
+                            <li>
+                                <!-- THIS IS WHAT YOU ARE EDITING -->
+                                <form class="navbar-form" action="/pos/order/edit/processed/" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
+                                        <input type="submit" class="form-control" value="Delivered">
+                                    </div>
+                                </form>
+                            </li>
+                            {% endif %}
+                            {% if order.payment == 'PE' and order.cash == 'FE' %}
+                            <li>
+                                <!-- THIS IS WHAT YOU ARE EDITING -->
+                                <form class="navbar-form" action="/pos/order/pay/cash/" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
+                                        <input type="submit" class="form-control" value="Confirm Cash">
+                                    </div>
+                                </form>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    <ul>
+                        {% for orderItem in order.order_items.all %}
+                        <li class="order-item">
+                            <b>Item:</b> {{ orderItem.menu_item.name }},
+                            <b>Quantity:</b> {{orderItem.quantity}}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+</div>
+{% endblock %}

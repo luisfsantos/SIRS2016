@@ -1,7 +1,8 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.web;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,9 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.R;
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.LoginActivity;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.SignUpActivity;
 
 /**
  * Created by Catarina on 17/11/2016.
@@ -26,9 +25,24 @@ public class LoginSR extends AsyncTask<String, Void, WebRequest.WebResult> {
 
     private final String LOGIN_BASE = BuildConfig.SERVER_URL + BuildConfig.LOGIN_DIR + BuildConfig.POST_PROMPT;
     private CallsAsyncTask activity;
+    private ProgressDialog pd;
 
     public LoginSR(CallsAsyncTask delegate) {
         this.activity = delegate;
+        pd = new ProgressDialog((Activity) activity);
+        pd.setCancelable(false);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        pd.setTitle("Logging in...");
+        pd.setMessage("Please wait");
+        pd.show();
+    }
+
+    @Override
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
     }
 
     /**
@@ -43,7 +57,7 @@ public class LoginSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         search.put("username", params[0]);
         search.put("password", params[1]);
 
-        return new WebRequest().makeWebServiceCall(LOGIN_BASE, WebRequest.POSTRequest, search);
+        return new WebRequest((Context)activity).makeWebServiceCall(LOGIN_BASE, WebRequest.POSTRequest, search);
     }
 
     @Override
@@ -80,5 +94,7 @@ public class LoginSR extends AsyncTask<String, Void, WebRequest.WebResult> {
         } catch (JSONException e) {
             ((LoginActivity) activity).updateErrorView("An error occurred.");
         }
+
+        pd.dismiss();
     }
 }
