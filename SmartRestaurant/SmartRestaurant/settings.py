@@ -90,7 +90,7 @@ DATABASES = {
         'USER': 'SmartRestaurant',
         'PASSWORD': 'skqDKG4dkD456Dsja2DC6X'
     },
-    'users': {
+    'users_db': {
         'NAME': 'user_data',
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'UserAdmin',
@@ -98,6 +98,7 @@ DATABASES = {
     }
 }
 
+DATABASE_ROUTERS = ['Users.UserDBRouter.AuthUserRouter', ]
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
