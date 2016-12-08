@@ -69,6 +69,5 @@ dependencies {
     compile('com.paypal.sdk:paypal-android-sdk:2.15.1') {
         exclude group: 'io.card'
     }
-    compile 'com.google.android.gms:play-services-wallet:8.4.0'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }

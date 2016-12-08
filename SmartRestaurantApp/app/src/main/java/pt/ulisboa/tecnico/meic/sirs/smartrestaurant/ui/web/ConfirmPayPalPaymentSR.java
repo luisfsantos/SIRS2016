@@ -10,7 +10,6 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 
 import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.BuildConfig;
-import pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu.ChoosePaymentMethodActivity;
 
 /**
  * Created by Catarina on 03/12/2016.
@@ -28,9 +27,11 @@ public class ConfirmPayPalPaymentSR extends AsyncTask<Object, Void, WebRequest.W
     private static CallsAsyncTask activity;
     private ProgressDialog pd;
 
+
     public ConfirmPayPalPaymentSR(CallsAsyncTask delegate) {
         activity = delegate;
         pd = new ProgressDialog((Activity) activity);
+        pd.setCancelable(false);
     }
 
     @Override
