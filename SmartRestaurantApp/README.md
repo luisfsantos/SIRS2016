@@ -2,7 +2,7 @@
 
 **Important notice:**
 - **The Smart Restaurant Mobile App can only run on devices running Android Jelly Bean 4.2.x (API level 17) or later.**
-- **Given that the Smart Restaurant Mobile App uses the device's camera to locate the customer inside the restaurant, the app cannot be run on an Android emulator.**
+- **Given that the Smart Restaurant Mobile App uses the device's camera to locate the customer inside the restaurant through QR code scanning, the app cannot be run on an Android emulator.**
 
 --
 
