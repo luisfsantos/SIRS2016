@@ -4,6 +4,12 @@ DEBUG = False
 ALLOWED_HOSTS = ['www.smartrestaurant.xyz', 'smartrestaurant.xyz']
 PRODUCTION = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
