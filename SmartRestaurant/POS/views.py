@@ -181,14 +181,13 @@ def fraud_handled(request):
                 if form.is_valid():
                     try:
                         order = Order.objects.get(identifier=form.cleaned_data.get('identifier'))
-                        if order.payment == 'FR':
+                        if order.status == 'FR':
                             order.status = 'AR'
                             order.save()
                             stdlogger.info("The user: " + whois_name + " " + whois_id + " handled the fraud from order " + str(form.cleaned_data.get('identifier')))
-                            return redirect('/pos/view')
+                        return redirect('/pos/view')
                     except Order.DoesNotExist:
-                        stdlogger.info("The user: " + whois_name + " " + whois_id + " tried to handle a fraud from order " + str(
-                            form.cleaned_data.get('identifier')))
+                        stdlogger.info("The user: " + whois_name + " " + whois_id + " tried to handle a fraud from order " + str(form.cleaned_data.get('identifier')))
                         redirect('/pos/view')
             else:
                 return redirect('/pos/view')
