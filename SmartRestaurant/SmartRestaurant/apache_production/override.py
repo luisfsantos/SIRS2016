@@ -39,14 +39,14 @@ LOGGING = {
             'formatter': 'simple'
         },
         'development_logfile': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'filters': ['require_debug_true'],
             'class': 'logging.FileHandler',
             'filename': '/tmp/django_dev.log',
             'formatter': 'verbose'
         },
         'logfile_smart': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'logging.FileHandler',
             'filename': '/opt/django_smartrestaurant.log',
@@ -73,9 +73,6 @@ LOGGING = {
         },
         'Tables': {
             'handlers': ['console', 'development_logfile', 'logfile_smart', 'production_logfile'],
-        },
-        'dba': {
-            'handlers': ['console', 'dba_logfile'],
         },
         'django': {
             'handlers': ['console', 'development_logfile', 'logfile_smart', 'production_logfile'],
