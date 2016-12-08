@@ -31,7 +31,7 @@ POS
                 <div class="col-md-12 order">
                     <nav class="order-line navbar navbar-default">
                         <span class="navbar-brand">
-                            Order: {% if order.status == 'FR' %} <span style="color:red;"> {% endif %}
+                            Order: {% if order.status == 'FR' %} <span class="fraud"> {% endif %}
                             {{ order.get_status_display }}
                             {% if order.status == 'FR' %} </span> {% endif %}
                             {% if order.payment_method == 'CA' and order.cash == 'FE' %}
