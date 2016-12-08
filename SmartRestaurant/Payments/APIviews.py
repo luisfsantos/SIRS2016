@@ -38,6 +38,7 @@ def paypal_api(request):
         else:
             order.status = 'FR'
             order.payment = 'CN'
+            order.paypal_id = paymentID
             order.save()
             #UserOrders.objects.get(order=order.identifier).delete()
             return Response(createResponse("Order", "Invalid Payment"), status=status.HTTP_400_BAD_REQUEST)
