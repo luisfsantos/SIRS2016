@@ -23,6 +23,7 @@ class Order(models.Model):
     ARCHIVED = 'AR'
     CONFIRMED = 'CF'
     CANCELED = 'CN'
+    FRAUD = 'FR'
     PROCESSING = 'PR'
     DELIVERED = 'DE'
     RECEIVED = 'RE'
@@ -41,7 +42,8 @@ class Order(models.Model):
     PAYMENT_CHOICES = (
         (PENDING, "Pending"),
         (CONFIRMED, "Confirmed"),
-        (CANCELED, "Canceled")
+        (CANCELED, "Canceled"),
+        (FRAUD, "Attempted Fraud")
     )
 
     CASH_CHOICES = (

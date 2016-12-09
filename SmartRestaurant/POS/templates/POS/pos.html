@@ -31,7 +31,11 @@ POS
                 <div class="col-md-12 order">
                     <nav class="order-line navbar navbar-default">
                         <span class="navbar-brand">
-                            Order: {{ order.get_status_display }}
+                            Order: {% if order.payment == 'FR' %}
+                            <span class="fraud">{{ order.get_payment_display }}</span>
+                            {% else %}
+                            {{ order.get_status_display }}
+                            {% endif %}
                             {% if order.payment_method == 'CA' and order.cash == 'FE' %}
                             please fetch <b> € {{order.price}} </b>
                             {% endif %}
@@ -39,7 +43,6 @@ POS
                         <ul class="nav navbar-nav navbar-right">
                             {% if request.user.is_superuser %}
                             <li>
-                                <!-- THIS IS WHAT YOU ARE EDITING -->
                                 <form class="navbar-form" action="/pos/view/order/user/" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
@@ -50,7 +53,6 @@ POS
                             </li>
                             {% else %}
                             <li>
-                                <!-- THIS IS WHAT YOU ARE EDITING -->
                                 <form class="navbar-form" action="/pos/view/order/" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
@@ -62,7 +64,6 @@ POS
                             {% endif %}
                             {% if order.payment == 'CF' and order.status != 'DE' %}
                             <li>
-                                <!-- THIS IS WHAT YOU ARE EDITING -->
                                 <form class="navbar-form" action="/pos/order/edit/processed/" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
@@ -74,12 +75,23 @@ POS
                             {% endif %}
                             {% if order.payment == 'PE' and order.cash == 'FE' %}
                             <li>
-                                <!-- THIS IS WHAT YOU ARE EDITING -->
                                 <form class="navbar-form" action="/pos/order/pay/cash/" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
                                         <input type="submit" class="form-control" value="Confirm Cash">
+                                    </div>
+                                </form>
+                            </li>
+                            {% endif %}
+                            {% if order.payment == 'FR' and request.user.is_superuser %}
+                            <li>
+                                <!-- THIS IS WHAT YOU ARE EDITING -->
+                                <form class="navbar-form" action="/pos/order/edit/fraud/" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" name="identifier" class="form-control" value="{{order.identifier}}">
+                                        <input type="submit" class="form-control" value="Fraud handled">
                                     </div>
                                 </form>
                             </li>
