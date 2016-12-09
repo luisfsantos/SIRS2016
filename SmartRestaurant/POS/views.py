@@ -181,7 +181,7 @@ def fraud_handled(request):
                 if form.is_valid():
                     try:
                         order = Order.objects.get(identifier=form.cleaned_data.get('identifier'))
-                        if order.status == 'FR':
+                        if order.payment == 'FR':
                             order.status = 'AR'
                             order.save()
                             stdlogger.info("The user: " + whois_name + " " + whois_id + " handled the fraud from order " + str(form.cleaned_data.get('identifier')))

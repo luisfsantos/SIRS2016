@@ -36,8 +36,7 @@ def paypal_api(request):
             # createInvoice(paymentDATA, request.user)
             return Response(createResponse("Order", "Payment Processed"), status=status.HTTP_200_OK)
         else:
-            order.status = 'FR'
-            order.payment = 'CN'
+            order.payment = 'FR'
             order.paypal_id = paymentID
             order.save()
             #UserOrders.objects.get(order=order.identifier).delete()

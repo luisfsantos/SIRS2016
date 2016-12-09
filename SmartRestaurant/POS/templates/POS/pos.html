@@ -82,7 +82,7 @@ POS
                                 </form>
                             </li>
                             {% endif %}
-                            {% if order.status == 'FR' and request.user.is_superuser %}
+                            {% if order.payment == 'FR' and request.user.is_superuser %}
                             <li>
                                 <!-- THIS IS WHAT YOU ARE EDITING -->
                                 <form class="navbar-form" action="/pos/order/edit/fraud/" method="post">

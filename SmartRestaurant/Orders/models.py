@@ -37,13 +37,13 @@ class Order(models.Model):
         (PROCESSING, 'Processing'),
         (DELIVERED, 'Delivered'),
         (ARCHIVED, 'Archived'),
-        (FRAUD, 'Fraud')
     )
 
     PAYMENT_CHOICES = (
         (PENDING, "Pending"),
         (CONFIRMED, "Confirmed"),
-        (CANCELED, "Canceled")
+        (CANCELED, "Canceled"),
+        (FRAUD, "Attempted Fraud")
     )
 
     CASH_CHOICES = (
