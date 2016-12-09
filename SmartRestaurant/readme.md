@@ -51,4 +51,4 @@ python manage.py runserver
 ```
 
 ###Production Server
-A production server was setup by us for using the android app with a secure connection to the site because we used letencrypt https://letsencrypt.org/ to provide a certificate for the site https:/smartrestaurant.xyz which we own and we used Apache to serve the requests with the following apache config file: smartrestaurant.xyz.conf located in this folder.
+A production server was setup by us for using the android app with a secure connection to the site because we used letencrypt https://letsencrypt.org/ to provide a certificate for the site https://smartrestaurant.xyz which we own and we used Apache to serve the requests with the following apache config file: smartrestaurant.xyz.conf located in this folder.
