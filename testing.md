@@ -14,6 +14,7 @@
 	- see the orders and manage them
 	- see user information when an order has been placed
 	- handle fraud attempts (see (B) Make a malicious order)
+	- register new employees at https://smartrestaurant.xyz/register
 
 #### Logging in to Smart Restaurant App as a regular customer
 1. Open the Smart Restaurant App on your phone
@@ -22,7 +23,7 @@
 #### Logging in to Smart Restaurant App as a malicious custumer
 1. Open the Smart Restaurant App on your phone
 2. Press the Login button and enter the login credentials username:'pedrofilipe' password:'sirs2016'. You are now logged in as the default malicious customer. 
-	- A malicious customer is someone who managed to run a modified version of the mobile app on their phone, and altered the application such that, when paying with PayPal, the payment will amount to €0.01 for each ordered item. This behaviour is demonstrated in the method OrderPaymentActivity.maliciousUserModifiesPriceWithinApp()
+	- A malicious customer is someone who managed to run a modified version of the mobile app on their phone, and altered the application such that, when paying with PayPal, the payment will amount to €0.01 for each ordered item. This behaviour is simulated in the method OrderPaymentActivity.maliciousUserModifiesPriceWithinApp()
 
 #### Making an order from the Smart Restaurant App 
 1. In order to be able to locate you inside the hypothetical restaurant, you will be prompted to Scan the QR code on your table after logging in. The QR codes for each table can be found at:
@@ -34,7 +35,7 @@
 2. Please scan one of them by clicking the camera icon and you will be able to proceed to the menu:
 	- You can also try to scan any other QR code you generate, and you'll see that you will not be able to proceed to the menu unless you scan one of the valid QR codes mentioned above
 
-You are now seeing the Smart Restaurant menu and can follow the instructions below to make an order:
+**You are now seeing the Smart Restaurant menu and can follow the instructions below to make an order:**
 
 1. To add an item to your order, click one of the items on the list, and then click the Add to shopping cart button next to the item name
 2. Go back to the menu list. To see your order, click the shopping cart button at the end of the screen
@@ -67,4 +68,14 @@ To make a successfull order follow the steps below, as detailed in the *How-to g
 Note that, to protect client privacy, a regular employee cannot see the customer's personal information — only a View Order Info button is displayed. On the other hand, if instead of logging in to POS as a regular employee, you login as the manager, the button will now say View Client Info and you'll be able to see the customer's information.
 
 ## (B) Make a malicious order
+To make a malicious order follow the steps below, as detailed in the *How-to guide*:
+
+1. Login in to Smart Restaurant App as a malicious customer
+2. Login to POS as a regular employee 
+3. Make an order from the Smart Restaurant App
+	- **if you choose to pay using cash**, there is no way you'll be able to tamper with the order, since the total price is calculated by the server (according to the menu item IDs, and their respective quantities, which the app will send to the server), and the employees are only allowed to tell the kitchen to start preparing your food as soon as you've paid
+	- **if you choose to pay using PayPal**, on the other hand, you'll be able to tamper with the order (see *Logging in to Smart Restaurant App as a malicious custumer* for an explanation of how this is done). However, now that you've tampered with the order and PayPal has charged you a lower amount for the food you've ordered, the server can still **[FINISH THIS]**
 	
+Note that, even when you place an order that has been tampered with, only the manager can see the customer's personal information. Furthermore, if now you login as the manager, you will also be able to see a Handle Fraud button, as only an authorized party is able to mark an attempted fraud as handled.
+
+
