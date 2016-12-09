@@ -10,9 +10,9 @@
 
 1. Go to https://smartrestaurant.xyz/
 2. Enter the login credentials username:'Admin' password:'sirs2016'. You are now logged in as the manager and you can:
-- see the orders and manage them
-- see user information when an order has been placed
-- handle fraud attempts (see Login as 
+	- see the orders and manage them
+	- see user information when an order has been placed
+	- handle fraud attempts (see Login as 
 
 #### Logging in to Smart Restaurant App as a regular customer
 1. Open the Smart Restaurant App on your phone
