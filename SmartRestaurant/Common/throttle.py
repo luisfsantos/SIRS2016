@@ -11,7 +11,7 @@ class DailyRegisterThrottle(AnonRateThrottle):
 
 class BurstLoginThrottle(AnonRateThrottle):
     scope = "burst"
-    rate = "5/s"
+    rate = "10/min"
 
 class DailyLoginThrottle(AnonRateThrottle):
     scope = "sustained"
