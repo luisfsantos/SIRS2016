@@ -1,4 +1,4 @@
-#Serverside RESTful API
+#Serverside RESTful API and POS management.
 
 ##Instalation
 
@@ -8,12 +8,16 @@
 * virtualenv (optional)
 * pip
 
-(If during instalation you have any errors please install missing dependencies listed in dependancies.txt
-
 ###Instructions
-
+A fresh install of Ubunto 16.04 - Gnome with the following commands resulted in an installed version of the site running on localhost:8000/ :
 
 ```
+//MYSQL
+  sudo apt-get update
+  sudo apt-get install mysql-server
+  sudo mysql_secure_installation
+//
+
 sudo apt install python-pip
 sudo apt install virtualenv
 sudo apt install libmysqlclient-dev
@@ -37,12 +41,6 @@ python manage.py loaddata export/fixtures/initial_meal_data.json
 
 python manage.py runserver
 
-
-
-//MYSQL
-sudo apt-get update
-sudo apt-get install mysql-server
-sudo mysql_secure_installation
 ```
 
 ###Running
@@ -52,8 +50,5 @@ To run the server simply run:
 python manage.py runserver
 ```
 
-###Dependencies
-
-```
-apt-get install libssl-dev libffi-dev
-```
+###Production Server
+A production server was setup by us for using the android app with a secure connection to the site because we used letencrypt https://letsencrypt.org/ to provide a certificate for the site https:/smartrestaurant.xyz which we own and we used Apache to serve the requests with the following apache config file: smartrestaurant.xyz.conf located in this folder.
