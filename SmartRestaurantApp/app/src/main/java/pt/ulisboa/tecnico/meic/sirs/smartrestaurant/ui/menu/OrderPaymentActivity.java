@@ -1,8 +1,11 @@
 package pt.ulisboa.tecnico.meic.sirs.smartrestaurant.ui.menu;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -112,9 +115,32 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
         ((TextView) findViewById(R.id.order_price)).setText(String.format("%.2f%s", Order.getTotalPrice(), getString(R.string.currency_symbol)));
     }
 
+
+    private JSONObject maliciousUserModifiesPriceWithinApp(JSONObject order) {
+        SharedPreferences sp = getSharedPreferences(getString(R.string.user_info_pref), Context.MODE_PRIVATE);
+        String username = sp.getString(getString(R.string.user_info_username), "Not Found.");
+
+        //username of the malicious user
+        if (username.equals("pedrofilipe")) {
+            try {
+                for (int i = 0; i < order.getJSONArray("order_items").length(); i++) {
+                    //makes every price 0.01 so that the paypal payment is almost free :D
+                    //paypal itself does not allow free payments
+                    order.getJSONArray("order_items").getJSONObject(i).put("price", "0.01");
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, "an extremely unlikely failure occurred: ", e);
+            }
+        }
+        return order;
+    }
+
+
     @Override
     public void onRequestFinished(Object object) {
         order = (JSONObject) object;
+
+        order = maliciousUserModifiesPriceWithinApp(order);
 
         switch (payment_chosen) {
             case ChoosePaymentMethodActivity.PAYPAL_CHOSEN:
@@ -135,6 +161,7 @@ public class OrderPaymentActivity extends BaseActivity implements CallsAsyncTask
                 break;
         }
     }
+
 
     /**
     * PAYPAL STUFF BELOW
