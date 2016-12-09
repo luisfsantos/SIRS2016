@@ -1,13 +1,13 @@
 # Testing
 
 ## How-to guide
-#### Logging in to POS as a regular employee
+### Logging in to POS as a regular employee
 
 1. Go to https://smartrestaurant.xyz/
 2. Enter the login credentials username:'employee1' password:'sirs2016'. You are now logged in as a regular employee and you can:
 	- see the orders and manage them
 
-#### Logging in to POS as the manager
+### Logging in to POS as the manager
 
 1. Go to https://smartrestaurant.xyz/
 2. Enter the login credentials username:'Admin' password:'sirs2016'. You are now logged in as the manager and you can:
@@ -16,16 +16,16 @@
 	- handle fraud attempts (see (B) Make a malicious order)
 	- register new employees at https://smartrestaurant.xyz/register
 
-#### Logging in to Smart Restaurant App as a regular customer
+### Logging in to Smart Restaurant App as a regular customer
 1. Open the Smart Restaurant App on your phone
 2. Press the Login button and enter the login credentials username:'luissantos' password:'sirs2016'. You are now logged in as a regular customer
 
-#### Logging in to Smart Restaurant App as a malicious custumer
+### Logging in to Smart Restaurant App as a malicious custumer
 1. Open the Smart Restaurant App on your phone
 2. Press the Login button and enter the login credentials username:'pedrofilipe' password:'sirs2016'. You are now logged in as the default malicious customer. 
 	- A malicious customer is someone who managed to run a modified version of the mobile app on their phone, and altered the application such that, when paying with PayPal, the payment will amount to €0.01 for each ordered item. This behaviour is simulated in the method OrderPaymentActivity.maliciousUserModifiesPriceWithinApp()
 
-#### Making an order from the Smart Restaurant App 
+### Making an order from the Smart Restaurant App 
 1. In order to be able to locate you inside the hypothetical restaurant, you will be prompted to Scan the QR code on your table after logging in. The QR codes for each table can be found at:
 	- https://smartrestaurant.xyz/media/qrcode/table1.jpeg
 	- https://smartrestaurant.xyz/media/qrcode/table2.jpeg
