@@ -1,14 +1,20 @@
 from django.shortcuts import render
 from django.http import Http404
+from rest_framework.decorators import throttle_classes
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+
+from Common.throttle import DailyAPIThrottle, BurstAPIThrottle
 from Menu.models import Meal, Ingredient
 from Menu.serializers import MealSerializer, IngredientSerializer
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 # Create your views here.
+
+
 class MainListAPI(APIView):
+    throttle_classes = (DailyAPIThrottle, BurstAPIThrottle)
     """
     List all mainCourses, or create a new mainCourse.
     """
@@ -23,6 +29,7 @@ class MainListAPI(APIView):
 
 
 class AppetizerListAPI(APIView):
+    throttle_classes = (DailyAPIThrottle, BurstAPIThrottle)
     """
     List all appetizers, or create a new appetizer.
     """
@@ -36,7 +43,9 @@ class AppetizerListAPI(APIView):
         serializer = MealSerializer(meal, many=True)
         return Response(serializer.data)
 
+
 class DessertListAPI(APIView):
+    throttle_classes = (DailyAPIThrottle, BurstAPIThrottle)
     """
     List all desserts, or create a new dessert.
     """
@@ -52,6 +61,7 @@ class DessertListAPI(APIView):
 
 
 class IngredientListAPI(APIView):
+    throttle_classes = (DailyAPIThrottle, BurstAPIThrottle)
     """
     List all ingredients, or create a new ingredient.
     """

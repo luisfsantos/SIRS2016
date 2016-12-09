@@ -11,34 +11,13 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from Common.responses import createResponse
+from Common.throttle import DailyRegisterThrottle, DailyLoginThrottle, BurstLoginThrottle, BurstRegisterThrottle, DailyAPIThrottle
 # Create your views here.
-
-class DailyRegisterThrottle(AnonRateThrottle):
-    scope = "sustained"
-    rate = "5/day"
-
-class BurstLoginThrottle(AnonRateThrottle):
-    scope = "burst"
-    rate = "5/s"
-
-class DailyLoginThrottle(AnonRateThrottle):
-    scope = "sustained"
-    rate = "100/day"
-
-@api_view(['GET'])
-@login_required()
-def AccountListAPI(request):
-    """
-    List all users, or create a new user.
-    """
-    users = User.objects.all()
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
 
 
 
 @api_view(['GET', 'POST'])
-#@throttle_classes([DailyRegisterThrottle])
+@throttle_classes([DailyRegisterThrottle, BurstRegisterThrottle])
 def registerAPI(request):
     if request.method == 'POST':
         # nif validation
@@ -60,7 +39,7 @@ def registerAPI(request):
 
 
 @api_view(['GET', 'POST'])
-#@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
+@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
 def login_userAPI(request):
     if request.method == 'POST':
         username = request.data.get("username", '')
@@ -79,7 +58,6 @@ def login_userAPI(request):
     return Response(createResponse("Login", "Please, have a seat and login ;-)"))
 
 @api_view(['GET'])
-#@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
 def logout_userAPI(request):
     if request.user.is_authenticated():
         username = request.user.username
@@ -90,7 +68,7 @@ def logout_userAPI(request):
 
 
 @api_view(['GET'])
-#@throttle_classes([DailyLoginThrottle, BurstLoginThrottle])
+@throttle_classes([DailyAPIThrottle])
 @login_required()
 def test_loggedinAPI(request):
     return Response(createResponse("Test", "You are logged in."))

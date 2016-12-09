@@ -2,10 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 # Create your views here.
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 
 from Common.responses import createResponse
+from Common.throttle import DailyAPIThrottle, BurstAPIThrottle
 from Payments.serializers import PaymentSerializer
 from Orders.models import Order, UserOrders
 
@@ -19,6 +20,7 @@ paypalrestsdk.configure({
 
 @api_view(["GET", "POST"])
 @login_required()
+@throttle_classes([DailyAPIThrottle, BurstAPIThrottle])
 def paypal_api(request):
 
     def verify_order(paymentDATA, order):

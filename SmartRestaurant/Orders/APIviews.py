@@ -4,15 +4,17 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 
 from Common.responses import createResponse
+from Common.throttle import DailyAPIThrottle, BurstAPIThrottle, OrderAPIThrottle
 from Orders.models import Order, UserOrders
 from Orders.serializers import OrderSerializer, ViewOrderSerializer, UserOrdersSerializer, CancelOrderSerializer
 
 
 @api_view(["POST", "GET"])
+@throttle_classes([DailyAPIThrottle, BurstAPIThrottle, OrderAPIThrottle])
 @login_required()
 def order_requestAPI(request):
     if request.method == "POST":
@@ -34,6 +36,7 @@ def order_requestAPI(request):
 
 
 @api_view(["POST", "GET"])
+@throttle_classes([DailyAPIThrottle, BurstAPIThrottle])
 @login_required()
 def order_cancelAPI(request):
     if request.method == "POST":
@@ -59,6 +62,7 @@ def order_cancelAPI(request):
 
 
 @api_view(["GET"])
+@throttle_classes([DailyAPIThrottle, BurstAPIThrottle])
 @login_required()
 def ordersAPI(request, orderid):
     if request.user.is_superuser:

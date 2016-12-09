@@ -3,9 +3,13 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from Users.forms import UserForm, UserProfileForm, LoginForm
+from rest_framework.response import Response
+from django.contrib.auth.models import User
 # Create your views here.
+from Users.serializers import UserSerializer
+
 
 def register_staff(request):
     """
@@ -48,6 +52,18 @@ def login_staff(request):
             else:
                 return render(request, 'login.html', {'form': form, 'active': True, 'invalid': True})
     return render(request, 'login.html', {'form': form, 'active': True, 'invalid': False})
+
+@login_required()
+def AccountList(request):
+    """
+    List all users, or create a new user.
+    """
+    if request.user.is_superuser:
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+    else:
+        raise Http404
 
 
 def logout_user(request):
