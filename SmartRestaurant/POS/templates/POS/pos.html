@@ -31,9 +31,11 @@ POS
                 <div class="col-md-12 order">
                     <nav class="order-line navbar navbar-default">
                         <span class="navbar-brand">
-                            Order: {% if order.status == 'FR' %} <span class="fraud"> {% endif %}
+                            Order: {% if order.payment == 'FR' %}
+                            <span class="fraud">{{ order.get_payment_display }}</span>
+                            {% else %}
                             {{ order.get_status_display }}
-                            {% if order.status == 'FR' %} </span> {% endif %}
+                            {% endif %}
                             {% if order.payment_method == 'CA' and order.cash == 'FE' %}
                             please fetch <b> € {{order.price}} </b>
                             {% endif %}
