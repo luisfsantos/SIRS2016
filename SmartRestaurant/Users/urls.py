@@ -6,7 +6,7 @@ from Users import APIviews
 
 app_name='accounts'
 urlpatterns = [
-    url(r'^accounts/$', APIviews.AccountList),
+    url(r'^accounts/$', views.AccountList),
     url(r'^register/$', views.register_staff),
     url(r'^login/$', views.login_staff, name = 'login'),
     url(r'^$', RedirectView.as_view(url='/login')),
