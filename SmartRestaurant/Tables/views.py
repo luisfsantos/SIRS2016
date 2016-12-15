@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
+
+from Orders.models import UserOrders
 from Tables.models import TableModel
 from Tables.forms import CleanTableForm
 
@@ -36,6 +38,7 @@ def clean_table(request):
                                 stdlogger.warning(id + "Order: " + str(order.identifier) + " which has status " + order.get_status_display() + " has been archived")
                                 order.status = 'AR'
                                 order.save()
+                                UserOrders.objects.get(order=order.identifier).delete()
                         table.save()
                     except TableModel.DoesNotExist:
                         redirect('/pos/view')
