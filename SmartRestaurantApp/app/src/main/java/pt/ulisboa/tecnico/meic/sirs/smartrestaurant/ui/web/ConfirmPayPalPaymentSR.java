@@ -27,6 +27,10 @@ public class ConfirmPayPalPaymentSR extends AsyncTask<Object, Void, WebRequest.W
     private static CallsAsyncTask activity;
     private ProgressDialog pd;
 
+    public static final int PAYMENT_OK = HttpURLConnection.HTTP_OK;
+    public static final int FRAUD = HttpURLConnection.HTTP_BAD_REQUEST;
+    public static final int SERVER_ERROR = HttpURLConnection.HTTP_INTERNAL_ERROR;
+
 
     public ConfirmPayPalPaymentSR(CallsAsyncTask delegate) {
         activity = delegate;
@@ -62,7 +66,7 @@ public class ConfirmPayPalPaymentSR extends AsyncTask<Object, Void, WebRequest.W
         Log.i(TAG, webResult.result);
         Log.i(TAG, Integer.toString(webResult.code));
 
-        activity.onRequestFinished(webResult.code == HttpURLConnection.HTTP_OK);
+        activity.onRequestFinished(webResult.code);
         pd.dismiss();
     }
 }

@@ -34,7 +34,7 @@ public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask
         if (payment_method == ChoosePaymentMethodActivity.PAYPAL_CHOSEN) {
             sendPayPalConfirmation();
         } else if (payment_method == ChoosePaymentMethodActivity.CASH_CHOSEN) {
-            onRequestFinished(true);
+            onRequestFinished(ConfirmPayPalPaymentSR.PAYMENT_OK);
         }
     }
 
@@ -62,14 +62,15 @@ public class AfterPaymentActivity extends BaseActivity implements CallsAsyncTask
     @Override
     public void onRequestFinished(Object object) {
 
-        boolean payment_ok = (boolean) object;
-        if (!payment_ok && !retried) {
+        int payment_status = (int) object;
+        if (payment_status == ConfirmPayPalPaymentSR.SERVER_ERROR && !retried) {
             retried = true;
             sendPayPalConfirmation();
             return;
         }
+
         String title;
-        if (payment_ok) {
+        if (payment_status == ConfirmPayPalPaymentSR.PAYMENT_OK) {
             setContentView(R.layout.activity_after_payment_ok);
             title = "Order Registered";
         } else {
