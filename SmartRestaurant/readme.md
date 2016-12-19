@@ -27,6 +27,8 @@ sudo apt install libssl-dev libffi-dev
 virtualenv env
 source env/bin/activate
 
+mysql -u "insert root user username" -p < init_db.sql #important!!!
+
 pip install -r requierments.txt
 
 
